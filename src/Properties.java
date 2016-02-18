@@ -1918,18 +1918,29 @@ class GlobalProperties extends javax.swing.JDialog {
                         GPOption5.setEnabled(true);
 
                     //if output being deleted, delete in states and trans
-                    if(currTab == 2 && obj.getType().equals("onstate"))
+                    if((currTab == 2 || currTab == 5) &&
+                        obj.getType().equals("onstate"))
                     {
-                        removeAttribute(3,obj.getName());
+                        removeAttribute(ObjAttribute.TabState,obj.getName());
+                        removeAttribute(ObjAttribute.TabTransition,obj.getName());
                     }
-                    if(currTab == 2 && obj.getType().equals("ontransit"))
+                    if((currTab == 2 || currTab == 5) &&
+                        obj.getType().equals("ontransit"))
                     {
-                        removeAttribute(3,obj.getName());
+                        removeAttribute(ObjAttribute.TabState,obj.getName());
+                        removeAttribute(ObjAttribute.TabTransition,obj.getName());
                     }
                     if(obj.getType().equals("output") && checkNames(GPTableOutputs,obj.getName()) && currTab != 2)
                     {
                         JOptionPane.showMessageDialog(this,
                                 "Must remove from outputs tab",
+                                "error",
+                                JOptionPane.ERROR_MESSAGE);
+                    }
+                    else if(obj.getType().equals("signal") && checkNames(GPTableOutputs,obj.getName()) && currTab != 5)
+                    {
+                        JOptionPane.showMessageDialog(this,
+                                "Must remove from signals tab",
                                 "error",
                                 JOptionPane.ERROR_MESSAGE);
                     }
