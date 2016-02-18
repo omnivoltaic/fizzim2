@@ -200,7 +200,7 @@ class MyTableModel extends AbstractTableModel {
         // forces user to enter attribute name in outputs tab
         if(!global && col == 3 && value.equals("output"))
         {
-            if(!checkOutputs(attrib.get(row)))
+            if(!checkOutputs(ObjAttribute.TabOutput, attrib.get(row)))
             {
                 value = "";
                 JOptionPane.showMessageDialog(dialog,
@@ -210,21 +210,39 @@ class MyTableModel extends AbstractTableModel {
 
             }
         }
+        // forces user to enter attribute name in signals tab
+        if(!global && col == 3 && value.equals("signal"))
+        {
+            if(!checkOutputs(ObjAttribute.TabSignal, attrib.get(row)))
+            {
+                value = "";
+                JOptionPane.showMessageDialog(dialog,
+                        "Attribute with that name must exist in global signals tab",
+                        "error",
+                        JOptionPane.ERROR_MESSAGE);
+
+            }
+        }
 
 
         //first time type being set in outputs, create corresponding attribute in state tab
-        if(global && col == 3 && attrib.equals(globalList.get(ObjAttribute.TabOutput)) && (value.equals("onstate") || value.equals("ontransit"))
-                && attrib.get(row).get(col).equals(""))
+        if(global && col == 3 && attrib.get(row).get(col).equals("") &&
+                (value.equals("onstate") || value.equals("ontransit")) &&
+                (attrib.equals(globalList.get(ObjAttribute.TabOutput)) || attrib.equals(globalList.get(ObjAttribute.TabSignal)))
+          )
         {
                 int[] editable = { ObjAttribute.GLOBAL_FIXED, ObjAttribute.GLOBAL_VAR,
                 ObjAttribute.GLOBAL_VAR, ObjAttribute.GLOBAL_VAR, ObjAttribute.GLOBAL_VAR, ObjAttribute.GLOBAL_VAR, ObjAttribute.GLOBAL_VAR, ObjAttribute.GLOBAL_VAR};
+                String tt = attrib.equals(globalList.get(ObjAttribute.TabOutput))? "output": "signal";
                 ObjAttribute newObj = new ObjAttribute(attrib.get(row).getName(),attrib.get(row).getValue(),
-                        attrib.get(row).getVisibility(),"output","",Color.black,"","",editable);
+                        attrib.get(row).getVisibility(),tt,"",Color.black,"","",editable);
                 globalList.get(ObjAttribute.TabState).addLast(newObj);
         }
 
         //if rename something of type output
-        if(global && col != 3 && globalList.get(ObjAttribute.TabOutput).equals(attrib) && !attrib.get(row).get(col).equals(value))
+        if(global && col != 3 && !attrib.get(row).get(col).equals(value) &&
+                (globalList.get(ObjAttribute.TabOutput).equals(attrib) || globalList.get(ObjAttribute.TabSignal).equals(attrib))
+          )
         {
                 renameAttribute(ObjAttribute.TabState,attrib.get(row).getName(),col,value,row);
                 renameAttribute(ObjAttribute.TabTransition,attrib.get(row).getName(),col,value,row);
@@ -232,7 +250,6 @@ class MyTableModel extends AbstractTableModel {
 
 
         //force user to edit in outputs tab
-        // changed
         if(global &&
            // can't edit anything but type in states
            (col != 3 && attrib.equals(globalList.get(ObjAttribute.TabState)) && attrib.get(row).getType().equals("output"))
@@ -247,11 +264,25 @@ class MyTableModel extends AbstractTableModel {
                     JOptionPane.ERROR_MESSAGE);
             value = attrib.get(row).get(col);
         }
+        //force user to edit in signals tab
+        if(global &&
+           // can't edit anything but type in states
+           (col != 3 && attrib.equals(globalList.get(ObjAttribute.TabState)) && attrib.get(row).getType().equals("signal"))
+           // can't edit default value in transitions
+        || (col == 1 && attrib.equals(globalList.get(ObjAttribute.TabTransition)) && attrib.get(row).getType().equals("signal"))
+        )
+        {
+            JOptionPane.showMessageDialog(dialog,
+                    "Must edit in signal tab",
+                    "error",
+                    JOptionPane.ERROR_MESSAGE);
+            value = attrib.get(row).get(col);
+        }
 
-        //if changing OUTPUT type 'onstate or ontransit'
+        //if changing 'OUTPUT or SIGNAL' type 'onstate or ontransit'
         if(!attrib.get(row).getType().equals(value) &&
-            attrib.equals(globalList.get(ObjAttribute.TabOutput)) &&
-            (value.equals("onstate") || value.equals("ontransit"))
+            (value.equals("onstate") || value.equals("ontransit")) &&
+            (attrib.equals(globalList.get(ObjAttribute.TabOutput)) || attrib.equals(globalList.get(ObjAttribute.TabSignal)))
         )
         {
             int a = ObjAttribute.TabState, b = ObjAttribute.TabTransition;
@@ -324,10 +355,10 @@ class MyTableModel extends AbstractTableModel {
         for(int h = 0; h < globalList.get(t).size(); h++)
         {
             ObjAttribute obj = globalList.get(t).get(h);
-            // check if field is of type output in state tab
+            // check if field is of type output/signal in state/transition tab
             if(num <= row &&
-                obj.getType().equals("output")
-                //&& (t == 3 || t == 4)
+                    (obj.getType().equals("output") || obj.getType().equals("signal"))
+                    //&& (t == 3 || t == 4)
             )
             {
                 if(num == row && obj.getName().equals(name))
@@ -356,8 +387,8 @@ class MyTableModel extends AbstractTableModel {
 
     }
 
-    private boolean checkOutputs(ObjAttribute objAttribute) {
-        LinkedList<ObjAttribute> outputList = globalList.get(ObjAttribute.TabOutput);
+    private boolean checkOutputs(int tab, ObjAttribute objAttribute) {
+        LinkedList<ObjAttribute> outputList = globalList.get(tab);
         String name = objAttribute.getName();
         for(int i = 0; i < outputList.size(); i++)
         {
@@ -366,7 +397,6 @@ class MyTableModel extends AbstractTableModel {
                 return true;
         }
         return false;
-
     }
 
     private boolean checkName(LinkedList<ObjAttribute> linkedList, String name) {
@@ -1927,6 +1957,8 @@ class GlobalProperties extends javax.swing.JDialog {
             globalLists.get(tab1).addLast(newObj);
             if(currTab == 2)
                 currTable.setValueAt("onstate", globalLists.get(ObjAttribute.TabOutput).size()-1, 3);
+            if(currTab == 5)
+                currTable.setValueAt("onstate", globalLists.get(ObjAttribute.TabSignal).size()-1, 3);
 
             currTable.revalidate();
 
@@ -1995,7 +2027,9 @@ class GlobalProperties extends javax.swing.JDialog {
             for(int i = 0; i < globalLists.get(tab).size(); i++)
             {
                 ObjAttribute obj = globalLists.get(tab).get(i);
-                if(obj.getName().equals(name) && obj.getType().equals("output"))
+                if(obj.getName().equals(name) &&
+                        (obj.getType().equals("output") || obj.getType().equals("signal"))
+                  )
                     globalLists.get(tab).remove(i);
 
             }
@@ -2080,8 +2114,9 @@ class GlobalProperties extends javax.swing.JDialog {
             {
                 for(int j = 0; j < globalLists.get(i).size(); j++)
                 {
-                    if(i == 2 && !globalLists.get(i).get(j).getType().equals("onstate")
-                              && !globalLists.get(i).get(j).getType().equals("ontransit")
+                    if((i == ObjAttribute.TabOutput || i == ObjAttribute.TabSignal)
+                            && !globalLists.get(i).get(j).getType().equals("onstate")
+                            && !globalLists.get(i).get(j).getType().equals("ontransit")
                       )
                         error = 2;
                     for(int k = j+1; k < globalLists.get(i).size(); k++)
@@ -2109,7 +2144,7 @@ class GlobalProperties extends javax.swing.JDialog {
             else if(error == 2)
             {
                 JOptionPane.showMessageDialog(this,
-                        "An output must have a type set",
+                        "An 'output or signal' must have a type 'onstate or ontransit'",
                         "error",
                         JOptionPane.ERROR_MESSAGE);
             }

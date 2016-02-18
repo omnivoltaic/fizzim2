@@ -48,6 +48,7 @@ public class FileParser {
     LinkedList<ObjAttribute> globalTransAttributes;
     LinkedList<ObjAttribute> globalInputsAttributes;
     LinkedList<ObjAttribute> globalOutputsAttributes;
+    LinkedList<ObjAttribute> globalSignalsAttributes;
     LinkedList<LinkedList<ObjAttribute>> globalList;
     DrawArea drawArea;
     Vector<Object> objList;
@@ -484,12 +485,14 @@ public class FileParser {
         globalOutputsAttributes = new LinkedList<ObjAttribute>();
         globalStateAttributes = new LinkedList<ObjAttribute>();
         globalTransAttributes = new LinkedList<ObjAttribute>();
+        globalSignalsAttributes = new LinkedList<ObjAttribute>();
 
         globalList.add(globalMachineAttributes);
         globalList.add(globalInputsAttributes);
         globalList.add(globalOutputsAttributes);
         globalList.add(globalStateAttributes);
         globalList.add(globalTransAttributes);
+        globalList.add(globalSignalsAttributes);
 
         int mS = list.indexOf("<machine>")+1;
         int mE = list.indexOf("</machine>")-1;
@@ -501,12 +504,15 @@ public class FileParser {
         int sE = list.indexOf("</state>")-1;
         int tS = list.indexOf("<trans>")+1;
         int tE = list.indexOf("</trans>")-1;
+        int nS = list.indexOf("<signals>")+1;
+        int nE = list.indexOf("</signals>")-1;
 
         openAttributeList(list, mS, mE,globalMachineAttributes);
         openAttributeList(list, iS, iE,globalInputsAttributes);
         openAttributeList(list, oS, oE,globalOutputsAttributes);
         openAttributeList(list, sS, sE,globalStateAttributes);
         openAttributeList(list, tS, tE,globalTransAttributes);
+        openAttributeList(list, nS, nE,globalSignalsAttributes);
 
         /*
         int counter = 0;
