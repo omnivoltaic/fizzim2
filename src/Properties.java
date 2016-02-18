@@ -1510,6 +1510,8 @@ class GlobalProperties extends javax.swing.JDialog {
             GPTableInputs = new javax.swing.JTable();
             GPScrollOutputs = new javax.swing.JScrollPane();
             GPTableOutputs = new javax.swing.JTable();
+            GPTableSignals = new javax.swing.JTable();
+            GPScrollSignals = new javax.swing.JScrollPane();
             GPCancel = new javax.swing.JButton();
             GPOK = new javax.swing.JButton();
             GPOption1 = new javax.swing.JButton();
@@ -1591,6 +1593,23 @@ class GlobalProperties extends javax.swing.JDialog {
             GPScrollTrans.setViewportView(GPTableTrans);
             GPTabbedPane.addTab("Transitions", GPScrollTrans);
 
+            //
+            GPTableSignals.setModel(new MyTableModel((LinkedList<ObjAttribute>)globalLists.get(5),globalLists));
+            GPTableSignals.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+            // Visibility
+            column = GPTableSignals.getColumnModel().getColumn(2);
+            column.setCellEditor(new MyJComboBoxEditor(options));
+            // Type
+            column = GPTableSignals.getColumnModel().getColumn(3);
+            column.setCellEditor(new MyJComboBoxEditor(outputOptions));
+            // Color
+            column = GPTableSignals.getColumnModel().getColumn(5);
+            //
+            column.setCellEditor(new MyJColorEditor(colorChooser));
+            column.setCellRenderer(new MyJColorRenderer());
+            GPScrollSignals.setViewportView(GPTableSignals);
+            GPTabbedPane.addTab("Signals", GPScrollSignals);
+
 
                         // set default column widths
                         setcolumnwidths(GPTableMachine);
@@ -1598,6 +1617,7 @@ class GlobalProperties extends javax.swing.JDialog {
                         setcolumnwidths(GPTableOutputs);
                         setcolumnwidths(GPTableState);
                         setcolumnwidths(GPTableTrans);
+                        setcolumnwidths(GPTableSignals);
 
 
             GPTabbedPane.addChangeListener(new ChangeListener() {
@@ -1837,6 +1857,16 @@ class GlobalProperties extends javax.swing.JDialog {
                 GPOption6.setVisible(false);
 
             }
+            if(tab == 5)
+            {
+                currTable = GPTableSignals;
+                GPOption3.setVisible(true);
+                GPOption3.setEnabled(true);
+                GPOption3.setText("Signal");
+                GPOption4.setVisible(false);
+                GPOption5.setVisible(false);
+                GPOption6.setVisible(false);
+            }
         }
 
 
@@ -1958,6 +1988,14 @@ class GlobalProperties extends javax.swing.JDialog {
                 GPOption3.setEnabled(false);
                 currTable.revalidate();
             }
+            if(currTab == 5)
+            {
+                globalLists.get(5).add(new ObjAttribute("sig", "", 2, "","",Color.black,"","",
+                    editable));
+                currTable.setValueAt("reg", globalLists.get(5).size()-1, 3);
+
+                currTable.revalidate();
+            }
 
 
         }
@@ -2047,6 +2085,7 @@ class GlobalProperties extends javax.swing.JDialog {
             GPTableTrans.editCellAt(0,0);
             GPTableInputs.editCellAt(0,0);
             GPTableOutputs.editCellAt(0,0);
+            GPTableSignals.editCellAt(0,0);
             int error = 0;
             for(int i = 0; i < globalLists.size(); i++)
             {
@@ -2111,12 +2150,14 @@ class GlobalProperties extends javax.swing.JDialog {
         private javax.swing.JScrollPane GPScrollTrans;
         private javax.swing.JScrollPane GPScrollInputs;
         private javax.swing.JScrollPane GPScrollOutputs;
+        private javax.swing.JScrollPane GPScrollSignals;
         private javax.swing.JTabbedPane GPTabbedPane;
         private javax.swing.JTable GPTableMachine;
         private javax.swing.JTable GPTableState;
         private javax.swing.JTable GPTableTrans;
         private javax.swing.JTable GPTableInputs;
         private javax.swing.JTable GPTableOutputs;
+        private javax.swing.JTable GPTableSignals;
         // End of variables declaration//GEN-END:variables
 
     }

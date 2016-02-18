@@ -95,6 +95,7 @@ public class FizzimGui extends javax.swing.JFrame {
     LinkedList<ObjAttribute> globalMachineAttributes;
     LinkedList<ObjAttribute> globalInputsAttributes;
     LinkedList<ObjAttribute> globalOutputsAttributes;
+    LinkedList<ObjAttribute> globalSignalsAttributes;
     LinkedList<ObjAttribute> globalStateAttributes;
     LinkedList<ObjAttribute> globalTransAttributes;
 
@@ -118,12 +119,14 @@ public class FizzimGui extends javax.swing.JFrame {
         globalOutputsAttributes = new LinkedList<ObjAttribute>();
         globalStateAttributes = new LinkedList<ObjAttribute>();
         globalTransAttributes = new LinkedList<ObjAttribute>();
+        globalSignalsAttributes = new LinkedList<ObjAttribute>();
 
         globalList.add(globalInputsAttributes);
         globalList.add(globalOutputsAttributes);
         globalList.add(globalMachineAttributes);
         globalList.add(globalStateAttributes);
         globalList.add(globalTransAttributes);
+        globalList.add(globalSignalsAttributes);
 
 
         drawArea1 = new DrawArea(globalList);
@@ -146,7 +149,7 @@ public class FizzimGui extends javax.swing.JFrame {
 
     private void initGlobal() {
         // set up required global attributes
-                // 0=machine, 1=inputs, 2=outputs, 3=states, 4=trans
+        // 0=machine, 1=inputs, 2=outputs, 3=states, 4=trans, 5=signals
         int[] editable = { ObjAttribute.ABS, ObjAttribute.GLOBAL_VAR,
                 ObjAttribute.GLOBAL_VAR, ObjAttribute.GLOBAL_VAR, ObjAttribute.GLOBAL_VAR, ObjAttribute.GLOBAL_VAR, ObjAttribute.GLOBAL_VAR };
         globalList.get(0).add(new ObjAttribute("name", "def_name", 0, "","",Color.black,"","",
@@ -214,6 +217,7 @@ public class FizzimGui extends javax.swing.JFrame {
         jSeparator3 = new javax.swing.JSeparator();
         GlobalItemInputs = new javax.swing.JMenuItem();
         GlobalItemOutputs = new javax.swing.JMenuItem();
+        GlobalItemSignals = new javax.swing.JMenuItem();
         HelpMenu = new javax.swing.JMenu();
         HelpItemHelp = new javax.swing.JMenuItem();
         jSeparator4 = new javax.swing.JSeparator();
@@ -569,6 +573,18 @@ public class FizzimGui extends javax.swing.JFrame {
                 });
 
         GlobalMenu.add(GlobalItemTransitions);
+
+
+        GlobalItemSignals.setMnemonic(java.awt.event.KeyEvent.VK_L);
+        GlobalItemSignals.setText("Signals");
+        GlobalItemSignals
+                .addActionListener(new java.awt.event.ActionListener() {
+                    public void actionPerformed(java.awt.event.ActionEvent evt) {
+                        GlobalItemSignalsActionPerformed(evt);
+                    }
+                });
+
+        GlobalMenu.add(GlobalItemSignals);
 
 
         MenuBar.add(GlobalMenu);
@@ -1111,6 +1127,12 @@ public class FizzimGui extends javax.swing.JFrame {
                 .setVisible(true);
     }//GEN-LAST:event_GlobalItemTransitionsActionPerformed
 
+    private void GlobalItemSignalsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GlobalItemSignalsActionPerformed
+        globalList = drawArea1.setUndoPoint();
+        new GlobalProperties(drawArea1, this, true, globalList, 5)
+                .setVisible(true);
+    }//GEN-LAST:event_GlobalItemSignalsActionPerformed
+
 
 
 
@@ -1278,6 +1300,14 @@ public class FizzimGui extends javax.swing.JFrame {
             }
             writer.write(i(1) + "</trans>\n");
 
+            writer.write(i(1) + "<signals>\n");
+            tempList = (LinkedList<ObjAttribute>) globalList.get(5);
+            for (int i = 0; i < tempList.size(); i++) {
+                ObjAttribute obj = tempList.get(i);
+                obj.save(writer,1);
+            }
+            writer.write(i(1) + "</signals>\n");
+
 
 
             writer.write("</globals>\n");
@@ -1443,6 +1473,7 @@ public class FizzimGui extends javax.swing.JFrame {
     private javax.swing.JMenuItem GlobalItemInputs;
     private javax.swing.JMenuItem GlobalItemMachine;
     private javax.swing.JMenuItem GlobalItemOutputs;
+    private javax.swing.JMenuItem GlobalItemSignals;
     private javax.swing.JMenuItem GlobalItemStates;
     private javax.swing.JMenuItem GlobalItemTransitions;
     private javax.swing.JMenu GlobalMenu;
