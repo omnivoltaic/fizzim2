@@ -125,7 +125,7 @@ class MyTableModel extends AbstractTableModel {
     public boolean isCellEditable(int row, int col) {
         if ((attrib.get(row).getEditable(col) == ObjAttribute.GLOBAL_FIXED && !global) || attrib.get(row).getEditable(col) == ObjAttribute.ABS)
             return false;
-        else if(global && attrib.equals(globalList.get(1)) && (col == 2 || col == 5))
+        else if(global && attrib.equals(globalList.get(ObjAttribute.TabInput)) && (col == 2 || col == 5))
             return false;
          else
             return true;
@@ -213,20 +213,20 @@ class MyTableModel extends AbstractTableModel {
 
 
         //first time type being set in outputs, create corresponding attribute in state tab
-        if(global && col == 3 && attrib.equals(globalList.get(2)) && (value.equals("onstate") || value.equals("ontransit"))
+        if(global && col == 3 && attrib.equals(globalList.get(ObjAttribute.TabOutput)) && (value.equals("onstate") || value.equals("ontransit"))
                 && attrib.get(row).get(col).equals(""))
         {
                 int[] editable = { ObjAttribute.GLOBAL_FIXED, ObjAttribute.GLOBAL_VAR,
                 ObjAttribute.GLOBAL_VAR, ObjAttribute.GLOBAL_VAR, ObjAttribute.GLOBAL_VAR, ObjAttribute.GLOBAL_VAR, ObjAttribute.GLOBAL_VAR, ObjAttribute.GLOBAL_VAR};
                 ObjAttribute newObj = new ObjAttribute(attrib.get(row).getName(),attrib.get(row).getValue(),
                         attrib.get(row).getVisibility(),"output","",Color.black,"","",editable);
-                globalList.get(3).addLast(newObj);
+                globalList.get(ObjAttribute.TabState).addLast(newObj);
         }
 
         //if rename something of type output
-        if(global && col != 3 && globalList.get(2).equals(attrib) && !attrib.get(row).get(col).equals(value))
+        if(global && col != 3 && globalList.get(ObjAttribute.TabOutput).equals(attrib) && !attrib.get(row).get(col).equals(value))
         {
-                renameAttribute(3,attrib.get(row).getName(),col,value,row);
+                renameAttribute(ObjAttribute.TabState,attrib.get(row).getName(),col,value,row);
         }
 
 
@@ -234,10 +234,10 @@ class MyTableModel extends AbstractTableModel {
         // changed
         if(global &&
            // can't edit anything but type in states
-           (col != 3 && attrib.equals(globalList.get(3)) && attrib.get(row).getType().equals("output"))
+           (col != 3 && attrib.equals(globalList.get(ObjAttribute.TabState)) && attrib.get(row).getType().equals("output"))
            // can't edit default value in transitions
            // new fizzim.pl (>=4.3 uses default from outputs page)
-        || (col == 1 && attrib.equals(globalList.get(4)) && attrib.get(row).getType().equals("output"))
+        || (col == 1 && attrib.equals(globalList.get(ObjAttribute.TabTransition)) && attrib.get(row).getType().equals("output"))
         )
         {
             JOptionPane.showMessageDialog(dialog,
@@ -346,7 +346,7 @@ class MyTableModel extends AbstractTableModel {
     }
 
     private boolean checkOutputs(ObjAttribute objAttribute) {
-        LinkedList<ObjAttribute> outputList = globalList.get(2);
+        LinkedList<ObjAttribute> outputList = globalList.get(ObjAttribute.TabOutput);
         String name = objAttribute.getName();
         for(int i = 0; i < outputList.size(); i++)
         {
@@ -1041,7 +1041,7 @@ class StateProperties extends javax.swing.JDialog {
         SPLabel.setText("Edit the properties of the selected state:");
 
                 // Type column
-        SPTable.setModel(new MyTableModel(state,this,globalList,3));
+        SPTable.setModel(new MyTableModel(state,this,globalList,ObjAttribute.TabState));
         SPTable.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
 
         //use dropdown boxes
@@ -1915,7 +1915,7 @@ class GlobalProperties extends javax.swing.JDialog {
             int tab1 = GPTabbedPane.getSelectedIndex();
             globalLists.get(tab1).addLast(newObj);
             if(currTab == 2)
-                currTable.setValueAt("onstate", globalLists.get(2).size()-1, 3);
+                currTable.setValueAt("onstate", globalLists.get(ObjAttribute.TabOutput).size()-1, 3);
 
             currTable.revalidate();
 

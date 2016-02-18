@@ -43,6 +43,7 @@ public class ObjAttribute implements Cloneable {
     //local: override global attribute
     //abs: hard-coded
     public static int GLOBAL_FIXED = 3, GLOBAL_VAR = 4, LOCAL = 5, ABS = 6;
+    public static int TabGlobal = 0, TabInput = 1, TabOutput = 2, TabState = 3, TabTransition = 4, TabSignal = 5;
     // all field editable by default
     private int[] editable = {GLOBAL_VAR,GLOBAL_VAR,GLOBAL_VAR,GLOBAL_VAR,GLOBAL_VAR,GLOBAL_VAR,GLOBAL_VAR,GLOBAL_VAR};
 

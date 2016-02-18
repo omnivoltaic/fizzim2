@@ -152,18 +152,18 @@ public class FizzimGui extends javax.swing.JFrame {
         // 0=machine, 1=inputs, 2=outputs, 3=states, 4=trans, 5=signals
         int[] editable = { ObjAttribute.ABS, ObjAttribute.GLOBAL_VAR,
                 ObjAttribute.GLOBAL_VAR, ObjAttribute.GLOBAL_VAR, ObjAttribute.GLOBAL_VAR, ObjAttribute.GLOBAL_VAR, ObjAttribute.GLOBAL_VAR };
-        globalList.get(0).add(new ObjAttribute("name", "def_name", 0, "","",Color.black,"","",
+        globalList.get(ObjAttribute.TabGlobal).add(new ObjAttribute("name", "def_name", 0, "","",Color.black,"","",
                 editable));
-        globalList.get(0).add(new ObjAttribute("clock", "clk", 0,
+        globalList.get(ObjAttribute.TabGlobal).add(new ObjAttribute("clock", "clk", 0,
                 "posedge","",Color.black,"","",editable));
 
-        globalList.get(3).add(new ObjAttribute("name", "def_name", 1,
+        globalList.get(ObjAttribute.TabState).add(new ObjAttribute("name", "def_name", 1,
                 "def_type","",Color.black,"","",editable));
 
-        globalList.get(4).add(new ObjAttribute("name", "def_name", 0,
+        globalList.get(ObjAttribute.TabTransition).add(new ObjAttribute("name", "def_name", 0,
                 "def_type","",Color.black,"","",editable));
 
-        globalList.get(4).add(new ObjAttribute("equation", "1", 1,
+        globalList.get(ObjAttribute.TabTransition).add(new ObjAttribute("equation", "1", 1,
                 "def_type","",Color.black,"","",editable));
 
 
@@ -1093,19 +1093,19 @@ public class FizzimGui extends javax.swing.JFrame {
 
     private void GlobalItemMachineActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GlobalItemMachineActionPerformed
         globalList = drawArea1.setUndoPoint();
-        new GlobalProperties(drawArea1, this, true, globalList, 0)
+        new GlobalProperties(drawArea1, this, true, globalList, ObjAttribute.TabGlobal)
                 .setVisible(true);
     }//GEN-LAST:event_GlobalItemMachineActionPerformed
 
     private void GlobalItemInputsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GlobalItemsInputsActionPerformed
         globalList = drawArea1.setUndoPoint();
-        new GlobalProperties(drawArea1, this, true, globalList, 1)
+        new GlobalProperties(drawArea1, this, true, globalList, ObjAttribute.TabInput)
                 .setVisible(true);
     }//GEN-LAST:event_GlobalItemsInputsActionPerformed
 
     private void GlobalItemOutputsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GlobalItemOutputsActionPerformed
         globalList = drawArea1.setUndoPoint();
-        new GlobalProperties(drawArea1, this, true, globalList, 2)
+        new GlobalProperties(drawArea1, this, true, globalList, ObjAttribute.TabOutput)
                 .setVisible(true);
         /*GlobalAttributesFrame.setSize(600, 300);
         GlobalAttributesFrame.getRootPane().setDefaultButton(GACancel);
@@ -1116,20 +1116,20 @@ public class FizzimGui extends javax.swing.JFrame {
 
     private void GlobalItemStatesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GlobalItemStatesActionPerformed
         globalList = drawArea1.setUndoPoint();
-        new GlobalProperties(drawArea1, this, true, globalList, 3)
+        new GlobalProperties(drawArea1, this, true, globalList, ObjAttribute.TabState)
                 .setVisible(true);
     }//GEN-LAST:event_GlobalItemStatesActionPerformed
 
     private void GlobalItemTransitionsActionPerformed(
             java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GlobalItemTransitionsActionPerformed
         globalList = drawArea1.setUndoPoint();
-        new GlobalProperties(drawArea1, this, true, globalList, 4)
+        new GlobalProperties(drawArea1, this, true, globalList, ObjAttribute.TabTransition)
                 .setVisible(true);
     }//GEN-LAST:event_GlobalItemTransitionsActionPerformed
 
     private void GlobalItemSignalsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GlobalItemSignalsActionPerformed
         globalList = drawArea1.setUndoPoint();
-        new GlobalProperties(drawArea1, this, true, globalList, 5)
+        new GlobalProperties(drawArea1, this, true, globalList, ObjAttribute.TabSignal)
                 .setVisible(true);
     }//GEN-LAST:event_GlobalItemSignalsActionPerformed
 
@@ -1261,7 +1261,7 @@ public class FizzimGui extends javax.swing.JFrame {
             writer.write("<globals>\n");
 
             writer.write(i(1) + "<machine>\n");
-            tempList = (LinkedList<ObjAttribute>) globalList.get(0);
+            tempList = (LinkedList<ObjAttribute>) globalList.get(ObjAttribute.TabGlobal);
             for (int i = 0; i < tempList.size(); i++) {
                 ObjAttribute obj = tempList.get(i);
                 obj.save(writer,1);
@@ -1269,7 +1269,7 @@ public class FizzimGui extends javax.swing.JFrame {
             writer.write(i(1) + "</machine>\n");
 
             writer.write(i(1) + "<inputs>\n");
-            tempList = (LinkedList<ObjAttribute>) globalList.get(1);
+            tempList = (LinkedList<ObjAttribute>) globalList.get(ObjAttribute.TabInput);
             for (int i = 0; i < tempList.size(); i++) {
                 ObjAttribute obj = tempList.get(i);
                 obj.save(writer,1);
@@ -1277,7 +1277,7 @@ public class FizzimGui extends javax.swing.JFrame {
             writer.write(i(1) + "</inputs>\n");
 
             writer.write(i(1) + "<outputs>\n");
-            tempList = (LinkedList<ObjAttribute>) globalList.get(2);
+            tempList = (LinkedList<ObjAttribute>) globalList.get(ObjAttribute.TabOutput);
             for (int i = 0; i < tempList.size(); i++) {
                 ObjAttribute obj = tempList.get(i);
                 obj.save(writer,1);
@@ -1285,7 +1285,7 @@ public class FizzimGui extends javax.swing.JFrame {
             writer.write(i(1) + "</outputs>\n");
 
             writer.write(i(1) + "<state>\n");
-            tempList = (LinkedList<ObjAttribute>) globalList.get(3);
+            tempList = (LinkedList<ObjAttribute>) globalList.get(ObjAttribute.TabState);
             for (int i = 0; i < tempList.size(); i++) {
                 ObjAttribute obj = tempList.get(i);
                 obj.save(writer,1);
@@ -1293,7 +1293,7 @@ public class FizzimGui extends javax.swing.JFrame {
             writer.write(i(1) + "</state>\n");
 
             writer.write(i(1) + "<trans>\n");
-            tempList = (LinkedList<ObjAttribute>) globalList.get(4);
+            tempList = (LinkedList<ObjAttribute>) globalList.get(ObjAttribute.TabTransition);
             for (int i = 0; i < tempList.size(); i++) {
                 ObjAttribute obj = tempList.get(i);
                 obj.save(writer,1);
@@ -1301,7 +1301,7 @@ public class FizzimGui extends javax.swing.JFrame {
             writer.write(i(1) + "</trans>\n");
 
             writer.write(i(1) + "<signals>\n");
-            tempList = (LinkedList<ObjAttribute>) globalList.get(5);
+            tempList = (LinkedList<ObjAttribute>) globalList.get(ObjAttribute.TabSignal);
             for (int i = 0; i < tempList.size(); i++) {
                 ObjAttribute obj = tempList.get(i);
                 obj.save(writer,1);
