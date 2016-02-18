@@ -510,11 +510,11 @@ public class FizzimGui extends javax.swing.JFrame {
 
         MenuBar.add(EditMenu);
 
-        GlobalMenu.setText("Global Attributes");
-        GlobalMenu.setMnemonic(java.awt.event.KeyEvent.VK_G);
+        GlobalMenu.setText("Settings");
+        GlobalMenu.setMnemonic(java.awt.event.KeyEvent.VK_S);
 
-        GlobalItemMachine.setText("State Machine");
-        GlobalItemMachine.setMnemonic(java.awt.event.KeyEvent.VK_M);
+        GlobalItemMachine.setText("Global");
+        GlobalItemMachine.setMnemonic(java.awt.event.KeyEvent.VK_G);
         GlobalItemMachine
                 .addActionListener(new java.awt.event.ActionListener() {
                     public void actionPerformed(java.awt.event.ActionEvent evt) {

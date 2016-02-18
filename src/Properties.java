@@ -1541,7 +1541,7 @@ class GlobalProperties extends javax.swing.JDialog {
             column.setCellEditor(new MyJColorEditor(colorChooser));
             column.setCellRenderer(new MyJColorRenderer());
             GPScrollMachine.setViewportView(GPTableMachine);
-            GPTabbedPane.addTab("State Machine", GPScrollMachine);
+            GPTabbedPane.addTab("Global", GPScrollMachine);
 
             GPTableInputs.setModel(new MyTableModel((LinkedList<ObjAttribute>)globalLists.get(1),globalLists));
             GPTableInputs.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
