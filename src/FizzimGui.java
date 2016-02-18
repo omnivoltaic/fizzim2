@@ -1392,7 +1392,7 @@ public class FizzimGui extends javax.swing.JFrame {
                 FizzimGui fzim = new FizzimGui();
                 fzim.setVisible(true);
                 fzim.setSize(new java.awt.Dimension(1000, 685));
-                fzim.new SplashWindow("splash.png",fzim,3500);
+                //fzim.new SplashWindow("splash.png",fzim,3500);
                 // If command line filename is not null, open
                 // this file.
                 if (clfilename != "") {
