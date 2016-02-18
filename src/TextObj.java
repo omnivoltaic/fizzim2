@@ -167,8 +167,7 @@ public class TextObj extends GeneralObj {
                     col2W = fm.stringWidth(value);
                 col2.add(value);
                 String type = obj.getType();
-                                // rename "reg" to "statebit" in the attributes table
-                                if (type.equals("reg")) type = "statebit";
+
                 if(col3W < fm.stringWidth(type))
                     col3W = fm.stringWidth(type);
                 col3.add(type);

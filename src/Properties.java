@@ -53,9 +53,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 class MyTableModel extends AbstractTableModel {
 
     boolean DEBUG = false;
-// pz
-//    String[] columnNames = {"Attribute Name", "Value",
-//            "Visibility", "Type", "Comment", "Color" };
+
     String[] columnNames = {"Attribute Name", "Value",
             "Visibility", "Type", "Comment",
                         "Color","UserAtts","ResetValue" }; // for state/trans edit boxes
@@ -82,9 +80,7 @@ class MyTableModel extends AbstractTableModel {
         global = true;
         globalList = globalL;
         attrib = list;
-// pz
-//        columnNames = new String[] {"Attribute Name", "Default Value",
-//                "Visibility", "Type","Comment", "Color"};
+
         columnNames = new String[] {"Attribute Name", "Default Value",
                 "Visibility", "Type","Comment",
                                 "Color","UserAtts","ResetValue"}; // for main att edit boxes
@@ -111,12 +107,6 @@ class MyTableModel extends AbstractTableModel {
                 obj = "Yes";
             if(obj.equals(new Integer(2)))
                 obj = "Only non-default";
-        }
-        // Translate internal representation "reg" to "statebit"
-        if(col == 3)
-        {
-            if(obj.equals(new String("reg")))
-                obj = "statebit";
         }
         return obj;
     }
@@ -164,10 +154,6 @@ class MyTableModel extends AbstractTableModel {
                 value = new Integer(2);
         }
 
-        // Translate "statebit" to internal representation "reg"
-        if (col == 3 && value.equals("statebit")) {
-          value = new String("reg");
-        }
 
         // check for reserved words
         // Not sure if this is really necessary
@@ -185,6 +171,7 @@ class MyTableModel extends AbstractTableModel {
         */
 
         // only flag, regd can have reset values
+        /*
         if ( false
           || (global && col == 7 && !value.equals("") && !((attrib.get(row).getType().equals("flag") || attrib.get(row).getType().equals("regdp"))) )
           || (global && col == 3 && !(value.equals("flag")|| value.equals("regdp")) && !attrib.get(row).getresetval().equals("") )
@@ -196,6 +183,7 @@ class MyTableModel extends AbstractTableModel {
                     JOptionPane.ERROR_MESSAGE);
             value = attrib.get(row).get(col);
         }
+
         // flag type outputs must have null default value
         if ( false
           || (global && col == 1 && !value.equals("") && attrib.get(row).getType().equals("flag") )
@@ -208,7 +196,7 @@ class MyTableModel extends AbstractTableModel {
                     JOptionPane.ERROR_MESSAGE);
             value = attrib.get(row).get(col);
         }
-
+        */
         // forces user to enter attribute name in outputs tab
         if(!global && col == 3 && value.equals("output"))
         {
@@ -225,7 +213,7 @@ class MyTableModel extends AbstractTableModel {
 
 
         //first time type being set in outputs, create corresponding attribute in state tab
-        if(global && col == 3 && attrib.equals(globalList.get(2)) && (value.equals("regdp") || value.equals("comb") || value.equals("reg") || value.equals("flag"))
+        if(global && col == 3 && attrib.equals(globalList.get(2)) && (value.equals("onstate") || value.equals("ontransit"))
                 && attrib.get(row).get(col).equals(""))
         {
                 int[] editable = { ObjAttribute.GLOBAL_FIXED, ObjAttribute.GLOBAL_VAR,
@@ -1412,10 +1400,9 @@ class GlobalProperties extends javax.swing.JDialog {
     DrawArea drawArea;
 
     String[] options = new String[]{"No", "Yes", "Only non-default"};
-        // pz
-    //String[] outputOptions = new String[] {"reg","comb","regdp"};
-    //String[] outputOptions = new String[] {"reg","comb","regdp","flag"};
-    String[] outputOptions = new String[] {"statebit","comb","regdp","flag"};
+
+    //String[] outputOptions = new String[] {"reg/statebit","comb","regdp","flag"};
+    String[] outputOptions = new String[] {"onstate","ontransit"};
     String[] reset_signal = new String[] {"posedge","negedge","positive","negative"};
     MyJComboBoxEditor reset_signal_editor = new MyJComboBoxEditor(reset_signal);
     String[] clock = new String[] {"posedge","negedge"};
@@ -1890,20 +1877,11 @@ class GlobalProperties extends javax.swing.JDialog {
                         GPOption5.setEnabled(true);
 
                     //if output being deleted, delete in states and trans
-                    if(currTab == 2 && obj.getType().equals("reg"))
+                    if(currTab == 2 && obj.getType().equals("onstate"))
                     {
                         removeAttribute(3,obj.getName());
                     }
-                    if(currTab == 2 && obj.getType().equals("regdp"))
-                    {
-                        removeAttribute(3,obj.getName());
-                    }
-                    if(currTab == 2 && obj.getType().equals("comb"))
-                    {
-                        removeAttribute(3,obj.getName());
-                        //removeAttribute(2,obj.getName());
-                    }
-                    if(currTab == 2 && obj.getType().equals("flag"))
+                    if(currTab == 2 && obj.getType().equals("ontransit"))
                     {
                         removeAttribute(3,obj.getName());
                     }
@@ -1937,7 +1915,7 @@ class GlobalProperties extends javax.swing.JDialog {
             int tab1 = GPTabbedPane.getSelectedIndex();
             globalLists.get(tab1).addLast(newObj);
             if(currTab == 2)
-                currTable.setValueAt("reg", globalLists.get(2).size()-1, 3);
+                currTable.setValueAt("onstate", globalLists.get(2).size()-1, 3);
 
             currTable.revalidate();
 
@@ -1973,7 +1951,7 @@ class GlobalProperties extends javax.swing.JDialog {
             {
                 globalLists.get(2).add(new ObjAttribute("out", "", 2, "","",Color.black,"","",
                     editable));
-                currTable.setValueAt("reg", globalLists.get(2).size()-1, 3);
+                currTable.setValueAt("onstate", globalLists.get(2).size()-1, 3);
 
                 currTable.revalidate();
             }
@@ -1992,7 +1970,7 @@ class GlobalProperties extends javax.swing.JDialog {
             {
                 globalLists.get(5).add(new ObjAttribute("sig", "", 2, "","",Color.black,"","",
                     editable));
-                currTable.setValueAt("reg", globalLists.get(5).size()-1, 3);
+                currTable.setValueAt("onstate", globalLists.get(5).size()-1, 3);
 
                 currTable.revalidate();
             }
@@ -2026,7 +2004,7 @@ class GlobalProperties extends javax.swing.JDialog {
             {
                 globalLists.get(2).add(new ObjAttribute("out[1:0]", "", 2, "","",Color.black,"","",
                     editable));
-                currTable.setValueAt("reg", globalLists.get(2).size()-1, 3);
+                currTable.setValueAt("onstate", globalLists.get(2).size()-1, 3);
 
                 currTable.revalidate();
             }
@@ -2091,7 +2069,9 @@ class GlobalProperties extends javax.swing.JDialog {
             {
                 for(int j = 0; j < globalLists.get(i).size(); j++)
                 {
-                    if(i == 2 && !globalLists.get(i).get(j).getType().equals("reg") && !globalLists.get(i).get(j).getType().equals("comb") && !globalLists.get(i).get(j).getType().equals("regdp") && !globalLists.get(i).get(j).getType().equals("flag"))
+                    if(i == 2 && !globalLists.get(i).get(j).getType().equals("onstate")
+                              && !globalLists.get(i).get(j).getType().equals("ontransit")
+                      )
                         error = 2;
                     for(int k = j+1; k < globalLists.get(i).size(); k++)
                     {
