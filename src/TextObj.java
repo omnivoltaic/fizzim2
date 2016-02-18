@@ -136,7 +136,7 @@ public class TextObj extends GeneralObj {
 
         for(int i = 0; i < globalList.size(); i++)
         {
-            if(i >= 3 && globalList.get(i).size() < 2)
+            if((i == 3 || i == 4) && globalList.get(i).size() < 2)
                 continue;
             else if(i < 3 && globalList.get(i).size() < 1)
                 continue;
@@ -146,6 +146,7 @@ public class TextObj extends GeneralObj {
                 case 2: col1.add("OUTPUTS"); break;
                 case 3: col1.add("STATES"); break;
                 case 4: col1.add("TRANSITIONS"); break;
+                case 5: col1.add("SIGNALS"); break;
             }
 
             col2.add(" ");
