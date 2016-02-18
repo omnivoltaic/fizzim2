@@ -247,19 +247,26 @@ class MyTableModel extends AbstractTableModel {
             value = attrib.get(row).get(col);
         }
 
-        //if changing from comb to reg
-        /*
-        if(attrib.equals(globalList.get(4)) && attrib.get(row).getType().equals("comb") && value.equals("reg"))
+        //if changing OUTPUT type 'onstate or ontransit'
+        if(!attrib.get(row).getType().equals(value) &&
+            attrib.equals(globalList.get(ObjAttribute.TabOutput)) &&
+            (value.equals("onstate") || value.equals("ontransit"))
+        )
         {
-            for(int i = 0; i < globalList.get(2).size(); i++)
+            int a = ObjAttribute.TabState, b = ObjAttribute.TabTransition;
+            if(value.equals("onstate"))
+                {a = ObjAttribute.TabTransition; b = ObjAttribute.TabState;}
+
+            for(int i = 0; i < globalList.get(a).size(); i++)
             {
-                if(attrib.get(row).getName().equals(globalList.get(2).get(i).getName()))
+                if(attrib.get(row).getName().equals(globalList.get(a).get(i).getName()))
                 {
-                    globalList.get(2).remove(i);
+                    globalList.get(b).addLast(globalList.get(a).get(i));
+                    globalList.get(a).remove(i);
+                    break;
                 }
             }
         }
-        */
 
 
         // dont set if nothing changes
