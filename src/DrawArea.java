@@ -83,8 +83,8 @@ public class DrawArea extends JPanel implements MouseListener, MouseMotionListen
     private Color defLTC = Color.black;
 
     //state size
-    private int StateW = 130;
-    private int StateH = 130;
+    private int StateW = 100;
+    private int StateH = 100;
 
     //list of global lists
     private LinkedList<LinkedList<ObjAttribute>> globalList;
