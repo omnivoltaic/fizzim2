@@ -227,6 +227,7 @@ class MyTableModel extends AbstractTableModel {
         if(global && col != 3 && globalList.get(ObjAttribute.TabOutput).equals(attrib) && !attrib.get(row).get(col).equals(value))
         {
                 renameAttribute(ObjAttribute.TabState,attrib.get(row).getName(),col,value,row);
+                renameAttribute(ObjAttribute.TabTransition,attrib.get(row).getName(),col,value,row);
         }
 
 
@@ -324,7 +325,10 @@ class MyTableModel extends AbstractTableModel {
         {
             ObjAttribute obj = globalList.get(t).get(h);
             // check if field is of type output in state tab
-            if(obj.getType().equals("output") && t == 3 && num <= row)
+            if(num <= row &&
+                obj.getType().equals("output")
+                //&& (t == 3 || t == 4)
+            )
             {
                 if(num == row && obj.getName().equals(name))
                 {
