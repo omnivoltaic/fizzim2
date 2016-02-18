@@ -23,28 +23,28 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 class FzmFilter extends FileFilter{
-	
-	public boolean accept(File f) {
-		boolean accept = f.isDirectory();
-		if(!accept) {
-			String suffix = getSuffix(f);
-			if(suffix != null)
-				accept = suffix.equals("fzm");
-		}
-		return accept;
-	}
-	public String getDescription() {
-		return "Fizzim Files (*.fzm)";
-	}
-	public String getSuffix(File f) {
-		String s = f.getPath(), suffix = null;
-		int i = s.lastIndexOf('.');
-		
-		if(i>0 && i < s.length() - 1)
-			suffix = s.substring(i+1).toLowerCase();
-		
-		return suffix;
-	}
+
+    public boolean accept(File f) {
+        boolean accept = f.isDirectory();
+        if(!accept) {
+            String suffix = getSuffix(f);
+            if(suffix != null)
+                accept = suffix.equals("fzm");
+        }
+        return accept;
+    }
+    public String getDescription() {
+        return "Fizzim Files (*.fzm)";
+    }
+    public String getSuffix(File f) {
+        String s = f.getPath(), suffix = null;
+        int i = s.lastIndexOf('.');
+
+        if(i>0 && i < s.length() - 1)
+            suffix = s.substring(i+1).toLowerCase();
+
+        return suffix;
+    }
 
 
 }
