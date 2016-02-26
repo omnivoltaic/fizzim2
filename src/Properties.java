@@ -127,7 +127,7 @@ class MyTableModel extends AbstractTableModel {
             return false;
         else if(global && attrib.equals(globalList.get(ObjAttribute.TabInput)) && (col == 2 || col == 5))
             return false;
-         else
+        else
             return true;
 
     }
@@ -1456,8 +1456,6 @@ class GlobalProperties extends javax.swing.JDialog {
     private int currTab = 0;
     int[] editable = { ObjAttribute.GLOBAL_FIXED, ObjAttribute.GLOBAL_VAR,
             ObjAttribute.GLOBAL_VAR, ObjAttribute.GLOBAL_VAR, ObjAttribute.GLOBAL_VAR, ObjAttribute.GLOBAL_VAR, ObjAttribute.GLOBAL_VAR, ObjAttribute.GLOBAL_VAR};
-    int[] editable2 = { ObjAttribute.ABS, ObjAttribute.GLOBAL_VAR,
-            ObjAttribute.GLOBAL_VAR, ObjAttribute.GLOBAL_VAR, ObjAttribute.GLOBAL_VAR, ObjAttribute.GLOBAL_VAR, ObjAttribute.GLOBAL_VAR, ObjAttribute.GLOBAL_VAR};
 
     JColorChooser colorChooser;
 
@@ -1476,7 +1474,7 @@ class GlobalProperties extends javax.swing.JDialog {
 
     }
 
-                private void setcolumnwidths(JTable table) {
+        private void setcolumnwidths(JTable table) {
             TableColumn column;
 
                         // Name
@@ -1503,7 +1501,7 @@ class GlobalProperties extends javax.swing.JDialog {
                         // Resetval
             column = table.getColumnModel().getColumn(7);
             column.setPreferredWidth(15);
-                }
+        }
 
         private void initComponents() {
 
@@ -1983,12 +1981,12 @@ class GlobalProperties extends javax.swing.JDialog {
                 if(!checkNames(currTable,"reset_signal"))
                 {
                     globalLists.get(0).add(new ObjAttribute("reset_signal", "rst_n", 0, "negedge","",Color.black,"","",
-                                        editable2));
+                                        editable));
                 }
                 if(!checkNames(currTable,"reset_state"))
                 {
                     globalLists.get(0).add(new ObjAttribute("reset_state", "state0", 0, "","",Color.black,"","",
-                            editable2));
+                            editable));
                 }
 
                 GPOption3.setEnabled(false);
