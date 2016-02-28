@@ -412,6 +412,7 @@ public class DrawArea extends JPanel implements MouseListener, MouseMotionListen
 
     public void mouseClicked(MouseEvent e) {
         //System.out.println("mouseClicked:" + " Button:" + e.getButton() + " Modifiers:" + e.getModifiers() + " Popup Trigger:" + e.isPopupTrigger() + " ControlDown:" + e.isControlDown());
+        requestFocus();
     }
 
     public void mouseEntered(MouseEvent e) {

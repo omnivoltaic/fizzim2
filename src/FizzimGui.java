@@ -228,6 +228,36 @@ public class FizzimGui extends javax.swing.JFrame {
         jSeparator4 = new javax.swing.JSeparator();
         HelpItemAbout = new javax.swing.JMenuItem();
 
+        consoleText = new javax.swing.JTextArea();
+        consoleText.setEditable(false);
+        consoleText.setText("Press Ctrl+S");
+        //consoleText.setLineWrap(true);
+        //consoleText.setWrapStyleWord(true);
+        jScrollPane2 = new javax.swing.JScrollPane(consoleText);
+        jPanel4 = new javax.swing.JPanel(new BorderLayout());
+        jPanel4.add(jScrollPane2);
+        JSplitPane jSplitPane1 = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, false, jPanel3, jPanel4);
+
+        // attach listener
+        jSplitPane1.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                if (evt.getPropertyName().equals(JSplitPane.LAST_DIVIDER_LOCATION_PROPERTY)) {
+
+                    Dimension coord = getScrollPaneSize();
+                    if (coord.height > maxH)
+                        coord.setSize(coord.width, maxH);
+                    if (coord.width > maxW)
+                        coord.setSize(maxW + 23, coord.height);
+
+                    jTabbedPane1.setMinimumSize(coord);
+                    jTabbedPane1.setSize(coord);
+                    //jPanel3.doLayout();
+                    jPanel3.repaint();
+
+                }
+            }
+        });
+
         FileOpenAction.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 FileOpenActionActionPerformed(evt);
@@ -323,7 +353,7 @@ public class FizzimGui extends javax.swing.JFrame {
         gridBagConstraints.gridy = 0;
         jPanel3.add(jTabbedPane1, gridBagConstraints);
 
-        getContentPane().add(jPanel3, java.awt.BorderLayout.CENTER);
+        getContentPane().add(jSplitPane1, java.awt.BorderLayout.CENTER);
 
 
         Dimension coord = getScrollPaneSize();
@@ -851,6 +881,7 @@ public class FizzimGui extends javax.swing.JFrame {
             coord.setSize(coord.width, maxH);
         if (coord.width > maxW)
             coord.setSize(maxW + 23, coord.height);
+
         drawArea1.setSize(maxW,maxH);
         jTabbedPane1.setMinimumSize(coord);
         jTabbedPane1.setSize(coord);
@@ -1494,6 +1525,11 @@ public class FizzimGui extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
     private MyJTabbedPane jTabbedPane1;
+
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JSplitPane jSplitPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    public static javax.swing.JTextArea consoleText;
     // End of variables declaration//GEN-END:variables
 
     File currFile = null;
