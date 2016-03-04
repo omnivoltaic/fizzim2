@@ -317,7 +317,7 @@ public class ObjAttribute implements Cloneable {
                 + i(ind+3) + "<status>\n" + i(ind+3) + getEditableName(5)+ "\n" + i(ind+3) + "</status>\n"
                 + i(ind+2) + "</color>\n"
                 + i(ind+2) + "<useratts>\n" + i(ind+2) + useratts + "\n"
-                + i(ind+3) + "<status>\n" + i(ind+3) + getEditableName(3)+ "\n" + i(ind+3) + "</status>\n"
+                + i(ind+3) + "<status>\n" + i(ind+3) + getEditableName(6)+ "\n" + i(ind+3) + "</status>\n"
                 + i(ind+2) + "</useratts>\n"
                 + i(ind+2) + "<resetval>\n" + i(ind+2) + resetval + "\n"
                 + i(ind+3) + "<status>\n" + i(ind+3) + getEditableName(3)+ "\n" + i(ind+3) + "</status>\n"
