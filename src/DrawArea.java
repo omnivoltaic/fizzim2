@@ -1048,6 +1048,7 @@ public void updateTransitions()
         }
         else if(input == "Add Loopback Transition")
         {
+            /*
             Vector<StateObj> stateObjs = new Vector<StateObj>();
             for(int i = 1; i < objList.size(); i++)
             {
@@ -1075,6 +1076,15 @@ public void updateTransitions()
                         "error",
                         JOptionPane.ERROR_MESSAGE);
             }
+            */
+            GeneralObj trans = new LoopbackTransitionObj(rXTemp,rYTemp,createTCounter,currPage, defLTC);
+            createTCounter++;
+            objList.add(trans);
+            LoopbackTransitionObj lpTrans = (LoopbackTransitionObj) trans;
+            lpTrans.initTrans((StateObj)tempObj);
+
+            trans.updateAttrib(globalList,4);
+            commitUndo();
         }
         else if(input == "New Loopback Transition")
         {
