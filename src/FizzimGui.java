@@ -1281,6 +1281,13 @@ public class FizzimGui extends javax.swing.JFrame {
 
     private boolean saveFile(File selectedFile) {
         currFile = selectedFile;
+
+        String s = currFile.getAbsolutePath();
+        genhdl = new GenerateHDL(s.substring(0, s.length() - 4)
+                                         +".v",
+                                drawArea1,
+                                consoleText);
+
         try {
             BufferedWriter writer = new BufferedWriter(new FileWriter(currFile));
 
@@ -1360,6 +1367,7 @@ public class FizzimGui extends javax.swing.JFrame {
 
             writer.close();
             drawArea1.setFileModifed(false);
+            genhdl.save();
 
             return true;
 
@@ -1533,6 +1541,7 @@ public class FizzimGui extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     File currFile = null;
+    GenerateHDL genhdl = null;
     private DrawArea drawArea1;
 
     public void updateGlobal(LinkedList<LinkedList<ObjAttribute>> globalList2) {

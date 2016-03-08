@@ -33,7 +33,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 public class DrawArea extends JPanel implements MouseListener, MouseMotionListener, ActionListener,Printable {
 
     //holds all objects to be currently drawn
-    private Vector<Object> objList;
+    public Vector<Object> objList;
     //holds previous lists of objects
     private Vector<Vector<Object>> undoList;
 
@@ -87,7 +87,7 @@ public class DrawArea extends JPanel implements MouseListener, MouseMotionListen
     private int StateH = 100;
 
     //list of global lists
-    private LinkedList<LinkedList<ObjAttribute>> globalList;
+    public LinkedList<LinkedList<ObjAttribute>> globalList;
 
     //parent frame
     private JFrame frame;
