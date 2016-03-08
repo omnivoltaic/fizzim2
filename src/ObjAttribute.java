@@ -342,8 +342,13 @@ public class ObjAttribute implements Cloneable {
 
                   // dont show "name =" or "equation =", just show value
                   String text;
-                  if(name.equals("name") || name.equals("equation")) {
+                  if(name.equals("name")) {
                     text = value;
+                  }
+                  else if(name.equals("equation")) {
+                    text = value;
+                    if(!useratts.equals("")) // show priority
+                        text += " // " + useratts;
                   } else {
                     if(outputTypeReg || outputTypeFlag)
                       text = name + " <= " + value;
