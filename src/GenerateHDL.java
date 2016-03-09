@@ -100,7 +100,7 @@ public class GenerateHDL {
 
                 s = (String) att.get(7);
                 s = (s.equals("") ? 0 : s) + ";\n";
-                if(att.get(3).equals("onstate"))
+                if(((String) att.get(3)).contains("onstate"))
                 {
                     onStateInit += (ind + sa[1] + " <= " + s);
                 }
@@ -155,7 +155,7 @@ public class GenerateHDL {
 
                 s = (String) att.get(7);
                 s = (s.equals("") ? 0 : s) + ";\n";
-                if(att.get(3).equals("onstate"))
+                if(((String) att.get(3)).contains("onstate"))
                 {
                     onStateInit += (ind + sa[1] + " <= " + s);
                 }
