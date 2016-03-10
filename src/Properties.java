@@ -238,7 +238,7 @@ class MyTableModel extends AbstractTableModel {
                 ObjAttribute.GLOBAL_VAR, ObjAttribute.GLOBAL_VAR, ObjAttribute.GLOBAL_VAR, ObjAttribute.GLOBAL_VAR, ObjAttribute.GLOBAL_VAR, ObjAttribute.GLOBAL_VAR};
                 String tt = attrib.equals(globalList.get(ObjAttribute.TabOutput))? "output": "signal";
                 ObjAttribute newObj = new ObjAttribute(attrib.get(row).getName(),attrib.get(row).getValue(),
-                        attrib.get(row).getVisibility(),tt,"",Color.black,"","",editable);
+                        attrib.get(row).getVisibility(),tt,"",Color.black, (String) value,"",editable);
                 globalList.get(ObjAttribute.TabState).addLast(newObj);
                 if(isHold)
                     globalList.get(ObjAttribute.TabTransition).addLast(newObj);
@@ -302,8 +302,12 @@ class MyTableModel extends AbstractTableModel {
             {
                 if(attrib.get(row).getName().equals(globalList.get(a).get(i).getName()))
                 {
+                    globalList.get(a).get(i).setUserAtts((String) value);
                     if(!tp.equals("hold")) // old NOT hold
+                    {
                         globalList.get(b).addLast(globalList.get(a).get(i));
+                        globalList.get(b).getLast().setUserAtts((String) value);
+                    }
 
                     if(!isHold) // new NOT hold
                         globalList.get(a).remove(i);
