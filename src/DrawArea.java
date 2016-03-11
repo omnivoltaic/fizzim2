@@ -112,7 +112,7 @@ public class DrawArea extends JPanel implements MouseListener, MouseMotionListen
     // global table, default tab settings
     private int space = 20;
 
-
+    private boolean pageMode = true; // multi
 
 
 
@@ -859,6 +859,8 @@ public void updateTransitions()
             for(int j = 1; j < objList.size(); j++)
             {
                 GeneralObj obj1 = (GeneralObj)objList.get(j);
+                if(pageMode && obj1.getPage() != currPage) continue;
+
                 if(obj1.getType() == 0 && !obj.getName().equals(obj1.getName()))
                 {
                     menuItem = new JMenuItem(obj1.getName());
@@ -1236,6 +1238,9 @@ public void updateTransitions()
         {
              if(globalList.get(0).get(j).getName().equals("reset_state"))
                  resetName = globalList.get(0).get(j).getValue();
+
+             if(globalList.get(0).get(j).getName().equals("page_mode"))
+                 pageMode = globalList.get(0).get(j).getValue().equals("multi");
         }
         for(int i = 1; i < objList.size(); i++)
         {

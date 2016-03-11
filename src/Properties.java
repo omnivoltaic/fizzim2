@@ -1496,6 +1496,8 @@ class GlobalProperties extends javax.swing.JDialog {
     MyJComboBoxEditor reset_signal_editor = new MyJComboBoxEditor(reset_signal);
     String[] clock = new String[] {"posedge","negedge"};
     MyJComboBoxEditor clock_editor = new MyJComboBoxEditor(clock);
+    String[] pmode = new String[] {"multi","single"};
+    MyJComboBoxEditor pmode_editor = new MyJComboBoxEditor(pmode);
     String[] resetType = new String[] {"allzeros","allones","anyvalue"};
     MyJComboBoxEditor resetType_editor = new MyJComboBoxEditor(resetType);
     String[] stateObjs;
@@ -1568,6 +1570,8 @@ class GlobalProperties extends javax.swing.JDialog {
                         return (TableCellEditor)reset_signal_editor;
                     else if (modelColumn == 3 && name.equals("clock"))
                         return (TableCellEditor)clock_editor;
+                    else if (modelColumn == 1 && name.equals("page_mode"))
+                        return (TableCellEditor)pmode_editor;
                     else if (modelColumn == 3 && name.equals("reset_state"))
                         return (TableCellEditor)resetType_editor;
                     else if (modelColumn == 1 && name.equals("reset_state"))

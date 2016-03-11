@@ -154,6 +154,8 @@ public class FizzimGui extends javax.swing.JFrame {
                 ObjAttribute.GLOBAL_VAR, ObjAttribute.GLOBAL_VAR, ObjAttribute.GLOBAL_VAR, ObjAttribute.GLOBAL_VAR, ObjAttribute.GLOBAL_VAR };
         globalList.get(ObjAttribute.TabGlobal).add(new ObjAttribute("name", "def_name", 0, "","",Color.black,"","",
                 editable));
+        globalList.get(ObjAttribute.TabGlobal).add(new ObjAttribute("page_mode", "multi", 0,
+                "","",Color.black,"","",editable));
         globalList.get(ObjAttribute.TabGlobal).add(new ObjAttribute("clock", "clk", 0,
                 "posedge","",Color.black,"","",editable));
 
@@ -1283,8 +1285,8 @@ public class FizzimGui extends javax.swing.JFrame {
         currFile = selectedFile;
 
         String s = currFile.getAbsolutePath();
-        genhdl = new GenerateHDL(s.substring(0, s.length() - 4)
-                                         +".v",
+        genhdl = new GenerateHDL(s.substring(0, s.length() - 4) + ".v",
+                                getPages(),
                                 drawArea1,
                                 consoleText);
 

@@ -41,9 +41,12 @@ public class GenerateHDL {
     String resetName = null;
     String resetEdge = null;
     int stateNum;
+    int pageNum;
+    boolean pageMode = true; // multi
 
-    String stateVar = "state";
-    String nextStateVar = "nextstate";
+    String baseStateVar = "state";
+    String baseNextStateVar = "nextstate";
+    String stateVar, nextStateVar;
     String holdVar = "nx_";
     LinkedList<String> onStateOut = new LinkedList<String>();
     LinkedList<String> onTransitOut = new LinkedList<String>();
@@ -56,12 +59,13 @@ public class GenerateHDL {
     String ind = "    ";
     String ind2 = ind + ind, ind3 = ind2 + ind, ind4 = ind2 + ind2;
 
-    public GenerateHDL(String p, DrawArea draw, javax.swing.JTextArea cons)
+    public GenerateHDL(String f, int p, DrawArea draw, javax.swing.JTextArea cons)
     {
         String s;
-        file = new File(p);
+        file = new File(f);
         s = file.getName();
         modName = s.substring(0, s.length() - 2);
+        pageNum = p;
 
         globalList = draw.globalList;
         objList = draw.objList;
@@ -74,7 +78,6 @@ public class GenerateHDL {
 
         try {
             BufferedWriter writer = new BufferedWriter(new FileWriter(file));
-            int stateBw = log2(getStateNum());
             String txt = "";
             String resetState = "";
 
@@ -87,11 +90,11 @@ public class GenerateHDL {
             //writer.write("version" + currVer + "\n");
 
             txt += "\nmodule "+ modName +" (\n";
-            getOutVar();
 
-            // Port lists
+            int stateBw;
             LinkedList<ObjAttribute> tempList;
             ObjAttribute att;
+            GeneralObj obj;
             String[] ni;
             String useratts;
             int i, j;
@@ -103,7 +106,7 @@ public class GenerateHDL {
             for (i = 0; i < tempList.size(); i++) {
                 att = tempList.get(i);
                 ni = nameinfo((String) att.get(0));
-                txt += ("    output reg" + ni[2] + " " + ni[1] + ",\n");
+                txt += (ind + "output reg" + ni[2] + " " + ni[1] + ",\n");
             }
 
             txt += "\n// INPUTS\n";
@@ -111,38 +114,45 @@ public class GenerateHDL {
             for (i = 0; i < tempList.size(); i++) {
                 att = tempList.get(i);
                 ni = nameinfo((String) att.get(0));
-                txt += ("    input     " + ni[2] + " " + ni[1] + ",\n");
+                txt += (ind + "input     " + ni[2] + " " + ni[1] + ",\n");
             }
 
             txt += "\n// GLOBAL\n";
             tempList = (LinkedList<ObjAttribute>) globalList.get(ObjAttribute.TabGlobal);
-            att = tempList.get(1);
-            ni = nameinfo((String) att.get(1));
-            txt += ("    input     " + ni[2] + " " + ni[1] + ",\n");
-            alwaysLine += ((String) att.get(3)) + " " + ni[1];
 
-            if (tempList.size() > 1) {
-                att = tempList.get(2);
-                ni = nameinfo((String) att.get(1));
-                txt += ("    input     " + ni[2] + " " + ni[1] + "\n");
+            for (i = 0; i < tempList.size(); i++) {
+                att = tempList.get(i);
+                s = (String) att.get(0);
+                if(s.equals("clock"))
+                {
+                    s = (String) att.get(1);
+                    txt += (ind + "input     " + s + ",\n");
+                    alwaysLine += att.get(3) + " " + s;
+                }
+                else if (s.equals("reset_signal"))
+                {
+                    s = (String) att.get(1);
+                    txt += (ind + "input     " + s + ",\n");
+                    alwaysLine += ", " + att.get(3) + " " + s;
 
-                if(tempList.get(3).equals("posedge"))
+                    if(tempList.get(3).equals("posedge"))
+                    {
+                        resetLine = "if (" + s + ")";
+                    } else
+                    {
+                        resetLine = "if (!" + s + ")";
+                    }
+                    alwaysLine += ")";
+                }
+                else if (s.equals("reset_state"))
                 {
-                    alwaysLine += " or posedge " + ni[1];
-                    resetLine = "if (" + ni[1] + ")";
-                } else
+                    resetState = (String) att.get(1);
+                }
+                else if (s.equals("page_mode"))
                 {
-                    alwaysLine += " or negedge " + ni[1];
-                    resetLine = "if (!" + ni[1] + ")";
+                    pageMode = att.get(1).equals("multi");
                 }
             }
-            alwaysLine += ")";
-
-            if (tempList.size() > 2) {
-                att = tempList.get(3);
-                resetState = (String) att.get(1);
-            }
-
             txt += ");\n";
             txt += "\n// SIGNALS\n";
             tempList = (LinkedList<ObjAttribute>) globalList.get(ObjAttribute.TabSignal);
@@ -152,96 +162,122 @@ public class GenerateHDL {
                 txt += ("reg " + ni[2] + " " + ni[1] + " = 0;\n");
             }
 
-
-            GeneralObj obj;
-
-            txt += "\n// STATE Definitions\n";
-            t = 0;
-            j = 0;
-            for(i = 1; i < objList.size(); i++)
+            for(int page = 1; page < pageNum; page++)
             {
-                obj = (GeneralObj) objList.get(i);
-                if(obj.getType() == 0)
+                if(pageMode && pageNum > 2)
                 {
-                    if(t>0)
-                    {
-                        txt += ",\n";
-                    }
-                    else
-                    {
-                        t = 1;
-                        txt += "parameter\n";
-                    }
+                    txt += "\n//==========================\n";
+                    txt += "// FSM-" + page + "\n";
+                    txt += "//==========================\n";
 
-                    txt += (obj.getName() + " = " + stateBw + "'d" + j);
-                    j += 1;
+                    stateVar = baseStateVar + "_" + page;
+                    nextStateVar = baseNextStateVar + "_" + page;
                 }
-            }
-            txt += ";\n";
-
-            s = stateVar + "," + nextStateVar + ";\n";
-            if(stateBw > 1)
-            txt += "\nreg  [" + (stateBw -1) + ":0] " + s;
-            else
-            txt += "\nreg  " + s;
-
-            txt += alwaysLine + "\n";
-            txt += resetLine +
-                    "\n" + ind + stateVar + " <= " + resetState +
-                    ";\nelse\n" + ind + stateVar + " <= " + nextStateVar + ";\n";
-
-
-            LinkedList<ObjAttribute> attribList;
-            txt += doTransitBlkInit();
-            txt += "\n" + ind + "case (" + stateVar + ")\n";
-
-            for(i = 1; i < objList.size(); i++)
-            {
-                obj = (GeneralObj) objList.elementAt(i);
-                if(obj.getType() != 0) // State Type Only
-                continue;
-
-                attribList = obj.getAttributeList();
-                att = attribList.get(0);
-                s = (String) att.get(1);
-                txt += ind2 + s + " :\n" + doTransit(s);
-            }
-            txt += ind + "endcase\nend\n";
-
-            s = doOutputBlkInit();
-            if(!s.equals(""))
-            {
-                txt += s;
-                if(onStateOut.size() > 0 || onStateOut_hold.size() > 0)
+                else
                 {
-                    txt += "\n" + ind + "case (" + nextStateVar + ")\n";
-                    for(i = 1; i < objList.size(); i++)
+                    stateVar = baseStateVar;
+                    nextStateVar = baseNextStateVar;
+                }
+                getOutVar(page);
+                stateBw = log2(stateNum);
+
+                txt += "\n// STATE Definitions\n";
+                t = 0;
+                j = 0;
+                for(i = 1; i < objList.size(); i++)
+                {
+                    obj = (GeneralObj) objList.get(i);
+                    if(pageMode && obj.getPage() != page) continue;
+
+                    if(obj.getType() == 0) // State obj
                     {
-                        obj = (GeneralObj) objList.elementAt(i);
-                        if(obj.getType() != 0) // State Type Only
-                        continue;
-
-                        attribList = obj.getAttributeList();
-                        s = "";
-                        for (j = attribList.size() -1; j >= 0 ; j--) {
-                            att = attribList.get(j);
-
-                            if(j==0)
-                            {
-                                if(!s.equals(""))
-                                s = (ind2 + att.get(1) + " : begin\n") + s + ind2 + "end\n";
-                            }
-                            else if(!att.get(1).equals(""))
-                            {
-                                ni = nameinfo((String) att.get(0));
-                                s += (ind3 + ni[1] + " <= " + att.get(1) + ";\n");
-                            }
+                        if(t>0)
+                        {
+                            txt += ",\n";
                         }
-                        txt += s;
+                        else
+                        {
+                            t = 1;
+                            txt += "parameter\n";
+                        }
+
+                        txt += (obj.getName() + " = " + stateBw + "'d" + j);
+                        j += 1;
                     }
-                    txt += ind + "endcase\n";
                 }
-                txt += "end\n";
+                txt += ";\n";
+
+                s = stateVar + ", " + nextStateVar + ";\n";
+                if(stateBw > 1)
+                txt += "\nreg  [" + (stateBw -1) + ":0] " + s;
+                else
+                txt += "\nreg  " + s;
+
+                txt += alwaysLine + "\n";
+                txt += resetLine +
+                        "\n" + ind + stateVar + " <= " + resetState +
+                        ";\nelse\n" + ind + stateVar + " <= " + nextStateVar + ";\n";
+
+
+                LinkedList<ObjAttribute> attribList;
+                txt += doTransitBlkInit();
+                txt += "\n" + ind + "case (" + stateVar + ")\n";
+
+                for(i = 1; i < objList.size(); i++)
+                {
+                    obj = (GeneralObj) objList.elementAt(i);
+                    if(pageMode && obj.getPage() != page) continue;
+
+                    if(obj.getType() != 0) // State Type Only
+                    continue;
+
+                    attribList = obj.getAttributeList();
+                    att = attribList.get(0);
+                    s = (String) att.get(1);
+                    txt += ind2 + s + " :\n" + doTransit(s);
+                }
+                txt += ind + "endcase\nend\n";
+
+                s = doOutputBlkInit();
+                if(!s.equals(""))
+                {
+                    txt += s;
+                    if(onStateOut.size() > 0 || onStateOut_hold.size() > 0)
+                    {
+                        txt += "\n" + ind + "case (" + nextStateVar + ")\n";
+                        for(i = 1; i < objList.size(); i++)
+                        {
+                            obj = (GeneralObj) objList.elementAt(i);
+                            if(pageMode && obj.getPage() != page) continue;
+
+                            if(obj.getType() != 0) // State Type Only
+                            continue;
+
+                            attribList = obj.getAttributeList();
+                            s = "";
+                            for (j = attribList.size() -1; j >= 0 ; j--) {
+                                att = attribList.get(j);
+
+                                if(j==0)
+                                {
+                                    if(!s.equals(""))
+                                    s = (ind2 + att.get(1) + " : begin\n") + s + ind2 + "end\n";
+                                }
+                                else if(!att.get(1).equals(""))
+                                {
+                                    ni = nameinfo((String) att.get(0));
+                                    s += (ind3 + ni[1] + " <= " + att.get(1) + ";\n");
+                                }
+                            }
+                            txt += s;
+                        }
+                        txt += ind + "endcase\n";
+                    }
+                    txt += "end\n";
+                }
+
+                if(!pageMode) // single mode
+                    break;
             }
 
             txt += "\nendmodule // Fizzim2\n";
@@ -324,7 +360,7 @@ try {
 
         return new String[]{log, s, bus, width, msb, lsb, order};
     }
-
+/*
     public int getStateNum() {
         int r = 0;
 
@@ -338,10 +374,11 @@ try {
 
         return r;
     }
-
-    private void getOutVar()
+*/
+    private void getOutVar(int page)
     {
         int r=0, t=0;
+        int n=0;
 
         onStateOut.clear();
         onTransitOut.clear();
@@ -353,9 +390,12 @@ try {
         {
             GeneralObj obj = (GeneralObj) objList.elementAt(i);
 
+            if(pageMode && obj.getPage() != page) continue;
+
             if(obj.getType() == 0) // State Type
             {
                 r = 0;
+                n++;
             }
             else if(obj.getType() == 1 || obj.getType() == 2) // Transition Type
             {
@@ -394,6 +434,7 @@ try {
                 }
             }
         }
+        stateNum = n;
 
     }
 
