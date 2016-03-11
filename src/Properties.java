@@ -230,7 +230,7 @@ class MyTableModel extends AbstractTableModel {
         boolean isOnTransit = ((String) value).contains("ontransit");
         boolean isHold = ((String) value).contains("hold");
         if(global && col == 3 && attrib.get(row).get(col).equals("") &&
-                (isOnState || isOnTransit) &&
+                (isOnState || isOnTransit || isHold) &&
                 (attrib.equals(globalList.get(ObjAttribute.TabOutput)) || attrib.equals(globalList.get(ObjAttribute.TabSignal)))
           )
         {
@@ -291,30 +291,61 @@ class MyTableModel extends AbstractTableModel {
             (attrib.equals(globalList.get(ObjAttribute.TabOutput)) || attrib.equals(globalList.get(ObjAttribute.TabSignal)))
         )
         {
+            // total 3*4 = 12 cases
+            //
+            // state -> trans : States
+            // state -> dd    : States
+            // state -> hold  : States
+            //
+            // trans -> state : Transitions
+            // trans -> dd    : Transitions
+            // trans -> hold  : Transitions
+            //
+            // dd    -> state : Transitions
+            // dd    -> trans : Transitions
+            // dd    -> hold  : Transitions
+            //
+            // hold  -> trans : States
+            // hold  -> dd    : States
+            // hold  -> state : Transitions
+            //
             int a = ObjAttribute.TabTransition, b = ObjAttribute.TabState;
-            if(tp.contains("onstate") ||
-                (tp.contains("hold") && isOnTransit) // hold -> ontransit
-              )
-            {a = ObjAttribute.TabState; b = ObjAttribute.TabTransition;}
+            if(tp.contains("ontransit")) // old is ontransit*
+            {
+                if(isOnTransit) // new is ontransit*
+                    b = a;
+            }
+            else if(!isOnState)
+                {a = ObjAttribute.TabState; b = ObjAttribute.TabTransition;}
 
-//System.out.println(tp+"->"+value);
+//System.out.println(tp+"->"+value+":"+a+","+b);
             for(int i = 0; i < globalList.get(a).size(); i++)
             {
                 if(attrib.get(row).getName().equals(globalList.get(a).get(i).getName()))
                 {
                     globalList.get(a).get(i).setUserAtts((String) value);
+                    if(b==a) break;
+
                     if(!tp.equals("hold")) // old NOT hold
                     {
                         globalList.get(b).addLast(globalList.get(a).get(i));
-                        globalList.get(b).getLast().setUserAtts((String) value);
+                    }
+                    else // old is hold
+                    {
+                        for(int j = 0; j < globalList.get(b).size(); j++)
+                            if(attrib.get(row).getName().equals(globalList.get(b).get(j).getName()))
+                                globalList.get(b).get(j).setUserAtts((String) value);
                     }
 
                     if(!isHold) // new NOT hold
+                    {
                         globalList.get(a).remove(i);
+                    }
 
                     break;
                 }
             }
+
         }
 
 

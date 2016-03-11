@@ -40,12 +40,19 @@ public class GenerateHDL {
     String clkName, clkEdge;
     String resetName = null;
     String resetEdge = null;
-    String onStateInit = "";
-    String onTransitInit = "";
     int stateNum;
 
     String stateVar = "state";
-    String nextsVar = "nextstate";
+    String nextStateVar = "nextstate";
+    String holdVar = "nx_";
+    LinkedList<String> onStateOut = new LinkedList<String>();
+    LinkedList<String> onTransitOut = new LinkedList<String>();
+    LinkedList<String> onTransitOut_dd = new LinkedList<String>();
+    LinkedList<String> onStateOut_hold = new LinkedList<String>();
+    LinkedList<String> onTransitOut_hold = new LinkedList<String>();
+    String alwaysLine = "always @(";
+    String resetLine = "";
+
     String ind = "    ";
     String ind2 = ind + ind, ind3 = ind2 + ind, ind4 = ind2 + ind2;
 
@@ -69,8 +76,6 @@ public class GenerateHDL {
             BufferedWriter writer = new BufferedWriter(new FileWriter(file));
             int stateBw = log2(getStateNum());
             String txt = "";
-            String alwaysLine = "always @(";
-            String resetLine = "";
             String resetState = "";
 
             Date currDate = new Date();
@@ -82,11 +87,13 @@ public class GenerateHDL {
             //writer.write("version" + currVer + "\n");
 
             txt += "\nmodule "+ modName +" (\n";
+            getOutVar();
 
             // Port lists
             LinkedList<ObjAttribute> tempList;
             ObjAttribute att;
-            String[] sa;
+            String[] ni;
+            String useratts;
             int i, j;
             int t;
             String s;
@@ -95,47 +102,38 @@ public class GenerateHDL {
             tempList = (LinkedList<ObjAttribute>) globalList.get(ObjAttribute.TabOutput);
             for (i = 0; i < tempList.size(); i++) {
                 att = tempList.get(i);
-                sa = nameinfo((String) att.get(0));
-                txt += ("    output reg" + sa[2] + " " + sa[1] + ",\n");
-
-                s = (String) att.get(7);
-                s = (s.equals("") ? 0 : s) + ";\n";
-                if(((String) att.get(3)).contains("onstate"))
-                {
-                    onStateInit += (ind + sa[1] + " <= " + s);
-                }
-                else
-                    onTransitInit += (ind + sa[1] + " = " + s);
+                ni = nameinfo((String) att.get(0));
+                txt += ("    output reg" + ni[2] + " " + ni[1] + ",\n");
             }
 
             txt += "\n// INPUTS\n";
             tempList = (LinkedList<ObjAttribute>) globalList.get(ObjAttribute.TabInput);
             for (i = 0; i < tempList.size(); i++) {
                 att = tempList.get(i);
-                sa = nameinfo((String) att.get(0));
-                txt += ("    input     " + sa[2] + " " + sa[1] + ",\n");
+                ni = nameinfo((String) att.get(0));
+                txt += ("    input     " + ni[2] + " " + ni[1] + ",\n");
             }
 
             txt += "\n// GLOBAL\n";
             tempList = (LinkedList<ObjAttribute>) globalList.get(ObjAttribute.TabGlobal);
             att = tempList.get(1);
-            sa = nameinfo((String) att.get(1));
-            txt += ("    input     " + sa[2] + " " + sa[1] + ",\n");
-            alwaysLine += ((String) att.get(3)) + " " + sa[1];
+            ni = nameinfo((String) att.get(1));
+            txt += ("    input     " + ni[2] + " " + ni[1] + ",\n");
+            alwaysLine += ((String) att.get(3)) + " " + ni[1];
 
             if (tempList.size() > 1) {
                 att = tempList.get(2);
-                sa = nameinfo((String) att.get(1));
-                txt += ("    input     " + sa[2] + " " + sa[1] + "\n");
+                ni = nameinfo((String) att.get(1));
+                txt += ("    input     " + ni[2] + " " + ni[1] + "\n");
 
                 if(tempList.get(3).equals("posedge"))
                 {
-                    alwaysLine += " or posedge " + sa[1];
-                    resetLine = "if (" + sa[1] + ")";
+                    alwaysLine += " or posedge " + ni[1];
+                    resetLine = "if (" + ni[1] + ")";
                 } else
                 {
-                    alwaysLine += " or negedge " + sa[1];
-                    resetLine = "if (!" + sa[1] + ")";
+                    alwaysLine += " or negedge " + ni[1];
+                    resetLine = "if (!" + ni[1] + ")";
                 }
             }
             alwaysLine += ")";
@@ -150,18 +148,10 @@ public class GenerateHDL {
             tempList = (LinkedList<ObjAttribute>) globalList.get(ObjAttribute.TabSignal);
             for (i = 0; i < tempList.size(); i++) {
                 att = tempList.get(i);
-                sa = nameinfo((String) att.get(0));
-                txt += ("reg " + sa[2] + " " + sa[1] + ";\n");
-
-                s = (String) att.get(7);
-                s = (s.equals("") ? 0 : s) + ";\n";
-                if(((String) att.get(3)).contains("onstate"))
-                {
-                    onStateInit += (ind + sa[1] + " <= " + s);
-                }
-                else
-                    onTransitInit += (ind + sa[1] + " = " + s);
+                ni = nameinfo((String) att.get(0));
+                txt += ("reg " + ni[2] + " " + ni[1] + " = 0;\n");
             }
+
 
             GeneralObj obj;
 
@@ -189,7 +179,7 @@ public class GenerateHDL {
             }
             txt += ";\n";
 
-            s = stateVar + "," + nextsVar + ";\n";
+            s = stateVar + "," + nextStateVar + ";\n";
             if(stateBw > 1)
             txt += "\nreg  [" + (stateBw -1) + ":0] " + s;
             else
@@ -197,16 +187,13 @@ public class GenerateHDL {
 
             txt += alwaysLine + "\n";
             txt += resetLine +
-                    "\n    " + stateVar + " <= " + resetState +
-                    ";\nelse\n    " + stateVar + " <= " + nextsVar + ";\n";
+                    "\n" + ind + stateVar + " <= " + resetState +
+                    ";\nelse\n" + ind + stateVar + " <= " + nextStateVar + ";\n";
 
 
             LinkedList<ObjAttribute> attribList;
-            txt += "\n// Combinational always block\n";
-            txt += "always @* begin\n";
-            txt += "    " + nextsVar + " = " + stateVar + ";\n";
-            txt += onTransitInit;
-            txt += "    case (" + stateVar + ")\n";
+            txt += doTransitBlkInit();
+            txt += "\n" + ind + "case (" + stateVar + ")\n";
 
             for(i = 1; i < objList.size(); i++)
             {
@@ -219,40 +206,43 @@ public class GenerateHDL {
                 s = (String) att.get(1);
                 txt += ind2 + s + " :\n" + doTransit(s);
             }
-            txt += "    endcase\nend\n";
+            txt += ind + "endcase\nend\n";
 
-            txt += "\n// Sequential always block\n";
-            txt += alwaysLine + "\n";
-            txt += resetLine + " begin\n";
-            txt += onStateInit + "end\nelse begin\n";
-            txt += onStateInit;
-            txt += ind + "case (" + nextsVar + ")\n";
-
-            for(i = 1; i < objList.size(); i++)
+            s = doOutputBlkInit();
+            if(!s.equals(""))
             {
-                obj = (GeneralObj) objList.elementAt(i);
-                if(obj.getType() != 0) // State Type Only
-                continue;
-
-                attribList = obj.getAttributeList();
-                s = "";
-                for (j = attribList.size() -1; j >= 0 ; j--) {
-                    att = attribList.get(j);
-
-                    if(j==0)
-                    {
-                        if(!s.equals(""))
-                        s = (ind2 + att.get(1) + " : begin\n") + s + "        end\n";
-                    }
-                    else if(!att.get(1).equals(""))
-                    {
-                        sa = nameinfo((String) att.get(0));
-                        s += (ind3 + sa[1] + " <= " + att.get(1) + ";\n");
-                    }
-                }
                 txt += s;
+                if(onStateOut.size() > 0 || onStateOut_hold.size() > 0)
+                {
+                    txt += "\n" + ind + "case (" + nextStateVar + ")\n";
+                    for(i = 1; i < objList.size(); i++)
+                    {
+                        obj = (GeneralObj) objList.elementAt(i);
+                        if(obj.getType() != 0) // State Type Only
+                        continue;
+
+                        attribList = obj.getAttributeList();
+                        s = "";
+                        for (j = attribList.size() -1; j >= 0 ; j--) {
+                            att = attribList.get(j);
+
+                            if(j==0)
+                            {
+                                if(!s.equals(""))
+                                s = (ind2 + att.get(1) + " : begin\n") + s + ind2 + "end\n";
+                            }
+                            else if(!att.get(1).equals(""))
+                            {
+                                ni = nameinfo((String) att.get(0));
+                                s += (ind3 + ni[1] + " <= " + att.get(1) + ";\n");
+                            }
+                        }
+                        txt += s;
+                    }
+                    txt += ind + "endcase\n";
+                }
+                txt += "end\n";
             }
-            txt += "    endcase\nend\n";
 
             txt += "\nendmodule // Fizzim2\n";
             writer.write(txt);
@@ -349,15 +339,116 @@ try {
         return r;
     }
 
+    private void getOutVar()
+    {
+        int r=0, t=0;
 
-    public String doTransit(String stateName)
+        onStateOut.clear();
+        onTransitOut.clear();
+        onTransitOut_dd.clear();
+        onStateOut_hold.clear();
+        onTransitOut_hold.clear();
+
+        for(int i = 1; i < objList.size(); i++)
+        {
+            GeneralObj obj = (GeneralObj) objList.elementAt(i);
+
+            if(obj.getType() == 0) // State Type
+            {
+                r = 0;
+            }
+            else if(obj.getType() == 1 || obj.getType() == 2) // Transition Type
+            {
+                r = 2;
+            }
+            LinkedList<ObjAttribute> attribList = obj.getAttributeList();
+
+            for (int j = 1; j < attribList.size(); j++)
+            {
+                ObjAttribute att = attribList.get(j);
+                String name = (String) att.get(0);
+                String value = (String) att.get(1);
+                String type = (String) att.get(3);
+                String useratts = (String) att.get(6);
+
+                if(!value.equals("") && 
+                    (type.equals("output") || type.equals("signal"))
+                  )
+                {
+//System.out.print(name+":"+r+"=");
+                    if(useratts.contains("hold"))
+                        t=r+1;
+                    else if(useratts.contains("-dd"))
+                        t=r+2;
+                    else
+                        t=r;
+//System.out.print(t+"\n");
+                    switch(t)
+                    {
+                        case 0 : onStateOut.add(name); break;
+                        case 1 : onStateOut_hold.add(name); break;
+                        case 2 : onTransitOut.add(name); break;
+                        case 3 : onTransitOut_hold.add(name); break;
+                        case 4 : onTransitOut_dd.add(name);
+                    }
+                }
+            }
+        }
+
+    }
+
+
+    private String doTransitBlkInit()
+    {
+        String txt = new String();
+        String[] ni;
+        int i;
+
+        for (i = 0; i < onTransitOut_hold.size(); i++) {
+            if(i==0)
+                txt += "\n// ontransit-hold definitions\n";
+
+            ni = nameinfo(onTransitOut_hold.get(i));
+            txt += ("reg " + ni[2] + " " + holdVar + ni[1] + ";\n");
+        }
+        for (i = 0; i < onTransitOut_dd.size(); i++) {
+            if(i==0)
+                txt += "\n// ontransit-dd definitions\n";
+
+            ni = nameinfo(onTransitOut_dd.get(i));
+            txt += ("reg " + ni[2] + " " + holdVar + ni[1] + ";\n");
+        }
+
+        txt += "\n// Transition combinational always block\n";
+        txt += "always @* begin\n";
+        txt += ind + nextStateVar + " = " + stateVar + ";\n";
+
+        for (i = 0; i < onTransitOut.size(); i++) {
+            ni = nameinfo(onTransitOut.get(i));
+            txt += (ind + ni[1] + " = 0;\n");
+        }
+        for (i = 0; i < onTransitOut_hold.size(); i++) {
+            ni = nameinfo(onTransitOut_hold.get(i));
+            txt += (ind + holdVar + ni[1] + " = " + ni[1] + ";\n");
+        }
+        for (i = 0; i < onTransitOut_dd.size(); i++) {
+            ni = nameinfo(onTransitOut_dd.get(i));
+            txt += (ind + holdVar + ni[1] + " = 0;\n");
+        }
+
+        return txt;
+    }
+
+
+    private String doTransit(String stateName)
     {
         String txt = new String();
         String startState = new String();
         String endState = new String();
         String eqn = "1", pri = "0";
         LinkedList<String> list = new LinkedList<String>();
-        String s;
+        String s, useratts;
+        String[] ni;
         boolean t;
         int p1, p2;
 
@@ -382,12 +473,12 @@ try {
             continue;
 
             LinkedList<ObjAttribute> attribList = obj.getAttributeList();
-            s = ("begin\n" + ind4 + nextsVar + " = " + endState + ";\n");
+            s = ("begin\n" + ind4 + nextStateVar + " = " + endState + ";\n");
             for (int j = 1; j < attribList.size(); j++) {
 
                 ObjAttribute att = attribList.get(j);
 
-                if(j==1) // Append transition assignment
+                if(j==1) // Append condition assignment
                 {
                     eqn = (String) att.get(1);
                     if(eqn.equals("1"))
@@ -402,10 +493,16 @@ try {
                             pri = "0";
                     }
                 }
-                else // Append output assignment
+                else if(!att.get(1).equals("")) // Append output assignment
                 {
-                    if(!att.get(1).equals(""))
-                        s += (ind4 + att.get(0) + " = " + att.get(1) + ";\n");
+                    ni = nameinfo((String) att.get(0));
+                    useratts = (String) att.get(6);
+                    if(useratts.contains("hold") || useratts.contains("-dd"))
+                        s += ind4 + holdVar + ni[1];
+                    else
+                        s += ind4 + ni[1];
+
+                    s += (" = " + att.get(1) + ";\n");
                 }
             }
             s += ind3 + "end\n";
@@ -449,5 +546,61 @@ try {
 
         return txt;
     }
+
+
+    private String doOutputBlkInit()
+    {
+        String txt = new String();
+        String[] ni;
+        int i;
+
+        if(onStateOut.size() == 0 &&
+           onStateOut_hold.size() == 0 &&
+           onTransitOut_hold.size() == 0 &&
+           onTransitOut_dd.size() == 0
+        ) return txt;
+
+        txt += "\n// Output sequential always block\n";
+        txt += alwaysLine + "\n";
+        txt += resetLine + " begin\n";
+
+        for (i = 0; i < onTransitOut_hold.size(); i++) {
+            ni = nameinfo(onTransitOut_hold.get(i));
+            txt += (ind + ni[1] + " <= 0;\n");
+        }
+        for (i = 0; i < onTransitOut_dd.size(); i++) {
+            ni = nameinfo(onTransitOut_dd.get(i));
+            txt += (ind + ni[1] + " <= 0;\n");
+        }
+        for (i = 0; i < onStateOut.size(); i++) {
+            ni = nameinfo(onStateOut.get(i));
+            txt += (ind + ni[1] + " <= 0;\n");
+        }
+        for (i = 0; i < onStateOut_hold.size(); i++) {
+            if(onTransitOut_hold.contains(onStateOut_hold.get(i))) break;
+
+            ni = nameinfo(onStateOut_hold.get(i));
+            txt += (ind + ni[1] + " <= 0;\n");
+        }
+
+        txt += "end\nelse begin\n";
+
+        for (i = 0; i < onTransitOut_hold.size(); i++) {
+            ni = nameinfo(onTransitOut_hold.get(i));
+            txt += (ind + ni[1] + " <= " + holdVar + ni[1] + ";\n");
+        }
+        for (i = 0; i < onTransitOut_dd.size(); i++) {
+            ni = nameinfo(onTransitOut_dd.get(i));
+            txt += (ind + ni[1] + " <= " + holdVar + ni[1] + ";\n");
+        }
+        for (i = 0; i < onStateOut.size(); i++) {
+            ni = nameinfo(onStateOut.get(i));
+            txt += (ind + ni[1] + " <= 0;\n");
+        }
+
+
+        return txt;
+    }
+
 
 }
