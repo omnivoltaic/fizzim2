@@ -1904,7 +1904,7 @@ class GlobalProperties extends javax.swing.JDialog {
                 GPOption3.setText("Output");
                 GPOption4.setVisible(true);
                 GPOption4.setText("Multibit Output");
-                GPOption5.setVisible(true);
+                GPOption5.setVisible(false);
                 GPOption5.setText("Flag");
                 GPOption6.setVisible(false);
             }
@@ -1919,15 +1919,15 @@ class GlobalProperties extends javax.swing.JDialog {
             if(tab == 4)
             {
                 currTable = GPTableTrans;
-                GPOption3.setVisible(true);
+                GPOption3.setVisible(false);
                 GPOption3.setText("Graycode");
                 if(checkNames(currTable,"graycode"))
                     GPOption3.setEnabled(false);
                 else
                     GPOption3.setEnabled(true);
-                GPOption4.setVisible(true);
+                GPOption4.setVisible(false);
                 GPOption4.setText("Output");
-                GPOption5.setVisible(true);
+                GPOption5.setVisible(false);
                 GPOption5.setText("Priority");
                 if(checkNames(currTable,"priority"))
                     GPOption5.setEnabled(false);
@@ -1942,7 +1942,8 @@ class GlobalProperties extends javax.swing.JDialog {
                 GPOption3.setVisible(true);
                 GPOption3.setEnabled(true);
                 GPOption3.setText("Signal");
-                GPOption4.setVisible(false);
+                GPOption4.setVisible(true);
+                GPOption4.setText("Multibit Signal");
                 GPOption5.setVisible(false);
                 GPOption6.setVisible(false);
             }
@@ -2116,6 +2117,14 @@ class GlobalProperties extends javax.swing.JDialog {
             {
                 globalLists.get(4).add(new ObjAttribute("", "", 1,"output", "",Color.black,"","",
                                 editable));
+
+                currTable.revalidate();
+            }
+            if(currTab == 5)
+            {
+                globalLists.get(5).add(new ObjAttribute("sig[1:0]", "", 2, "","",Color.black,"","",
+                    editable));
+                currTable.setValueAt("onstate", globalLists.get(5).size()-1, 3);
 
                 currTable.revalidate();
             }
