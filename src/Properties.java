@@ -1876,7 +1876,8 @@ class GlobalProperties extends javax.swing.JDialog {
                 currTable = GPTableMachine;
                 GPOption3.setVisible(true);
                 GPOption3.setText("Reset");
-                if(checkNames(currTable,"reset_state") && checkNames(currTable,"reset_signal"))
+                //if(checkNames(currTable,"reset_state") && checkNames(currTable,"reset_signal"))
+                if(checkNames(currTable,"reset_signal"))
                     GPOption3.setEnabled(false);
                 else
                     GPOption3.setEnabled(true);
@@ -1960,7 +1961,8 @@ class GlobalProperties extends javax.swing.JDialog {
                 ObjAttribute obj = list.get(rows[i]);
                 if(obj.getEditable(0) != ObjAttribute.ABS)
                 {
-                    if((obj.getName().equals("reset_signal") || obj.getName().equals("reset_state")) && currTab == 0)
+                    //if((obj.getName().equals("reset_signal") || obj.getName().equals("reset_state")) && currTab == 0)
+                    if(obj.getName().equals("reset_signal") && currTab == 0)
                         GPOption3.setEnabled(true);
                     if(obj.getName().equals("graycode") && currTab == 4)
                         GPOption3.setEnabled(true);
@@ -2031,11 +2033,11 @@ class GlobalProperties extends javax.swing.JDialog {
                     globalLists.get(0).add(new ObjAttribute("reset_signal", "rst_n", 0, "negedge","",Color.black,"","",
                                         editable));
                 }
-                if(!checkNames(currTable,"reset_state"))
+                /*if(!checkNames(currTable,"reset_state"))
                 {
                     globalLists.get(0).add(new ObjAttribute("reset_state", "state0", 0, "","",Color.black,"","",
                             editable));
-                }
+                }*/
 
                 GPOption3.setEnabled(false);
                 currTable.revalidate();

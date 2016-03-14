@@ -875,6 +875,11 @@ public void updateTransitions()
             menuItem.addActionListener(this);
             popup.add(menuItem);
             popup.add(pages);
+
+            menuItem = new JMenuItem("Set as Reset");
+            menuItem.setMnemonic(KeyEvent.VK_R);
+            menuItem.addActionListener(this);
+            popup.add(menuItem);
         }
         if(obj != null && obj.getType() == 1)
         {
@@ -1118,6 +1123,34 @@ public void updateTransitions()
                         JOptionPane.ERROR_MESSAGE);
             }
         }
+        else if(input == "Set as Reset")
+        {
+            Vector<StateObj> stateObjs = new Vector<StateObj>();
+            ObjAttribute objAttr;
+            for(int i = 1; i < objList.size(); i++)
+            {
+                GeneralObj obj = (GeneralObj)objList.get(i);
+                if(pageMode && obj.getPage() != currPage) continue;
+
+                if(obj.getType() == 0)
+                {
+                    objAttr = obj.getAttributeList().get(0);
+                    objAttr.setType("def_type");
+                    ((StateObj) obj).setReset(false);
+                }
+            }
+
+            objAttr = tempObj.getAttributeList().get(0);
+            objAttr.setType("reset");
+            objAttr.setEditable(3, ObjAttribute.LOCAL);
+            ((StateObj) tempObj).setReset(true);
+
+            tempObj.setModified(false);
+            tempObj.updateObj();
+            commitUndo();
+            unselectObjs();
+
+        }
         else if(input == "New Free Text")
         {
             GeneralObj text = new TextObj("",rXTemp,rYTemp,currPage);
@@ -1233,14 +1266,14 @@ public void updateTransitions()
 
     // update state attribute lists when global list is updated
     public void updateStates() {
-        String resetName = null;
+        //String resetName = null;
         for(int j = 0; j < globalList.get(0).size(); j++)
         {
-             if(globalList.get(0).get(j).getName().equals("reset_state"))
-                 resetName = globalList.get(0).get(j).getValue();
+            //if(globalList.get(0).get(j).getName().equals("reset_state"))
+            //    resetName = globalList.get(0).get(j).getValue();
 
-             if(globalList.get(0).get(j).getName().equals("page_mode"))
-                 pageMode = globalList.get(0).get(j).getValue().equals("multi");
+            if(globalList.get(0).get(j).getName().equals("page_mode"))
+                pageMode = globalList.get(0).get(j).getValue().equals("multi");
         }
         for(int i = 1; i < objList.size(); i++)
         {
@@ -1249,7 +1282,8 @@ public void updateTransitions()
             {
                 StateObj s = (StateObj) o;
                 s.updateAttrib(globalList,3);
-                if(s.getName().equals(resetName))
+                //if(s.getName().equals(resetName))
+                if(o.getAttributeList().get(0).getType().equals("reset"))
                     s.setReset(true);
                 else
                     s.setReset(false);

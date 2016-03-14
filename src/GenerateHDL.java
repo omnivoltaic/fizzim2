@@ -55,6 +55,7 @@ public class GenerateHDL {
     LinkedList<String> onTransitOut_hold = new LinkedList<String>();
     String alwaysLine = "always @(";
     String resetLine = "";
+    String resetState = "";
 
     String ind = "    ";
     String ind2 = ind + ind, ind3 = ind2 + ind, ind4 = ind2 + ind2;
@@ -79,7 +80,6 @@ public class GenerateHDL {
         try {
             BufferedWriter writer = new BufferedWriter(new FileWriter(file));
             String txt = "";
-            String resetState = "";
 
             Date currDate = new Date();
             long currTime = currDate.getTime();
@@ -144,10 +144,10 @@ public class GenerateHDL {
                     }
                     alwaysLine += ")";
                 }
-                else if (s.equals("reset_state"))
+                /*else if (s.equals("reset_state"))
                 {
                     resetState = (String) att.get(1);
-                }
+                }*/
                 else if (s.equals("page_mode"))
                 {
                     pageMode = att.get(1).equals("multi");
@@ -401,7 +401,14 @@ try {
             {
                 r = 2;
             }
+            else
+                continue;
+
             LinkedList<ObjAttribute> attribList = obj.getAttributeList();
+            if(obj.getType() == 0 && attribList.get(0).getType().equals("reset")) // Reset State
+            {
+                resetState = attribList.get(0).getValue();
+            }
 
             for (int j = 1; j < attribList.size(); j++)
             {
