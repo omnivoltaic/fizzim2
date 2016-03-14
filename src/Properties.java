@@ -1433,7 +1433,7 @@ class StateProperties extends javax.swing.JDialog {
             state.setStateModifiedTrue();
             drawArea.updateTransitions();
             drawArea.updateStates();
-            drawArea.updateGlobalTable();
+            //drawArea.updateGlobalTable();
             drawArea.commitUndo();
             dispose();
         }
@@ -2190,7 +2190,7 @@ class GlobalProperties extends javax.swing.JDialog {
             {
             drawArea.updateStates();
             drawArea.updateTrans();
-            drawArea.updateGlobalTable();
+            //drawArea.updateGlobalTable();
             drawArea.commitUndo();
             dispose();
             }

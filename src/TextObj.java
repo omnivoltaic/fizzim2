@@ -252,7 +252,7 @@ public class TextObj extends GeneralObj {
     public void paintComponent(Graphics g) {
 
         // need to set font metrics, regardless of whether the text list is on current page
-        if(globalTable && tableVis)
+        /*if(globalTable && tableVis)
         {
             Font tempFont = g.getFont();
             g.setFont(tableFont);
@@ -279,7 +279,7 @@ public class TextObj extends GeneralObj {
                 tW = col1W+col2W+col3W+col4W;
             }
             g.setFont(tempFont);
-        }
+        }*/
 
         if(myPage == currPage)
         {
@@ -321,32 +321,32 @@ public class TextObj extends GeneralObj {
 
             }
 
-                    // Since box corners are needed by setSelectStatus, set
-                    // them here.
-                    selectboxLeft = txbase-4;
-                    selectboxRight = txbase+tW+3;
-                    selectboxBottom = tybase+yoffset+4;
-                    selectboxTop = tybase-tH+2;
+            // Since box corners are needed by setSelectStatus, set
+            // them here.
+            selectboxLeft = txbase-4;
+            selectboxRight = txbase+tW+3;
+            selectboxBottom = tybase+yoffset+4;
+            selectboxTop = tybase-tH+2;
 
-                  //if object is selected, draw red selection box around it
-                  if(selectStatus != 0 || parentSelected) {
-                    g.setColor(Color.red);
+            //if object is selected, draw red selection box around it
+            if(selectStatus != 0 || parentSelected) {
+                g.setColor(Color.red);
 
                 if(!globalTable) {
-                      g.drawLine(selectboxLeft,selectboxTop,selectboxRight,selectboxTop);  // Top
-                      g.drawLine(selectboxLeft,selectboxBottom,selectboxRight,selectboxBottom);  // Bottom
-                      g.drawLine(selectboxLeft,selectboxTop,selectboxLeft,selectboxBottom);  // Left
-                      g.drawLine(selectboxRight,selectboxTop,selectboxRight,selectboxBottom);  // Right
+                    g.drawLine(selectboxLeft,selectboxTop,selectboxRight,selectboxTop);  // Top
+                    g.drawLine(selectboxLeft,selectboxBottom,selectboxRight,selectboxBottom);  // Bottom
+                    g.drawLine(selectboxLeft,selectboxTop,selectboxLeft,selectboxBottom);  // Left
+                    g.drawLine(selectboxRight,selectboxTop,selectboxRight,selectboxBottom);  // Right
 
-                    } else if (tableVis) {
-                      g.drawLine(tX-4,tY+4+tH-(tH/col1.size()),tX+tW+3,tY+4+tH-(tH/col1.size()));
-                      g.drawLine(tX+tW+3,tY+4+tH-(tH/col1.size()),tX+tW+3,tY-(tH/col1.size())+2);
-                      g.drawLine(tX+tW+3,tY-(tH/col1.size())+2,tX-4,tY-(tH/col1.size())+2);
-                      g.drawLine(tX-4,tY+4+tH-(tH/col1.size()),tX-4,tY-(tH/col1.size())+2);
-                   }
+                } else if (tableVis) {
+                    g.drawLine(tX-4,tY+4+tH-(tH/col1.size()),tX+tW+3,tY+4+tH-(tH/col1.size()));
+                    g.drawLine(tX+tW+3,tY+4+tH-(tH/col1.size()),tX+tW+3,tY-(tH/col1.size())+2);
+                    g.drawLine(tX+tW+3,tY-(tH/col1.size())+2,tX-4,tY-(tH/col1.size())+2);
+                    g.drawLine(tX-4,tY+4+tH-(tH/col1.size()),tX-4,tY-(tH/col1.size())+2);
+                }
 
+            }
         }
-              }
     }
 
     public boolean setSelectStatus(int x, int y) {

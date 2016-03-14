@@ -761,7 +761,7 @@ public class Pref extends javax.swing.JDialog {
             drawArea.setDefLTC(tempLTC);
             drawArea.setStateW(Integer.parseInt(SPWField.getText()));
             drawArea.setStateH(Integer.parseInt(SPHField.getText()));
-            drawArea.updateGlobalTable();
+            //drawArea.updateGlobalTable();
 
 
 

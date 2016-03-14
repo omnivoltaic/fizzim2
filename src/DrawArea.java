@@ -132,9 +132,9 @@ public class DrawArea extends JPanel implements MouseListener, MouseMotionListen
         objList.add(globalList);
 
 
-        TextObj globalTable = new TextObj(10,10,globalList,tableFont);
+        //TextObj globalTable = new TextObj(10,10,globalList,tableFont);
 
-        objList.add(globalTable);
+        //objList.add(globalTable);
         undoList.add(objList);
         currUndoIndex++;
 
@@ -169,7 +169,7 @@ public class DrawArea extends JPanel implements MouseListener, MouseMotionListen
         }
         if(loading)
         {
-            updateGlobalTable();
+            //updateGlobalTable();
             loading = false;
             repaint();
         }
@@ -211,7 +211,7 @@ public class DrawArea extends JPanel implements MouseListener, MouseMotionListen
         globalList = (LinkedList<LinkedList<ObjAttribute>>) objList.get(0);
         updateStates();
         updateTrans();
-        updateGlobalTable();
+        //updateGlobalTable();
         FizzimGui fgui = (FizzimGui) frame;
         fgui.updateGlobal(globalList);
         repaint();
@@ -238,7 +238,7 @@ public class DrawArea extends JPanel implements MouseListener, MouseMotionListen
         globalList = (LinkedList<LinkedList<ObjAttribute>>) objList.get(0);
         updateStates();
         updateTrans();
-        updateGlobalTable();
+        //updateGlobalTable();
         FizzimGui fgui = (FizzimGui) frame;
         fgui.updateGlobal(globalList);
         repaint();
@@ -1429,7 +1429,7 @@ public void updateTransitions()
             // make sure global table isnt removed
             if(obj.getType() == 3 && objsSelected)
             {
-                TextObj txt = (TextObj) obj;
+                /*TextObj txt = (TextObj) obj;
                 if(txt.getGlobalTable() && txt.getSelectStatus() != 0)
                 {
                     String error = "To remove global table, go to 'File->Preferences'";
@@ -1437,7 +1437,7 @@ public void updateTransitions()
                             error,
                             "error",
                             JOptionPane.ERROR_MESSAGE);
-                }
+                }*/
                 // remove from selected indices
                 for(int j = 0; j < selectedIndices.size(); j++)
                 {
@@ -1465,7 +1465,7 @@ public void updateTransitions()
 
                 if(obj.getType() == 3)
                 {
-                    TextObj txt = (TextObj) obj;
+                    /*TextObj txt = (TextObj) obj;
                     if(txt.getGlobalTable() && txt.getSelectStatus() != 0)
                     {
                         String error = "To remove global table, go to 'File->Preferences'";
@@ -1474,7 +1474,7 @@ public void updateTransitions()
                             "error",
                                 JOptionPane.ERROR_MESSAGE);
                     }
-                    else
+                    else*/
                     {
                         objList.remove(i);
                         commitUndo();
@@ -1587,14 +1587,14 @@ public void updateTransitions()
                 TransitionObj t = (TransitionObj) s;
                 t.makeConnections(objList);
             }
-            if(s.getType() == 3)
+            /*if(s.getType() == 3)
             {
                 TextObj textObj = (TextObj) s;
                 if(textObj.getGlobalTable())
                 {
                     textObj.loadGlobalTable(tableFont);
                 }
-            }
+            }*/
         }
         updateStates();
         updateTrans(); // Added by pz, but no sure why (initial paint of flags is incorrect without it)
@@ -1611,9 +1611,9 @@ public void updateTransitions()
         globalList = global;
         objList.clear();
         objList.add(globalList);
-        TextObj globalTable = new TextObj(10,10,globalList,tableFont);
+        //TextObj globalTable = new TextObj(10,10,globalList,tableFont);
 
-        objList.add(globalTable);
+        //objList.add(globalTable);
         undoList.clear();
         undoList.add(objList);
         tempList.clear();
@@ -1748,7 +1748,7 @@ public void updateTransitions()
         return fgui.getPageName(page);
     }
 
-    public void updateGlobalTable() {
+    /*public void updateGlobalTable() {
         for(int i = 1; i < objList.size(); i++)
         {
             GeneralObj obj = (GeneralObj) objList.get(i);
@@ -1761,7 +1761,7 @@ public void updateTransitions()
         }
         repaint();
 
-    }
+    }*/
 
     public void setFont(Font font)
     {
