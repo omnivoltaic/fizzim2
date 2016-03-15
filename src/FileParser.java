@@ -399,7 +399,7 @@ public class FileParser {
         int eStateIndex = Integer.parseInt(tempList3.get(i+35));
         int page = Integer.parseInt(tempList3.get(i+38));
 
-        if(ver >= 80316)
+        //if(ver >= 80316)
         {
             currColor = new Color(Integer.parseInt(tempList3.get(i+41)));
             i += 3;
@@ -464,7 +464,7 @@ public class FileParser {
             reset1 = false;
 
         int page = Integer.parseInt(tempList3.get(i+17));
-        if(ver >= 80316)
+        //if(ver >= 80316)
             currColor = new Color(Integer.parseInt(tempList3.get(i+20)));
         String name = newList.get(0).getValue();
         StateObj state = new StateObj(x0,y0,x1,y1,newList,name,reset1, page, currColor);
@@ -604,7 +604,7 @@ public class FileParser {
                         String resetval = "";
                         String resetvalStatus = "GLOBAL_VAR";
 
-            if(ver >= 70925)
+            //if(ver >= 70925)
             {
 
                                 pointer += 1; // go to value
@@ -620,7 +620,7 @@ public class FileParser {
                                 pointer += 3; // skip over end
             }
 
-            if(ver >= 110222)
+            //if(ver >= 110222)
             {
                                 pointer += 1; // go to value
                     useratts = list.get(pointer); // includes the offset from ver changes above (while will always be there)
@@ -629,7 +629,7 @@ public class FileParser {
                                 pointer += 3; // skip over end
             }
 
-            if(ver >= 110302)
+            //if(ver >= 110302)
             {
                                 pointer += 1; // go to value
                                 resetval = list.get(pointer); // includes the offset from ver changes above (while will always be there)

@@ -671,7 +671,17 @@ public class FizzimGui extends javax.swing.JFrame {
 
     protected void HelpItemHelpActionPerformed(ActionEvent evt) {
 
-        String url = "http://www.docs.fizzim.com/fizzim_tutorial_20140227.htm";
+        String url = "http://www.jianshu.com/p/3562a8a72cb7";
+        try {
+            java.net.URI uri = new java.net.URI(url);
+
+            try {
+                java.awt.Desktop.getDesktop().browse(uri);
+            } catch (IOException e) {
+            }
+        } catch (java.net.URISyntaxException e) {
+        }
+        /*
         JDialog helpWindow = new JDialog(this,"Help - " + url,false);
         JEditorPane htmlPane = null;
         boolean load = true;
@@ -687,7 +697,7 @@ public class FizzimGui extends javax.swing.JFrame {
                 // if error occurs loading local copy
                 load = false;
                 JOptionPane.showMessageDialog(this,
-                        "Could not load help.  Try http://www.fizzim.com/help.html", "Error",
+                        "Could not load help.  Try\n\n" + url + "\n\nOr searching 'Fizzim2' in http://jianshu.com    \n\n", "Error",
                         JOptionPane.ERROR_MESSAGE);
             }
         }
@@ -701,7 +711,7 @@ public class FizzimGui extends javax.swing.JFrame {
             helpWindow.add(scroll);
             helpWindow.pack();
             helpWindow.setVisible(true);
-        }
+        }*/
 
     }
 
@@ -2008,30 +2018,43 @@ public class FizzimGui extends javax.swing.JFrame {
         public SplashWindow(String filename, FizzimGui fzim, int waitTime)
         {
             //splash icon
-            JLabel label = new JLabel(new ImageIcon(getClass().getResource("splash.png")));
-            Dimension labelSize = label.getPreferredSize();
-            label.setBounds(0, 0,(int) labelSize.getWidth(), (int)labelSize.getHeight());
+            //JLabel label = new JLabel(new ImageIcon(getClass().getResource("splash.png")));
+            JLabel label = new JLabel("Fizzim2");
+            label.setFont(new Font("Arial",Font.BOLD,22));
+            //Dimension labelSize = label.getPreferredSize();
+            Dimension labelSize = new Dimension(300,200);
+            label.setBounds(10, 0, 150, 100);
 
-            JLabel vers = new JLabel("v" + currVer);
-            vers.setFont(new Font("Arial",Font.BOLD,22));
+            JLabel vers = new JLabel("build " + currVer);
+            //vers.setFont(new Font("Arial",Font.BOLD,22));
+            vers.setFont(new Font("Arial",0,16));
             Dimension versSize = vers.getPreferredSize();
-            vers.setBounds(176, 65,(int) versSize.getWidth(), (int)versSize.getHeight());
+            //vers.setBounds(176, 65,(int) versSize.getWidth(), (int)versSize.getHeight());
+            vers.setBounds(150, 0, 150, 100);
+
+            String s = "\n Git :  https://github.com/balanx/fizzim2/\n";
+            s += "\n This project is forked from 'www.fizzim.com'.\n";
+            JTextArea txt = new JTextArea(s);
+            Dimension txtSize = txt.getPreferredSize();
+            txt.setBounds(2, 100, 296, (int)txtSize.getHeight());
 
             Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 
             JLayeredPane layer = new JLayeredPane();
+            layer.setBorder(BorderFactory.createEtchedBorder());
             layer.setPreferredSize(labelSize);
             layer.setOpaque(false);
             layer.add(label, new Integer(0));
             layer.add(vers, new Integer(1));
+            layer.add(txt, new Integer(2));
             getContentPane().add(layer);
 
             pack();
-            layer.setLocation(screenSize.width/2 - (labelSize.width/2),
-                    screenSize.height/2 - (labelSize.height/2));
+            //layer.setLocation(screenSize.width/2 - (labelSize.width/2),
+            //        screenSize.height/2 - (labelSize.height/2));
 
             setLocation(screenSize.width/2 - (labelSize.width/2),
-                        screenSize.height/2 - (labelSize.height/2));
+                        screenSize.height/2 - (labelSize.height));
             addMouseListener(new MouseAdapter()
                 {
                     public void mousePressed(MouseEvent e)
