@@ -35,6 +35,7 @@ public class GenerateHDL {
 
     File file;
     javax.swing.JTextArea consoleText;
+    String currVer;
     String modName;
     String path;
     String clkName, clkEdge;
@@ -60,13 +61,14 @@ public class GenerateHDL {
     String ind = "    ";
     String ind2 = ind + ind, ind3 = ind2 + ind, ind4 = ind2 + ind2;
 
-    public GenerateHDL(String f, int p, DrawArea draw, javax.swing.JTextArea cons)
+    public GenerateHDL(String f, int p, String ver, DrawArea draw, javax.swing.JTextArea cons)
     {
         String s;
         file = new File(f);
         s = file.getName();
         modName = s.substring(0, s.length() - 2);
         pageNum = p;
+        currVer = ver;
 
         globalList = draw.globalList;
         objList = draw.objList;
@@ -85,9 +87,10 @@ public class GenerateHDL {
             long currTime = currDate.getTime();
             DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT);
             DateFormat dt = DateFormat.getTimeInstance(DateFormat.MEDIUM);
-            txt = ("// File last modified by Fizzim2 at " + dt.format(currTime)
-                    + " on " + df.format(currDate) + "\n");
-            //writer.write("version" + currVer + "\n");
+
+            txt = "// File last modified by Fizzim2 (build ";
+            txt += currVer + ") at " + dt.format(currTime)
+                    + " on " + df.format(currDate) + "\n";
 
             txt += "\nmodule "+ modName +" (\n";
 

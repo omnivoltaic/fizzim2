@@ -267,7 +267,7 @@ public class FizzimGui extends javax.swing.JFrame {
         });
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
-        setTitle("Fizzim");
+        setTitle("Fizzim2");
         addComponentListener(new java.awt.event.ComponentAdapter() {
             public void componentResized(java.awt.event.ComponentEvent evt) {
                 formComponentResized(evt);
@@ -920,10 +920,10 @@ public class FizzimGui extends javax.swing.JFrame {
             }
             if(FileSaveAction.getSelected())
                 if(tryToSave(FileSaveAction.getSelectedFile(), "fzm", true))
-                    setTitle("Fizzim - " + currFile.getName());
+                    setTitle("Fizzim2 - " + currFile.getName());
 
             } else {
-            setTitle("Fizzim - " + currFile.getName());
+            setTitle("Fizzim2 - " + currFile.getName());
             saveFile(currFile);
         }
     }//GEN-LAST:event_FileItemSaveActionPerformed
@@ -990,7 +990,7 @@ public class FizzimGui extends javax.swing.JFrame {
 
                 int n = JOptionPane
                         .showOptionDialog(this, "Save file before closing?",
-                                "Fizzim", JOptionPane.YES_NO_CANCEL_OPTION,
+                                "Fizzim2", JOptionPane.YES_NO_CANCEL_OPTION,
                                 JOptionPane.QUESTION_MESSAGE, null, options,
                                 options[0]);
                 if (n == JOptionPane.YES_OPTION) {
@@ -1013,7 +1013,7 @@ public class FizzimGui extends javax.swing.JFrame {
 
                 int n = JOptionPane
                         .showOptionDialog(this, "Save changes to "
-                                + currFile.getName() + "?", "Fizzim",
+                                + currFile.getName() + "?", "Fizzim2",
                                 JOptionPane.YES_NO_CANCEL_OPTION,
                                 JOptionPane.QUESTION_MESSAGE, null, options,
                                 options[0]);
@@ -1071,7 +1071,7 @@ public class FizzimGui extends javax.swing.JFrame {
 
                 int n = JOptionPane
                         .showOptionDialog(this, "Save file before creating new file?",
-                                "Fizzim", JOptionPane.YES_NO_CANCEL_OPTION,
+                                "Fizzim2", JOptionPane.YES_NO_CANCEL_OPTION,
                                 JOptionPane.QUESTION_MESSAGE, null, options,
                                 options[0]);
 
@@ -1092,7 +1092,7 @@ public class FizzimGui extends javax.swing.JFrame {
 
                 int n = JOptionPane
                         .showOptionDialog(this, "Save changes to "
-                                + currFile.getName() + "?", "Fizzim",
+                                + currFile.getName() + "?", "Fizzim2",
                                 JOptionPane.YES_NO_CANCEL_OPTION,
                                 JOptionPane.QUESTION_MESSAGE, null, options,
                                 options[0]);
@@ -1113,7 +1113,7 @@ public class FizzimGui extends javax.swing.JFrame {
             }
             jTabbedPane1.setComponentAt(1,jScrollPane1);
             currFile = null;
-            setTitle("Fizzim");
+            setTitle("Fizzim2");
             for(int i = 0; i < globalList.size(); i++)
             {
                 globalList.get(i).clear();
@@ -1202,7 +1202,7 @@ public class FizzimGui extends javax.swing.JFrame {
         }
         if(FileSaveAction.getSelected())
             if(tryToSave(FileSaveAction.getSelectedFile(), "fzm", true))
-                setTitle("Fizzim - " + currFile.getName());
+                setTitle("Fizzim2 - " + currFile.getName());
 
     }
 
@@ -1213,7 +1213,7 @@ public class FizzimGui extends javax.swing.JFrame {
 
             int n = JOptionPane
                     .showOptionDialog(this, "Save file before opening file?",
-                            "Fizzim", JOptionPane.YES_NO_CANCEL_OPTION,
+                            "Fizzim2", JOptionPane.YES_NO_CANCEL_OPTION,
                             JOptionPane.QUESTION_MESSAGE, null, options,
                             options[0]);
             if (n == JOptionPane.YES_OPTION) {
@@ -1253,7 +1253,7 @@ public class FizzimGui extends javax.swing.JFrame {
                 String fileName = tempFile.getName().toLowerCase();
                 if (!tempFile.isDirectory() && fileName.endsWith(".fzm")) {
                     openFile(tempFile);
-                    setTitle("Fizzim - " + currFile.getName());
+                    setTitle("Fizzim2 - " + currFile.getName());
                 } else {
                     JOptionPane.showMessageDialog(this, "File must end with .fzm",
                             "error", JOptionPane.ERROR_MESSAGE);
@@ -1297,6 +1297,7 @@ public class FizzimGui extends javax.swing.JFrame {
         String s = currFile.getAbsolutePath();
         genhdl = new GenerateHDL(s.substring(0, s.length() - 4) + ".v",
                                 getPages(),
+                                currVer,
                                 drawArea1,
                                 consoleText);
 
@@ -1307,7 +1308,7 @@ public class FizzimGui extends javax.swing.JFrame {
             long currTime = currDate.getTime();
             DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT);
             DateFormat dt = DateFormat.getTimeInstance(DateFormat.MEDIUM);
-            writer.write("## File last modified by Fizzim: " + dt.format(currTime)
+            writer.write("## File last modified by Fizzim2 : " + dt.format(currTime)
                     + " on " + df.format(currDate) + "\n");
             writer.write("<version>\n" + i(1) + currVer + "\n" + "</version>\n");
 
@@ -1443,7 +1444,7 @@ public class FizzimGui extends javax.swing.JFrame {
             public void run() {
 
                 // sets error file to write to
-                final File file = new File("fizzim_errors.log");
+                final File file = new File("Fizzim2_errors.log");
 
                 //make sure output file doesnt get too large
                 FileOutputStream fout = null;
