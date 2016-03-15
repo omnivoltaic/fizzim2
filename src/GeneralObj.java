@@ -203,9 +203,9 @@ public abstract class GeneralObj implements Cloneable {
                     ObjAttribute obj = allGlobal.get(2).get(j);
                     if(obj.getName().equals(l.getName()))
                     {
-                        if(obj.getType().equals("reg") || obj.getType().equals("regdp"))
+                        if(obj.getType().equals("ontransit-dd"))
                             b = true;
-                        if(obj.getType().equals("flag"))
+                        else if(obj.getType().equals("hold"))
                             f = true;
                         break;
                     }
@@ -214,10 +214,10 @@ public abstract class GeneralObj implements Cloneable {
                 l.setOutputTypeFlag(f);
             }
             else
-                        {
+            {
                 l.setOutputTypeReg(false);
                 l.setOutputTypeFlag(false);
-                        }
+            }
         }
 
     }

@@ -350,8 +350,10 @@ public class ObjAttribute implements Cloneable {
                     if(!useratts.equals("")) // show priority
                         text += " // " + useratts;
                   } else {
-                    if(outputTypeReg || outputTypeFlag)
-                      text = name + " <= " + value;
+                    if(outputTypeReg)
+                      text = name + " :: " + value;
+                    else if(outputTypeFlag)
+                      text = name + " # " + value;
                     else
                       text = name + " = " + value;
                   }
