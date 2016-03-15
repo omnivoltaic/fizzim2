@@ -276,6 +276,7 @@ public class GenerateHDL {
                     txt += "end\n";
                 }
 
+                txt += doSimBlk(page);
                 if(!pageMode) // single mode
                     break;
             }
@@ -651,4 +652,34 @@ try {
     }
 
 
+    private String doSimBlk(int page)
+    {
+        String txt = "\n// This code allows you to see state names in simulation\n";
+        String stateSim = stateVar + "_name";
+        String s = new String();
+
+        txt += "`ifndef SYNTHESIS\nreg [31:0] ";
+        txt += stateSim + ";\nalways @* begin\n";
+        txt += ind + "case (" + stateVar + ")\n";
+        for(int i = 1; i < objList.size(); i++)
+        {
+            GeneralObj obj = (GeneralObj) objList.elementAt(i);
+            if(pageMode && obj.getPage() != page)
+                continue;
+            if(obj.getType() != 0) // State Only
+                continue;
+
+            //LinkedList<ObjAttribute> attribList = obj.getAttributeList();
+            ObjAttribute attrib = obj.getAttributeList().get(0);
+            s = attrib.getValue();
+            txt += ind2 + s + " : " + stateSim + " = \"" + s + "\";\n";
+        }
+
+        txt += ind2 + "default : " + stateSim + " = \"XXX\";\n";
+        txt += ind + "endcase\nend\n`endif\n";
+
+        return txt;
+    }
+
+// end of class GenerateHDL
 }
