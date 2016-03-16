@@ -1,0 +1,5 @@
+classes/
+*.log
+*.bak
+test/
+Fizzim2*.jar
