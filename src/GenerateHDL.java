@@ -383,6 +383,7 @@ try {
     {
         int r=0, t=0;
         int n=0;
+        LinkedList<String> ll = onStateOut;
 
         onStateOut.clear();
         onTransitOut.clear();
@@ -436,12 +437,15 @@ try {
 //System.out.print(t+"\n");
                     switch(t)
                     {
-                        case 0 : onStateOut.add(name); break;
-                        case 1 : onStateOut_hold.add(name); break;
-                        case 2 : onTransitOut.add(name); break;
-                        case 3 : onTransitOut_hold.add(name); break;
-                        case 4 : onTransitOut_dd.add(name);
+                        //case 0 : ll = onStateOut; break;
+                        case 1 : ll = onStateOut_hold; break;
+                        case 2 : ll = onTransitOut; break;
+                        case 3 : ll = onTransitOut_hold; break;
+                        case 4 : ll = onTransitOut_dd;
                     }
+
+                    if(!ll.contains(name))
+                        ll.add(name);
                 }
             }
         }
