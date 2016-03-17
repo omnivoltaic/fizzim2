@@ -1120,6 +1120,7 @@ public class FizzimGui extends javax.swing.JFrame {
             }
             initGlobal();
             drawArea1.open(globalList);
+            consoleText.setText("Press Ctrl+S");
         }
 
     }//GEN-LAST:event_FileItemNewActionPerformed
@@ -1272,7 +1273,7 @@ public class FizzimGui extends javax.swing.JFrame {
         jTabbedPane1.setSelectedIndex(1);
         drawArea1.setCurrPage(1);
         loading = false;
-
+        consoleText.setText("Press Ctrl+S");
     }
 
     private Dimension getScrollPaneSize() {
