@@ -129,13 +129,13 @@ public class GenerateHDL {
                 if(s.equals("clock"))
                 {
                     s = (String) att.get(1);
-                    txt += (ind + "input     " + s + ",\n");
+                    txt += (ind + "input     " + s);
                     alwaysLine += att.get(3) + " " + s;
                 }
                 else if (s.equals("reset_signal"))
                 {
                     s = (String) att.get(1);
-                    txt += (ind + "input     " + s + ",\n");
+                    txt += (",\n" + ind + "input     " + s + "\n");
                     alwaysLine += ", " + att.get(3) + " " + s;
 
                     if(tempList.get(3).equals("posedge"))
