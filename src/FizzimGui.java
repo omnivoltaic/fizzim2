@@ -1478,7 +1478,7 @@ public class FizzimGui extends javax.swing.JFrame {
                 System.setErr ( new PrintStream (fout));
 
                 FizzimGui fzim = new FizzimGui();
-                fzim.setVisible(true);
+                if(!clbatch_rewrite) fzim.setVisible(true);
                 fzim.setSize(new java.awt.Dimension(1000, 685));
                 //fzim.new SplashWindow("splash.png",fzim,3500);
                 // If command line filename is not null, open
