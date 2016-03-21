@@ -14,8 +14,10 @@ t=0
 
 for f in `ls *.v`
 do
+    cp ../example/bench/$f t.v
+    sed -i '1d' t.v
     sed -i '1d' $f
-    diff ../example/$f $f
+    diff t.v $f
 
     if test $? -eq 0
     then
@@ -28,3 +30,9 @@ do
 done
 
 echo -e '\n'$n/$t Passed.
+
+if test $n -eq $t
+then
+    cd ..
+    rm -rf ./test
+fi
