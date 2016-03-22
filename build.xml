@@ -6,7 +6,7 @@
     <property name="dest" value="classes" />
     <property name="lib"  value="lib" />
     <property name="version" value="0.1" />
-    <property name="date" value="16.02.15" />
+    <property name="date" value="16.03.22" />
     <property name="jar"  value="${name}-${date}.jar" />
 
     <echo message="----------- Fizzim2 ver.${version} [${date}] ------------" />
