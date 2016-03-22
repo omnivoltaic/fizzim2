@@ -173,6 +173,7 @@ public class DrawArea extends JPanel implements MouseListener, MouseMotionListen
             loading = false;
             repaint();
         }
+        g.drawString("Page" + currPage + "@Fizzim2", 20, 20);
     }
 
 
