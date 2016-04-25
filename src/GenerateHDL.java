@@ -49,11 +49,11 @@ public class GenerateHDL {
     String baseNextStateVar = "nextstate";
     String stateVar, nextStateVar;
     String holdVar = "nx_";
-    LinkedList<String> onStateOut = new LinkedList<String>();
-    LinkedList<String> onTransitOut = new LinkedList<String>();
-    LinkedList<String> onTransitOut_dd = new LinkedList<String>();
-    LinkedList<String> onStateOut_hold = new LinkedList<String>();
-    LinkedList<String> onTransitOut_hold = new LinkedList<String>();
+    LinkedList<String> dff_onStateOut = new LinkedList<String>();
+    LinkedList<String> comb_onTransitOut = new LinkedList<String>();
+    LinkedList<String> dff_onTransitOut = new LinkedList<String>();
+    LinkedList<String> hold_onStateOut = new LinkedList<String>();
+    LinkedList<String> hold_onTransitOut = new LinkedList<String>();
     String alwaysLine = "always @(";
     String resetLine = "";
     String resetState = "";
@@ -245,7 +245,7 @@ public class GenerateHDL {
                 if(!s.equals(""))
                 {
                     txt += s;
-                    if(onStateOut.size() > 0 || onStateOut_hold.size() > 0)
+                    if(dff_onStateOut.size() > 0 || hold_onStateOut.size() > 0)
                     {
                         txt += "\n" + ind + "case (" + nextStateVar + ")\n";
                         for(i = 1; i < objList.size(); i++)
@@ -383,13 +383,13 @@ try {
     {
         int r=0, t=0;
         int n=0;
-        LinkedList<String> ll = onStateOut;
+        LinkedList<String> ll = dff_onStateOut;
 
-        onStateOut.clear();
-        onTransitOut.clear();
-        onTransitOut_dd.clear();
-        onStateOut_hold.clear();
-        onTransitOut_hold.clear();
+        dff_onStateOut.clear();
+        comb_onTransitOut.clear();
+        dff_onTransitOut.clear();
+        hold_onStateOut.clear();
+        hold_onTransitOut.clear();
 
         for(int i = 1; i < objList.size(); i++)
         {
@@ -404,7 +404,7 @@ try {
             }
             else if(obj.getType() == 1 || obj.getType() == 2) // Transition Type
             {
-                r = 2;
+                r = 3;
             }
             else
                 continue;
@@ -428,20 +428,20 @@ try {
                   )
                 {
 //System.out.print(name+":"+r+"=");
-                    if(useratts.contains("hold"))
+                    if(useratts.contains("comb"))
                         t=r+1;
-                    else if(useratts.contains("-dd"))
+                    else if(useratts.contains("hold"))
                         t=r+2;
                     else
                         t=r;
 //System.out.print(t+"\n");
                     switch(t)
                     {
-                        //case 0 : ll = onStateOut; break;
-                        case 1 : ll = onStateOut_hold; break;
-                        case 2 : ll = onTransitOut; break;
-                        case 3 : ll = onTransitOut_hold; break;
-                        case 4 : ll = onTransitOut_dd;
+                        //case 0 : ll = dff_onStateOut; break;
+                        case 2 : ll = hold_onStateOut; break;
+                        case 3 : ll = dff_onTransitOut; break;
+                        case 4 : ll = comb_onTransitOut; break;
+                        case 5 : ll = hold_onTransitOut;
                     }
 
                     if(!ll.contains(name))
@@ -460,18 +460,18 @@ try {
         String[] ni;
         int i;
 
-        for (i = 0; i < onTransitOut_hold.size(); i++) {
+        for (i = 0; i < hold_onTransitOut.size(); i++) {
             if(i==0)
-                txt += "\n// ontransit-hold definitions\n";
+                txt += "\n// hold-ontransit definitions\n";
 
-            ni = nameinfo(onTransitOut_hold.get(i));
+            ni = nameinfo(hold_onTransitOut.get(i));
             txt += ("reg " + ni[2] + " " + holdVar + ni[1] + ";\n");
         }
-        for (i = 0; i < onTransitOut_dd.size(); i++) {
+        for (i = 0; i < dff_onTransitOut.size(); i++) {
             if(i==0)
-                txt += "\n// ontransit-dd definitions\n";
+                txt += "\n// dff-ontransit definitions\n";
 
-            ni = nameinfo(onTransitOut_dd.get(i));
+            ni = nameinfo(dff_onTransitOut.get(i));
             txt += ("reg " + ni[2] + " " + holdVar + ni[1] + ";\n");
         }
 
@@ -479,16 +479,16 @@ try {
         txt += "always @* begin\n";
         txt += ind + nextStateVar + " = " + stateVar + ";\n";
 
-        for (i = 0; i < onTransitOut.size(); i++) {
-            ni = nameinfo(onTransitOut.get(i));
+        for (i = 0; i < comb_onTransitOut.size(); i++) {
+            ni = nameinfo(comb_onTransitOut.get(i));
             txt += (ind + ni[1] + " = 0;\n");
         }
-        for (i = 0; i < onTransitOut_hold.size(); i++) {
-            ni = nameinfo(onTransitOut_hold.get(i));
+        for (i = 0; i < hold_onTransitOut.size(); i++) {
+            ni = nameinfo(hold_onTransitOut.get(i));
             txt += (ind + holdVar + ni[1] + " = " + ni[1] + ";\n");
         }
-        for (i = 0; i < onTransitOut_dd.size(); i++) {
-            ni = nameinfo(onTransitOut_dd.get(i));
+        for (i = 0; i < dff_onTransitOut.size(); i++) {
+            ni = nameinfo(dff_onTransitOut.get(i));
             txt += (ind + holdVar + ni[1] + " = 0;\n");
         }
 
@@ -512,7 +512,7 @@ try {
         {
             GeneralObj obj = (GeneralObj) objList.elementAt(i);
 
-            if(obj.getType() == 1) // State Transition Only
+            if(obj.getType() == 1) // Transition Only
             {
                 startState = ((StateTransitionObj) obj).getStartState().getName();
                 endState = ((StateTransitionObj) obj).getEndState().getName();
@@ -553,7 +553,7 @@ try {
                 {
                     ni = nameinfo((String) att.get(0));
                     useratts = (String) att.get(6);
-                    if(useratts.contains("hold") || useratts.contains("-dd"))
+                    if(useratts.contains("hold-") || useratts.contains("dff-"))
                         s += ind4 + holdVar + ni[1];
                     else
                         s += ind4 + ni[1];
@@ -610,50 +610,53 @@ try {
         String[] ni;
         int i;
 
-        if(onStateOut.size() == 0 &&
-           onStateOut_hold.size() == 0 &&
-           onTransitOut_hold.size() == 0 &&
-           onTransitOut_dd.size() == 0
+        if(dff_onStateOut.size() == 0 &&
+           hold_onStateOut.size() == 0 &&
+           hold_onTransitOut.size() == 0 &&
+           dff_onTransitOut.size() == 0
         ) return txt;
 
         txt += "\n// Output sequential always block\n";
         txt += alwaysLine + "\n";
         txt += resetLine + " begin\n";
 
-        for (i = 0; i < onTransitOut_hold.size(); i++) {
-            ni = nameinfo(onTransitOut_hold.get(i));
+        for (i = 0; i < hold_onTransitOut.size(); i++) {
+            ni = nameinfo(hold_onTransitOut.get(i));
             txt += (ind + ni[1] + " <= 0;\n");
         }
-        for (i = 0; i < onTransitOut_dd.size(); i++) {
-            ni = nameinfo(onTransitOut_dd.get(i));
+        for (i = 0; i < dff_onTransitOut.size(); i++) {
+            ni = nameinfo(dff_onTransitOut.get(i));
             txt += (ind + ni[1] + " <= 0;\n");
         }
-        for (i = 0; i < onStateOut.size(); i++) {
-            ni = nameinfo(onStateOut.get(i));
-            txt += (ind + ni[1] + " <= 0;\n");
-        }
-        for (i = 0; i < onStateOut_hold.size(); i++) {
-            if(onTransitOut_hold.contains(onStateOut_hold.get(i))) continue;
+        for (i = 0; i < dff_onStateOut.size(); i++) {
+            if(dff_onTransitOut.contains(dff_onStateOut.get(i))) continue;
 
-            ni = nameinfo(onStateOut_hold.get(i));
+            ni = nameinfo(dff_onStateOut.get(i));
+            txt += (ind + ni[1] + " <= 0;\n");
+        }
+        for (i = 0; i < hold_onStateOut.size(); i++) {
+            if(hold_onTransitOut.contains(hold_onStateOut.get(i))) continue;
+
+            ni = nameinfo(hold_onStateOut.get(i));
             txt += (ind + ni[1] + " <= 0;\n");
         }
 
         txt += "end\nelse begin\n";
 
-        for (i = 0; i < onTransitOut_hold.size(); i++) {
-            ni = nameinfo(onTransitOut_hold.get(i));
+        for (i = 0; i < hold_onTransitOut.size(); i++) {
+            ni = nameinfo(hold_onTransitOut.get(i));
             txt += (ind + ni[1] + " <= " + holdVar + ni[1] + ";\n");
         }
-        for (i = 0; i < onTransitOut_dd.size(); i++) {
-            ni = nameinfo(onTransitOut_dd.get(i));
+        for (i = 0; i < dff_onTransitOut.size(); i++) {
+            ni = nameinfo(dff_onTransitOut.get(i));
             txt += (ind + ni[1] + " <= " + holdVar + ni[1] + ";\n");
         }
-        for (i = 0; i < onStateOut.size(); i++) {
-            ni = nameinfo(onStateOut.get(i));
+        for (i = 0; i < dff_onStateOut.size(); i++) {
+            if(dff_onTransitOut.contains(dff_onStateOut.get(i))) continue;
+
+            ni = nameinfo(dff_onStateOut.get(i));
             txt += (ind + ni[1] + " <= 0;\n");
         }
-
 
         return txt;
     }
