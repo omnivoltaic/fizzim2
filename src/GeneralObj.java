@@ -193,19 +193,31 @@ public abstract class GeneralObj implements Cloneable {
         {
             ObjAttribute l = attrib.get(i);
             l.setPage(myPage,"update");
-//            l.setOutputTypeFlag(true);
-            if(l.getType().equals("output"))
+
+            if(l.getType().equals("output") || l.getType().equals("signal"))
             {
                 boolean b = false;
                 boolean f = false;
-                for(int j = 0; j < allGlobal.get(2).size(); j++)
+                for(int j = 0; j < allGlobal.get(2).size(); j++) // Outputs Tab
                 {
                     ObjAttribute obj = allGlobal.get(2).get(j);
                     if(obj.getName().equals(l.getName()))
                     {
-                        if(obj.getType().equals("ontransit-dd"))
+                        if(obj.getType().contains("comb"))
                             b = true;
-                        else if(obj.getType().equals("hold"))
+                        else if(obj.getType().contains("hold"))
+                            f = true;
+                        break;
+                    }
+                }
+                for(int j = 0; j < allGlobal.get(5).size(); j++) // Signals Tab
+                {
+                    ObjAttribute obj = allGlobal.get(5).get(j);
+                    if(obj.getName().equals(l.getName()))
+                    {
+                        if(obj.getType().contains("comb"))
+                            b = true;
+                        else if(obj.getType().contains("hold"))
                             f = true;
                         break;
                     }
