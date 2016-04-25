@@ -1,6 +1,6 @@
-## File last modified by Fizzim2 : 10:28:53 AM on 3/24/16
+## File last modified by Fizzim2 : 2:55:34 PM on 4/22/16
 <version>
-   16.03.22
+   16.04.19
 </version>
 <globals>
    <machine>
@@ -249,7 +249,7 @@
             </status>
          </vis>
          <type>
-         onstate
+         dff-onstate
             <status>
             GLOBAL_VAR
             </status>
@@ -381,7 +381,7 @@
             </status>
          </color>
          <useratts>
-         onstate
+         dff-onstate
             <status>
             GLOBAL_VAR
             </status>
@@ -402,62 +402,6 @@
          -1
          </page>
       </done>
-      <cnt[3:0]>
-            <status>
-            GLOBAL_FIXED
-            </status>
-         <value>
-         
-            <status>
-            GLOBAL_VAR
-            </status>
-         </value>
-         <vis>
-         2
-            <status>
-            GLOBAL_VAR
-            </status>
-         </vis>
-         <type>
-         signal
-            <status>
-            GLOBAL_VAR
-            </status>
-         </type>
-         <comment>
-         
-            <status>
-            GLOBAL_VAR
-            </status>
-         </comment>
-         <color>
-         -16777216
-            <status>
-            GLOBAL_VAR
-            </status>
-         </color>
-         <useratts>
-         onstate
-            <status>
-            GLOBAL_VAR
-            </status>
-         </useratts>
-         <resetval>
-         
-            <status>
-            GLOBAL_VAR
-            </status>
-         </resetval>
-         <x2Obj>
-         0
-         </x2Obj>
-         <y2Obj>
-         0
-         </y2Obj>
-         <page>
-         -1
-         </page>
-      </cnt[3:0]>
       <enter>
             <status>
             GLOBAL_FIXED
@@ -493,7 +437,7 @@
             </status>
          </color>
          <useratts>
-         onstate
+         dff-onstate
             <status>
             GLOBAL_VAR
             </status>
@@ -514,6 +458,62 @@
          -1
          </page>
       </enter>
+      <cnt[3:0]>
+            <status>
+            GLOBAL_FIXED
+            </status>
+         <value>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </value>
+         <vis>
+         2
+            <status>
+            GLOBAL_VAR
+            </status>
+         </vis>
+         <type>
+         signal
+            <status>
+            GLOBAL_VAR
+            </status>
+         </type>
+         <comment>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </comment>
+         <color>
+         -16777216
+            <status>
+            GLOBAL_VAR
+            </status>
+         </color>
+         <useratts>
+         dff-onstate
+            <status>
+            GLOBAL_VAR
+            </status>
+         </useratts>
+         <resetval>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </resetval>
+         <x2Obj>
+         0
+         </x2Obj>
+         <y2Obj>
+         0
+         </y2Obj>
+         <page>
+         -1
+         </page>
+      </cnt[3:0]>
    </state>
    <trans>
       <name>
@@ -663,7 +663,7 @@
             </status>
          </color>
          <useratts>
-         ontransit
+         comb-ontransit
             <status>
             GLOBAL_VAR
             </status>
@@ -703,7 +703,7 @@
             </status>
          </vis>
          <type>
-         onstate
+         dff-onstate
             <status>
             GLOBAL_VAR
             </status>
@@ -759,7 +759,7 @@
             </status>
          </vis>
          <type>
-         ontransit
+         comb-ontransit
             <status>
             GLOBAL_VAR
             </status>
@@ -815,7 +815,7 @@
             </status>
          </vis>
          <type>
-         onstate
+         dff-onstate
             <status>
             GLOBAL_VAR
             </status>
@@ -996,7 +996,7 @@ false
             </status>
          </color>
          <useratts>
-         onstate
+         dff-onstate
             <status>
             GLOBAL_VAR
             </status>
@@ -1017,62 +1017,6 @@ false
          1
          </page>
       </done>
-      <cnt[3:0]>
-            <status>
-            GLOBAL_FIXED
-            </status>
-         <value>
-         
-            <status>
-            GLOBAL_VAR
-            </status>
-         </value>
-         <vis>
-         2
-            <status>
-            GLOBAL_VAR
-            </status>
-         </vis>
-         <type>
-         signal
-            <status>
-            GLOBAL_VAR
-            </status>
-         </type>
-         <comment>
-         
-            <status>
-            GLOBAL_VAR
-            </status>
-         </comment>
-         <color>
-         -16777216
-            <status>
-            GLOBAL_VAR
-            </status>
-         </color>
-         <useratts>
-         onstate
-            <status>
-            GLOBAL_VAR
-            </status>
-         </useratts>
-         <resetval>
-         
-            <status>
-            GLOBAL_VAR
-            </status>
-         </resetval>
-         <x2Obj>
-         0
-         </x2Obj>
-         <y2Obj>
-         0
-         </y2Obj>
-         <page>
-         1
-         </page>
-      </cnt[3:0]>
       <enter>
             <status>
             GLOBAL_FIXED
@@ -1108,7 +1052,7 @@ false
             </status>
          </color>
          <useratts>
-         onstate
+         dff-onstate
             <status>
             GLOBAL_VAR
             </status>
@@ -1129,6 +1073,62 @@ false
          1
          </page>
       </enter>
+      <cnt[3:0]>
+            <status>
+            GLOBAL_FIXED
+            </status>
+         <value>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </value>
+         <vis>
+         2
+            <status>
+            GLOBAL_VAR
+            </status>
+         </vis>
+         <type>
+         signal
+            <status>
+            GLOBAL_VAR
+            </status>
+         </type>
+         <comment>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </comment>
+         <color>
+         -16777216
+            <status>
+            GLOBAL_VAR
+            </status>
+         </color>
+         <useratts>
+         dff-onstate
+            <status>
+            GLOBAL_VAR
+            </status>
+         </useratts>
+         <resetval>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </resetval>
+         <x2Obj>
+         0
+         </x2Obj>
+         <y2Obj>
+         0
+         </y2Obj>
+         <page>
+         1
+         </page>
+      </cnt[3:0]>
    </attributes>
    <x0>
    290
@@ -1247,7 +1247,7 @@ false
             </status>
          </color>
          <useratts>
-         onstate
+         dff-onstate
             <status>
             GLOBAL_VAR
             </status>
@@ -1268,62 +1268,6 @@ false
          1
          </page>
       </done>
-      <cnt[3:0]>
-            <status>
-            GLOBAL_FIXED
-            </status>
-         <value>
-         
-            <status>
-            GLOBAL_VAR
-            </status>
-         </value>
-         <vis>
-         2
-            <status>
-            GLOBAL_VAR
-            </status>
-         </vis>
-         <type>
-         signal
-            <status>
-            GLOBAL_VAR
-            </status>
-         </type>
-         <comment>
-         
-            <status>
-            GLOBAL_VAR
-            </status>
-         </comment>
-         <color>
-         -16777216
-            <status>
-            GLOBAL_VAR
-            </status>
-         </color>
-         <useratts>
-         onstate
-            <status>
-            GLOBAL_VAR
-            </status>
-         </useratts>
-         <resetval>
-         
-            <status>
-            GLOBAL_VAR
-            </status>
-         </resetval>
-         <x2Obj>
-         0
-         </x2Obj>
-         <y2Obj>
-         0
-         </y2Obj>
-         <page>
-         1
-         </page>
-      </cnt[3:0]>
       <enter>
             <status>
             GLOBAL_FIXED
@@ -1359,7 +1303,7 @@ false
             </status>
          </color>
          <useratts>
-         onstate
+         dff-onstate
             <status>
             GLOBAL_VAR
             </status>
@@ -1380,6 +1324,62 @@ false
          1
          </page>
       </enter>
+      <cnt[3:0]>
+            <status>
+            GLOBAL_FIXED
+            </status>
+         <value>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </value>
+         <vis>
+         2
+            <status>
+            GLOBAL_VAR
+            </status>
+         </vis>
+         <type>
+         signal
+            <status>
+            GLOBAL_VAR
+            </status>
+         </type>
+         <comment>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </comment>
+         <color>
+         -16777216
+            <status>
+            GLOBAL_VAR
+            </status>
+         </color>
+         <useratts>
+         dff-onstate
+            <status>
+            GLOBAL_VAR
+            </status>
+         </useratts>
+         <resetval>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </resetval>
+         <x2Obj>
+         0
+         </x2Obj>
+         <y2Obj>
+         0
+         </y2Obj>
+         <page>
+         1
+         </page>
+      </cnt[3:0]>
    </attributes>
    <x0>
    483
@@ -1498,7 +1498,7 @@ false
             </status>
          </color>
          <useratts>
-         onstate
+         dff-onstate
             <status>
             GLOBAL_VAR
             </status>
@@ -1519,62 +1519,6 @@ false
          1
          </page>
       </done>
-      <cnt[3:0]>
-            <status>
-            GLOBAL_FIXED
-            </status>
-         <value>
-         
-            <status>
-            GLOBAL_VAR
-            </status>
-         </value>
-         <vis>
-         2
-            <status>
-            GLOBAL_VAR
-            </status>
-         </vis>
-         <type>
-         signal
-            <status>
-            GLOBAL_VAR
-            </status>
-         </type>
-         <comment>
-         
-            <status>
-            GLOBAL_VAR
-            </status>
-         </comment>
-         <color>
-         -16777216
-            <status>
-            GLOBAL_VAR
-            </status>
-         </color>
-         <useratts>
-         onstate
-            <status>
-            GLOBAL_VAR
-            </status>
-         </useratts>
-         <resetval>
-         
-            <status>
-            GLOBAL_VAR
-            </status>
-         </resetval>
-         <x2Obj>
-         0
-         </x2Obj>
-         <y2Obj>
-         0
-         </y2Obj>
-         <page>
-         1
-         </page>
-      </cnt[3:0]>
       <enter>
             <status>
             GLOBAL_FIXED
@@ -1610,7 +1554,7 @@ false
             </status>
          </color>
          <useratts>
-         onstate
+         dff-onstate
             <status>
             GLOBAL_VAR
             </status>
@@ -1631,6 +1575,62 @@ false
          1
          </page>
       </enter>
+      <cnt[3:0]>
+            <status>
+            GLOBAL_FIXED
+            </status>
+         <value>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </value>
+         <vis>
+         2
+            <status>
+            GLOBAL_VAR
+            </status>
+         </vis>
+         <type>
+         signal
+            <status>
+            GLOBAL_VAR
+            </status>
+         </type>
+         <comment>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </comment>
+         <color>
+         -16777216
+            <status>
+            GLOBAL_VAR
+            </status>
+         </color>
+         <useratts>
+         dff-onstate
+            <status>
+            GLOBAL_VAR
+            </status>
+         </useratts>
+         <resetval>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </resetval>
+         <x2Obj>
+         0
+         </x2Obj>
+         <y2Obj>
+         0
+         </y2Obj>
+         <page>
+         1
+         </page>
+      </cnt[3:0]>
    </attributes>
    <x0>
    389
@@ -1805,7 +1805,7 @@ false
             </status>
          </color>
          <useratts>
-         ontransit
+         comb-ontransit
             <status>
             GLOBAL_VAR
             </status>
@@ -2048,7 +2048,7 @@ false
             </status>
          </color>
          <useratts>
-         ontransit
+         comb-ontransit
             <status>
             GLOBAL_VAR
             </status>
@@ -2291,7 +2291,7 @@ false
             </status>
          </color>
          <useratts>
-         ontransit
+         comb-ontransit
             <status>
             GLOBAL_VAR
             </status>
@@ -2478,7 +2478,7 @@ false
             </status>
          </color>
          <useratts>
-         onstate
+         dff-onstate
             <status>
             GLOBAL_VAR
             </status>
@@ -2499,62 +2499,6 @@ false
          2
          </page>
       </done>
-      <cnt[3:0]>
-            <status>
-            GLOBAL_FIXED
-            </status>
-         <value>
-         
-            <status>
-            GLOBAL_VAR
-            </status>
-         </value>
-         <vis>
-         2
-            <status>
-            GLOBAL_VAR
-            </status>
-         </vis>
-         <type>
-         signal
-            <status>
-            GLOBAL_VAR
-            </status>
-         </type>
-         <comment>
-         
-            <status>
-            GLOBAL_VAR
-            </status>
-         </comment>
-         <color>
-         -16777216
-            <status>
-            GLOBAL_VAR
-            </status>
-         </color>
-         <useratts>
-         onstate
-            <status>
-            GLOBAL_VAR
-            </status>
-         </useratts>
-         <resetval>
-         
-            <status>
-            GLOBAL_VAR
-            </status>
-         </resetval>
-         <x2Obj>
-         0
-         </x2Obj>
-         <y2Obj>
-         0
-         </y2Obj>
-         <page>
-         2
-         </page>
-      </cnt[3:0]>
       <enter>
             <status>
             GLOBAL_FIXED
@@ -2590,7 +2534,7 @@ false
             </status>
          </color>
          <useratts>
-         onstate
+         dff-onstate
             <status>
             GLOBAL_VAR
             </status>
@@ -2611,6 +2555,62 @@ false
          2
          </page>
       </enter>
+      <cnt[3:0]>
+            <status>
+            GLOBAL_FIXED
+            </status>
+         <value>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </value>
+         <vis>
+         2
+            <status>
+            GLOBAL_VAR
+            </status>
+         </vis>
+         <type>
+         signal
+            <status>
+            GLOBAL_VAR
+            </status>
+         </type>
+         <comment>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </comment>
+         <color>
+         -16777216
+            <status>
+            GLOBAL_VAR
+            </status>
+         </color>
+         <useratts>
+         dff-onstate
+            <status>
+            GLOBAL_VAR
+            </status>
+         </useratts>
+         <resetval>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </resetval>
+         <x2Obj>
+         0
+         </x2Obj>
+         <y2Obj>
+         0
+         </y2Obj>
+         <page>
+         2
+         </page>
+      </cnt[3:0]>
    </attributes>
    <x0>
    306
@@ -2729,7 +2729,7 @@ false
             </status>
          </color>
          <useratts>
-         onstate
+         dff-onstate
             <status>
             GLOBAL_VAR
             </status>
@@ -2750,62 +2750,6 @@ false
          2
          </page>
       </done>
-      <cnt[3:0]>
-            <status>
-            GLOBAL_FIXED
-            </status>
-         <value>
-         cnt + 1'b1
-            <status>
-            LOCAL
-            </status>
-         </value>
-         <vis>
-         2
-            <status>
-            GLOBAL_VAR
-            </status>
-         </vis>
-         <type>
-         signal
-            <status>
-            GLOBAL_VAR
-            </status>
-         </type>
-         <comment>
-         
-            <status>
-            GLOBAL_VAR
-            </status>
-         </comment>
-         <color>
-         -16777216
-            <status>
-            GLOBAL_VAR
-            </status>
-         </color>
-         <useratts>
-         onstate
-            <status>
-            GLOBAL_VAR
-            </status>
-         </useratts>
-         <resetval>
-         
-            <status>
-            GLOBAL_VAR
-            </status>
-         </resetval>
-         <x2Obj>
-         1
-         </x2Obj>
-         <y2Obj>
-         9
-         </y2Obj>
-         <page>
-         2
-         </page>
-      </cnt[3:0]>
       <enter>
             <status>
             GLOBAL_FIXED
@@ -2841,7 +2785,7 @@ false
             </status>
          </color>
          <useratts>
-         onstate
+         dff-onstate
             <status>
             GLOBAL_VAR
             </status>
@@ -2862,6 +2806,62 @@ false
          2
          </page>
       </enter>
+      <cnt[3:0]>
+            <status>
+            GLOBAL_FIXED
+            </status>
+         <value>
+         cnt + 1'b1
+            <status>
+            LOCAL
+            </status>
+         </value>
+         <vis>
+         2
+            <status>
+            GLOBAL_VAR
+            </status>
+         </vis>
+         <type>
+         signal
+            <status>
+            GLOBAL_VAR
+            </status>
+         </type>
+         <comment>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </comment>
+         <color>
+         -16777216
+            <status>
+            GLOBAL_VAR
+            </status>
+         </color>
+         <useratts>
+         dff-onstate
+            <status>
+            GLOBAL_VAR
+            </status>
+         </useratts>
+         <resetval>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </resetval>
+         <x2Obj>
+         1
+         </x2Obj>
+         <y2Obj>
+         9
+         </y2Obj>
+         <page>
+         2
+         </page>
+      </cnt[3:0]>
    </attributes>
    <x0>
    521
@@ -3036,7 +3036,7 @@ false
             </status>
          </color>
          <useratts>
-         ontransit
+         comb-ontransit
             <status>
             GLOBAL_VAR
             </status>
@@ -3279,7 +3279,7 @@ false
             </status>
          </color>
          <useratts>
-         ontransit
+         comb-ontransit
             <status>
             GLOBAL_VAR
             </status>

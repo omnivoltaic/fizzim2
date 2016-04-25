@@ -1,4 +1,4 @@
-## File last modified by Fizzim2 : 1:53:07 PM on 3/29/16
+## File last modified by Fizzim2 : 2:21:49 PM on 4/26/16
 <version>
    16.03.22
 </version>
@@ -288,6 +288,174 @@
       </do>
    </inputs>
    <outputs>
+      <r>
+            <status>
+            GLOBAL_FIXED
+            </status>
+         <value>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </value>
+         <vis>
+         2
+            <status>
+            GLOBAL_VAR
+            </status>
+         </vis>
+         <type>
+         dff-onboth
+            <status>
+            GLOBAL_VAR
+            </status>
+         </type>
+         <comment>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </comment>
+         <color>
+         -16777216
+            <status>
+            GLOBAL_VAR
+            </status>
+         </color>
+         <useratts>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </useratts>
+         <resetval>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </resetval>
+         <x2Obj>
+         0
+         </x2Obj>
+         <y2Obj>
+         0
+         </y2Obj>
+         <page>
+         -1
+         </page>
+      </r>
+      <f>
+            <status>
+            GLOBAL_FIXED
+            </status>
+         <value>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </value>
+         <vis>
+         2
+            <status>
+            GLOBAL_VAR
+            </status>
+         </vis>
+         <type>
+         dff-onstate
+            <status>
+            GLOBAL_VAR
+            </status>
+         </type>
+         <comment>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </comment>
+         <color>
+         -16777216
+            <status>
+            GLOBAL_VAR
+            </status>
+         </color>
+         <useratts>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </useratts>
+         <resetval>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </resetval>
+         <x2Obj>
+         0
+         </x2Obj>
+         <y2Obj>
+         0
+         </y2Obj>
+         <page>
+         -1
+         </page>
+      </f>
+      <x>
+            <status>
+            GLOBAL_FIXED
+            </status>
+         <value>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </value>
+         <vis>
+         2
+            <status>
+            GLOBAL_VAR
+            </status>
+         </vis>
+         <type>
+         comb-ontransit
+            <status>
+            GLOBAL_VAR
+            </status>
+         </type>
+         <comment>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </comment>
+         <color>
+         -16777216
+            <status>
+            GLOBAL_VAR
+            </status>
+         </color>
+         <useratts>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </useratts>
+         <resetval>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </resetval>
+         <x2Obj>
+         0
+         </x2Obj>
+         <y2Obj>
+         0
+         </y2Obj>
+         <page>
+         -1
+         </page>
+      </x>
       <g>
             <status>
             GLOBAL_FIXED
@@ -305,7 +473,7 @@
             </status>
          </vis>
          <type>
-         ontransit-dd
+         comb-ontransit
             <status>
             GLOBAL_VAR
             </status>
@@ -344,62 +512,6 @@
          -1
          </page>
       </g>
-      <s>
-            <status>
-            GLOBAL_FIXED
-            </status>
-         <value>
-         
-            <status>
-            GLOBAL_VAR
-            </status>
-         </value>
-         <vis>
-         2
-            <status>
-            GLOBAL_VAR
-            </status>
-         </vis>
-         <type>
-         ontransit-dd
-            <status>
-            GLOBAL_VAR
-            </status>
-         </type>
-         <comment>
-         
-            <status>
-            GLOBAL_VAR
-            </status>
-         </comment>
-         <color>
-         -16777216
-            <status>
-            GLOBAL_VAR
-            </status>
-         </color>
-         <useratts>
-         
-            <status>
-            GLOBAL_VAR
-            </status>
-         </useratts>
-         <resetval>
-         
-            <status>
-            GLOBAL_VAR
-            </status>
-         </resetval>
-         <x2Obj>
-         0
-         </x2Obj>
-         <y2Obj>
-         0
-         </y2Obj>
-         <page>
-         -1
-         </page>
-      </s>
    </outputs>
    <state>
       <name>
@@ -458,6 +570,118 @@
          -1
          </page>
       </name>
+      <r>
+            <status>
+            GLOBAL_FIXED
+            </status>
+         <value>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </value>
+         <vis>
+         2
+            <status>
+            GLOBAL_VAR
+            </status>
+         </vis>
+         <type>
+         output
+            <status>
+            GLOBAL_VAR
+            </status>
+         </type>
+         <comment>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </comment>
+         <color>
+         -16777216
+            <status>
+            GLOBAL_VAR
+            </status>
+         </color>
+         <useratts>
+         dff-onboth
+            <status>
+            GLOBAL_VAR
+            </status>
+         </useratts>
+         <resetval>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </resetval>
+         <x2Obj>
+         0
+         </x2Obj>
+         <y2Obj>
+         0
+         </y2Obj>
+         <page>
+         -1
+         </page>
+      </r>
+      <f>
+            <status>
+            GLOBAL_FIXED
+            </status>
+         <value>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </value>
+         <vis>
+         2
+            <status>
+            GLOBAL_VAR
+            </status>
+         </vis>
+         <type>
+         output
+            <status>
+            GLOBAL_VAR
+            </status>
+         </type>
+         <comment>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </comment>
+         <color>
+         -16777216
+            <status>
+            GLOBAL_VAR
+            </status>
+         </color>
+         <useratts>
+         dff-onstate
+            <status>
+            GLOBAL_VAR
+            </status>
+         </useratts>
+         <resetval>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </resetval>
+         <x2Obj>
+         0
+         </x2Obj>
+         <y2Obj>
+         0
+         </y2Obj>
+         <page>
+         -1
+         </page>
+      </f>
    </state>
    <trans>
       <name>
@@ -572,6 +796,62 @@
          -1
          </page>
       </equation>
+      <x>
+            <status>
+            GLOBAL_FIXED
+            </status>
+         <value>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </value>
+         <vis>
+         2
+            <status>
+            GLOBAL_VAR
+            </status>
+         </vis>
+         <type>
+         output
+            <status>
+            GLOBAL_VAR
+            </status>
+         </type>
+         <comment>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </comment>
+         <color>
+         -16777216
+            <status>
+            GLOBAL_VAR
+            </status>
+         </color>
+         <useratts>
+         comb-ontransit
+            <status>
+            GLOBAL_VAR
+            </status>
+         </useratts>
+         <resetval>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </resetval>
+         <x2Obj>
+         0
+         </x2Obj>
+         <y2Obj>
+         0
+         </y2Obj>
+         <page>
+         -1
+         </page>
+      </x>
       <g>
             <status>
             GLOBAL_FIXED
@@ -607,7 +887,7 @@
             </status>
          </color>
          <useratts>
-         ontransit-dd
+         comb-ontransit
             <status>
             GLOBAL_VAR
             </status>
@@ -628,7 +908,7 @@
          -1
          </page>
       </g>
-      <s>
+      <r>
             <status>
             GLOBAL_FIXED
             </status>
@@ -663,7 +943,7 @@
             </status>
          </color>
          <useratts>
-         ontransit-dd
+         dff-onboth
             <status>
             GLOBAL_VAR
             </status>
@@ -683,7 +963,7 @@
          <page>
          -1
          </page>
-      </s>
+      </r>
    </trans>
    <signals>
    </signals>
@@ -693,7 +973,7 @@
 </tabs>
 ## START PREFERENCES
 <SCounter>
-4
+3
 </SCounter>
 <TCounter>
 4
@@ -792,18 +1072,130 @@ false
          1
          </page>
       </name>
+      <r>
+            <status>
+            GLOBAL_FIXED
+            </status>
+         <value>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </value>
+         <vis>
+         2
+            <status>
+            GLOBAL_VAR
+            </status>
+         </vis>
+         <type>
+         output
+            <status>
+            GLOBAL_VAR
+            </status>
+         </type>
+         <comment>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </comment>
+         <color>
+         -16777216
+            <status>
+            GLOBAL_VAR
+            </status>
+         </color>
+         <useratts>
+         dff-onboth
+            <status>
+            GLOBAL_VAR
+            </status>
+         </useratts>
+         <resetval>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </resetval>
+         <x2Obj>
+         0
+         </x2Obj>
+         <y2Obj>
+         0
+         </y2Obj>
+         <page>
+         1
+         </page>
+      </r>
+      <f>
+            <status>
+            GLOBAL_FIXED
+            </status>
+         <value>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </value>
+         <vis>
+         2
+            <status>
+            GLOBAL_VAR
+            </status>
+         </vis>
+         <type>
+         output
+            <status>
+            GLOBAL_VAR
+            </status>
+         </type>
+         <comment>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </comment>
+         <color>
+         -16777216
+            <status>
+            GLOBAL_VAR
+            </status>
+         </color>
+         <useratts>
+         dff-onstate
+            <status>
+            GLOBAL_VAR
+            </status>
+         </useratts>
+         <resetval>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </resetval>
+         <x2Obj>
+         0
+         </x2Obj>
+         <y2Obj>
+         0
+         </y2Obj>
+         <page>
+         1
+         </page>
+      </f>
    </attributes>
    <x0>
-   290
+   288
    </x0>
    <y0>
-   121
+   156
    </y0>
    <x1>
-   390
+   388
    </x1>
    <y1>
-   221
+   256
    </y1>
    <reset>
    true
@@ -875,18 +1267,130 @@ false
          1
          </page>
       </name>
+      <r>
+            <status>
+            GLOBAL_FIXED
+            </status>
+         <value>
+         1
+            <status>
+            LOCAL
+            </status>
+         </value>
+         <vis>
+         2
+            <status>
+            GLOBAL_VAR
+            </status>
+         </vis>
+         <type>
+         output
+            <status>
+            GLOBAL_VAR
+            </status>
+         </type>
+         <comment>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </comment>
+         <color>
+         -16777216
+            <status>
+            GLOBAL_VAR
+            </status>
+         </color>
+         <useratts>
+         dff-onboth
+            <status>
+            GLOBAL_VAR
+            </status>
+         </useratts>
+         <resetval>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </resetval>
+         <x2Obj>
+         0
+         </x2Obj>
+         <y2Obj>
+         0
+         </y2Obj>
+         <page>
+         1
+         </page>
+      </r>
+      <f>
+            <status>
+            GLOBAL_FIXED
+            </status>
+         <value>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </value>
+         <vis>
+         2
+            <status>
+            GLOBAL_VAR
+            </status>
+         </vis>
+         <type>
+         output
+            <status>
+            GLOBAL_VAR
+            </status>
+         </type>
+         <comment>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </comment>
+         <color>
+         -16777216
+            <status>
+            GLOBAL_VAR
+            </status>
+         </color>
+         <useratts>
+         dff-onstate
+            <status>
+            GLOBAL_VAR
+            </status>
+         </useratts>
+         <resetval>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </resetval>
+         <x2Obj>
+         0
+         </x2Obj>
+         <y2Obj>
+         0
+         </y2Obj>
+         <page>
+         1
+         </page>
+      </f>
    </attributes>
    <x0>
-   483
+   506
    </x0>
    <y0>
-   119
+   156
    </y0>
    <x1>
-   583
+   606
    </x1>
    <y1>
-   219
+   256
    </y1>
    <reset>
    false
@@ -958,18 +1462,130 @@ false
          1
          </page>
       </name>
+      <r>
+            <status>
+            GLOBAL_FIXED
+            </status>
+         <value>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </value>
+         <vis>
+         2
+            <status>
+            GLOBAL_VAR
+            </status>
+         </vis>
+         <type>
+         output
+            <status>
+            GLOBAL_VAR
+            </status>
+         </type>
+         <comment>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </comment>
+         <color>
+         -16777216
+            <status>
+            GLOBAL_VAR
+            </status>
+         </color>
+         <useratts>
+         dff-onboth
+            <status>
+            GLOBAL_VAR
+            </status>
+         </useratts>
+         <resetval>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </resetval>
+         <x2Obj>
+         0
+         </x2Obj>
+         <y2Obj>
+         0
+         </y2Obj>
+         <page>
+         1
+         </page>
+      </r>
+      <f>
+            <status>
+            GLOBAL_FIXED
+            </status>
+         <value>
+         1
+            <status>
+            LOCAL
+            </status>
+         </value>
+         <vis>
+         2
+            <status>
+            GLOBAL_VAR
+            </status>
+         </vis>
+         <type>
+         output
+            <status>
+            GLOBAL_VAR
+            </status>
+         </type>
+         <comment>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </comment>
+         <color>
+         -16777216
+            <status>
+            GLOBAL_VAR
+            </status>
+         </color>
+         <useratts>
+         dff-onstate
+            <status>
+            GLOBAL_VAR
+            </status>
+         </useratts>
+         <resetval>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </resetval>
+         <x2Obj>
+         0
+         </x2Obj>
+         <y2Obj>
+         0
+         </y2Obj>
+         <page>
+         1
+         </page>
+      </f>
    </attributes>
    <x0>
-   389
+   397
    </x0>
    <y0>
-   270
+   318
    </y0>
    <x1>
-   489
+   497
    </x1>
    <y1>
-   370
+   418
    </y1>
    <reset>
    false
@@ -1088,7 +1704,7 @@ false
             </status>
          </resetval>
          <x2Obj>
-         -1
+         0
          </x2Obj>
          <y2Obj>
          -3
@@ -1097,7 +1713,7 @@ false
          1
          </page>
       </equation>
-      <g>
+      <x>
             <status>
             GLOBAL_FIXED
             </status>
@@ -1132,7 +1748,63 @@ false
             </status>
          </color>
          <useratts>
-         ontransit-dd
+         comb-ontransit
+            <status>
+            GLOBAL_VAR
+            </status>
+         </useratts>
+         <resetval>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </resetval>
+         <x2Obj>
+         0
+         </x2Obj>
+         <y2Obj>
+         0
+         </y2Obj>
+         <page>
+         1
+         </page>
+      </x>
+      <g>
+            <status>
+            GLOBAL_FIXED
+            </status>
+         <value>
+         1
+            <status>
+            LOCAL
+            </status>
+         </value>
+         <vis>
+         2
+            <status>
+            GLOBAL_VAR
+            </status>
+         </vis>
+         <type>
+         output
+            <status>
+            GLOBAL_VAR
+            </status>
+         </type>
+         <comment>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </comment>
+         <color>
+         -16777216
+            <status>
+            GLOBAL_VAR
+            </status>
+         </color>
+         <useratts>
+         comb-ontransit
             <status>
             GLOBAL_VAR
             </status>
@@ -1153,7 +1825,7 @@ false
          1
          </page>
       </g>
-      <s>
+      <r>
             <status>
             GLOBAL_FIXED
             </status>
@@ -1188,7 +1860,7 @@ false
             </status>
          </color>
          <useratts>
-         ontransit-dd
+         dff-onboth
             <status>
             GLOBAL_VAR
             </status>
@@ -1208,7 +1880,7 @@ false
          <page>
          1
          </page>
-      </s>
+      </r>
    </attributes>
    <startState>
    IDLE
@@ -1217,28 +1889,28 @@ false
    RUN
    </endState>
    <startPtX>
-   389.0
+   387.0
    </startPtX>
    <startPtY>
-   162.0
+   197.0
    </startPtY>
    <endPtX>
-   483.0
+   506.0
    </endPtX>
    <endPtY>
-   160.0
+   197.0
    </endPtY>
    <startCtrlPtX>
-   415.0
+   420.0
    </startCtrlPtX>
    <startCtrlPtY>
-   162.0
+   197.0
    </startCtrlPtY>
    <endCtrlPtY>
-   455.0
+   472.0
    </endCtrlPtY>
    <endCtrlPtY>
-   160.0
+   197.0
    </endCtrlPtY>
    <startStateIndex>
    35
@@ -1387,16 +2059,16 @@ false
             </status>
          </resetval>
          <x2Obj>
-         -3
+         0
          </x2Obj>
          <y2Obj>
-         -4
+         0
          </y2Obj>
          <page>
          1
          </page>
       </equation>
-      <g>
+      <x>
             <status>
             GLOBAL_FIXED
             </status>
@@ -1431,7 +2103,7 @@ false
             </status>
          </color>
          <useratts>
-         ontransit-dd
+         comb-ontransit
             <status>
             GLOBAL_VAR
             </status>
@@ -1443,16 +2115,16 @@ false
             </status>
          </resetval>
          <x2Obj>
-         20
+         17
          </x2Obj>
          <y2Obj>
-         0
+         5
          </y2Obj>
          <page>
          1
          </page>
-      </g>
-      <s>
+      </x>
+      <g>
             <status>
             GLOBAL_FIXED
             </status>
@@ -1487,7 +2159,7 @@ false
             </status>
          </color>
          <useratts>
-         ontransit-dd
+         comb-ontransit
             <status>
             GLOBAL_VAR
             </status>
@@ -1507,7 +2179,63 @@ false
          <page>
          1
          </page>
-      </s>
+      </g>
+      <r>
+            <status>
+            GLOBAL_FIXED
+            </status>
+         <value>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </value>
+         <vis>
+         2
+            <status>
+            GLOBAL_VAR
+            </status>
+         </vis>
+         <type>
+         output
+            <status>
+            GLOBAL_VAR
+            </status>
+         </type>
+         <comment>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </comment>
+         <color>
+         -16777216
+            <status>
+            GLOBAL_VAR
+            </status>
+         </color>
+         <useratts>
+         dff-onboth
+            <status>
+            GLOBAL_VAR
+            </status>
+         </useratts>
+         <resetval>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </resetval>
+         <x2Obj>
+         0
+         </x2Obj>
+         <y2Obj>
+         0
+         </y2Obj>
+         <page>
+         1
+         </page>
+      </r>
    </attributes>
    <startState>
    RUN
@@ -1516,31 +2244,31 @@ false
    LAST
    </endState>
    <startPtX>
-   515.0
+   531.0
    </startPtX>
    <startPtY>
-   215.0
+   249.0
    </startPtY>
    <endPtX>
-   471.0
+   479.0
    </endPtX>
    <endPtY>
-   281.0
+   329.0
    </endPtY>
    <startCtrlPtX>
-   514.0
+   529.0
    </startCtrlPtX>
    <startCtrlPtY>
-   236.0
+   274.0
    </startCtrlPtY>
    <endCtrlPtY>
-   483.0
+   494.0
    </endCtrlPtY>
    <endCtrlPtY>
-   270.0
+   317.0
    </endCtrlPtY>
    <startStateIndex>
-   11
+   12
    </startStateIndex>
    <endStateIndex>
    31
@@ -1695,14 +2423,70 @@ false
          1
          </page>
       </equation>
+      <x>
+            <status>
+            GLOBAL_FIXED
+            </status>
+         <value>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </value>
+         <vis>
+         2
+            <status>
+            GLOBAL_VAR
+            </status>
+         </vis>
+         <type>
+         output
+            <status>
+            GLOBAL_VAR
+            </status>
+         </type>
+         <comment>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </comment>
+         <color>
+         -16777216
+            <status>
+            GLOBAL_VAR
+            </status>
+         </color>
+         <useratts>
+         comb-ontransit
+            <status>
+            GLOBAL_VAR
+            </status>
+         </useratts>
+         <resetval>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </resetval>
+         <x2Obj>
+         0
+         </x2Obj>
+         <y2Obj>
+         0
+         </y2Obj>
+         <page>
+         1
+         </page>
+      </x>
       <g>
             <status>
             GLOBAL_FIXED
             </status>
          <value>
-         
+         1
             <status>
-            GLOBAL_VAR
+            LOCAL
             </status>
          </value>
          <vis>
@@ -1730,7 +2514,7 @@ false
             </status>
          </color>
          <useratts>
-         ontransit-dd
+         comb-ontransit
             <status>
             GLOBAL_VAR
             </status>
@@ -1742,23 +2526,23 @@ false
             </status>
          </resetval>
          <x2Obj>
-         -12
+         -15
          </x2Obj>
          <y2Obj>
-         5
+         11
          </y2Obj>
          <page>
          1
          </page>
       </g>
-      <s>
+      <r>
             <status>
             GLOBAL_FIXED
             </status>
          <value>
-         
+         1
             <status>
-            GLOBAL_VAR
+            LOCAL
             </status>
          </value>
          <vis>
@@ -1786,7 +2570,7 @@ false
             </status>
          </color>
          <useratts>
-         ontransit-dd
+         dff-onboth
             <status>
             GLOBAL_VAR
             </status>
@@ -1798,15 +2582,15 @@ false
             </status>
          </resetval>
          <x2Obj>
-         0
+         -15
          </x2Obj>
          <y2Obj>
-         0
+         15
          </y2Obj>
          <page>
          1
          </page>
-      </s>
+      </r>
    </attributes>
    <startState>
    LAST
@@ -1815,28 +2599,28 @@ false
    IDLE
    </endState>
    <startPtX>
-   400.0
+   408.0
    </startPtX>
    <startPtY>
-   287.0
+   335.0
    </startPtY>
    <endPtX>
-   357.0
+   355.0
    </endPtX>
    <endPtY>
-   217.0
+   252.0
    </endPtY>
    <startCtrlPtX>
-   387.0
+   392.0
    </startCtrlPtX>
    <startCtrlPtY>
-   276.0
+   323.0
    </startCtrlPtY>
    <endCtrlPtY>
-   357.0
+   356.0
    </endCtrlPtY>
    <endCtrlPtY>
-   239.0
+   278.0
    </endCtrlPtY>
    <startStateIndex>
    22
@@ -1879,276 +2663,4 @@ false
    </stub>
 </transition>
 ## END STATE TRANSITION OBJECT
-## START LOOPBACK TRANSITION OBJECT
-<transition>
-   <attributes>
-      <name>
-            <status>
-            ABS
-            </status>
-         <value>
-         trans3
-            <status>
-            LOCAL
-            </status>
-         </value>
-         <vis>
-         0
-            <status>
-            GLOBAL_VAR
-            </status>
-         </vis>
-         <type>
-         def_type
-            <status>
-            GLOBAL_VAR
-            </status>
-         </type>
-         <comment>
-         
-            <status>
-            GLOBAL_VAR
-            </status>
-         </comment>
-         <color>
-         -16777216
-            <status>
-            GLOBAL_VAR
-            </status>
-         </color>
-         <useratts>
-         
-            <status>
-            GLOBAL_VAR
-            </status>
-         </useratts>
-         <resetval>
-         
-            <status>
-            GLOBAL_VAR
-            </status>
-         </resetval>
-         <x2Obj>
-         0
-         </x2Obj>
-         <y2Obj>
-         0
-         </y2Obj>
-         <page>
-         1
-         </page>
-      </name>
-      <equation>
-            <status>
-            ABS
-            </status>
-         <value>
-         1
-            <status>
-            GLOBAL_VAR
-            </status>
-         </value>
-         <vis>
-         1
-            <status>
-            GLOBAL_VAR
-            </status>
-         </vis>
-         <type>
-         def_type
-            <status>
-            GLOBAL_VAR
-            </status>
-         </type>
-         <comment>
-         
-            <status>
-            GLOBAL_VAR
-            </status>
-         </comment>
-         <color>
-         -16777216
-            <status>
-            GLOBAL_VAR
-            </status>
-         </color>
-         <useratts>
-         
-            <status>
-            GLOBAL_VAR
-            </status>
-         </useratts>
-         <resetval>
-         
-            <status>
-            GLOBAL_VAR
-            </status>
-         </resetval>
-         <x2Obj>
-         -2
-         </x2Obj>
-         <y2Obj>
-         7
-         </y2Obj>
-         <page>
-         1
-         </page>
-      </equation>
-      <g>
-            <status>
-            GLOBAL_FIXED
-            </status>
-         <value>
-         
-            <status>
-            GLOBAL_VAR
-            </status>
-         </value>
-         <vis>
-         2
-            <status>
-            GLOBAL_VAR
-            </status>
-         </vis>
-         <type>
-         output
-            <status>
-            GLOBAL_VAR
-            </status>
-         </type>
-         <comment>
-         
-            <status>
-            GLOBAL_VAR
-            </status>
-         </comment>
-         <color>
-         -16777216
-            <status>
-            GLOBAL_VAR
-            </status>
-         </color>
-         <useratts>
-         ontransit-dd
-            <status>
-            GLOBAL_VAR
-            </status>
-         </useratts>
-         <resetval>
-         
-            <status>
-            GLOBAL_VAR
-            </status>
-         </resetval>
-         <x2Obj>
-         0
-         </x2Obj>
-         <y2Obj>
-         0
-         </y2Obj>
-         <page>
-         1
-         </page>
-      </g>
-      <s>
-            <status>
-            GLOBAL_FIXED
-            </status>
-         <value>
-         1
-            <status>
-            LOCAL
-            </status>
-         </value>
-         <vis>
-         2
-            <status>
-            GLOBAL_VAR
-            </status>
-         </vis>
-         <type>
-         output
-            <status>
-            GLOBAL_VAR
-            </status>
-         </type>
-         <comment>
-         
-            <status>
-            GLOBAL_VAR
-            </status>
-         </comment>
-         <color>
-         -16777216
-            <status>
-            GLOBAL_VAR
-            </status>
-         </color>
-         <useratts>
-         ontransit-dd
-            <status>
-            GLOBAL_VAR
-            </status>
-         </useratts>
-         <resetval>
-         
-            <status>
-            GLOBAL_VAR
-            </status>
-         </resetval>
-         <x2Obj>
-         3
-         </x2Obj>
-         <y2Obj>
-         8
-         </y2Obj>
-         <page>
-         1
-         </page>
-      </s>
-   </attributes>
-   <startState>
-   RUN
-   </startState>
-   <endState>
-   RUN
-   </endState>
-   <startPtX>
-   550.0
-   </startPtX>
-   <startPtY>
-   122.0
-   </startPtY>
-   <endPtX>
-   579.0
-   </endPtX>
-   <endPtY>
-   151.0
-   </endPtY>
-   <startCtrlPtX>
-   572.0
-   </startCtrlPtX>
-   <startCtrlPtY>
-   60.0
-   </startCtrlPtY>
-   <endCtrlPtY>
-   639.0
-   </endCtrlPtY>
-   <endCtrlPtY>
-   128.0
-   </endCtrlPtY>
-   <startStateIndex>
-   29
-   </startStateIndex>
-   <endStateIndex>
-   34
-   </endStateIndex>
-   <page>
-   1
-   </page>
-   <color>
-   -16777216
-   </color>
-</transition>
-## START LOOPBACK TRANSITION OBJECT
 ## END OBJECTS

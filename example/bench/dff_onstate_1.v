@@ -1,6 +1,6 @@
-// File last modified by Fizzim2 (build 16.03.22) at 9:38:19 AM on 3/24/16
+// File last modified by Fizzim2 (build 16.04.19) at 11:36:35 AM on 4/25/16
 
-module onstate_1 (
+module dff_onstate_1 (
 // OUTPUTS
     output reg      f,
     output reg      r,

@@ -1,6 +1,6 @@
-## File last modified by Fizzim2 : 1:46:58 PM on 3/24/16
+## File last modified by Fizzim2 : 2:56:11 PM on 4/22/16
 <version>
-   16.03.22
+   16.04.19
 </version>
 <globals>
    <machine>
@@ -361,7 +361,7 @@
             </status>
          </vis>
          <type>
-         onstate
+         dff-onstate
             <status>
             GLOBAL_VAR
             </status>
@@ -493,7 +493,7 @@
             </status>
          </color>
          <useratts>
-         onstate
+         dff-onstate
             <status>
             GLOBAL_VAR
             </status>
@@ -771,7 +771,7 @@ false
             </status>
          </color>
          <useratts>
-         onstate
+         dff-onstate
             <status>
             GLOBAL_VAR
             </status>
@@ -910,7 +910,7 @@ false
             </status>
          </color>
          <useratts>
-         onstate
+         dff-onstate
             <status>
             GLOBAL_VAR
             </status>
@@ -1049,7 +1049,7 @@ false
             </status>
          </color>
          <useratts>
-         onstate
+         dff-onstate
             <status>
             GLOBAL_VAR
             </status>
@@ -1375,7 +1375,7 @@ false
             </status>
          </color>
          <useratts>
-         onstate
+         dff-onstate
             <status>
             GLOBAL_VAR
             </status>

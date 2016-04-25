@@ -1,10 +1,11 @@
-// File last modified by Fizzim2 (build 16.03.22) at 10:02:25 AM on 3/24/16
+// File last modified by Fizzim2 (build 16.03.22) at 2:21:49 PM on 4/26/16
 
-module onstate_ontransit_1 (
+module dff_onboth_1 (
 // OUTPUTS
-    output reg      g,
-    output reg      f,
     output reg      r,
+    output reg      f,
+    output reg      x,
+    output reg      g,
 
 // INPUTS
     input           do,
@@ -29,24 +30,32 @@ if (!rst_n)
 else
     state <= nextstate;
 
+// dff-ontransit definitions
+reg       nx_r;
+
 // Transition combinational always block
 always @* begin
     nextstate = state;
     g = 0;
+    x = 0;
+    nx_r = 0;
 
     case (state)
         IDLE :
             if(do) begin
                 nextstate = RUN;
+                g = 1;
             end
         RUN :
             if(!do) begin
                 nextstate = LAST;
-                g = 1;
+                x = 1;
             end
         LAST :
             begin
                 nextstate = IDLE;
+                g = 1;
+                nx_r = 1;
             end
     endcase
 end
@@ -58,7 +67,7 @@ if (!rst_n) begin
     f <= 0;
 end
 else begin
-    r <= 0;
+    r <= nx_r;
     f <= 0;
 
     case (nextstate)

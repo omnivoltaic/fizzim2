@@ -1,6 +1,6 @@
-## File last modified by Fizzim2 : 1:45:04 PM on 3/29/16
+## File last modified by Fizzim2 : 3:10:44 PM on 4/22/16
 <version>
-   16.03.22
+   16.04.19
 </version>
 <globals>
    <machine>
@@ -305,7 +305,7 @@
             </status>
          </vis>
          <type>
-         ontransit
+         dff-ontransit
             <status>
             GLOBAL_VAR
             </status>
@@ -361,7 +361,7 @@
             </status>
          </vis>
          <type>
-         ontransit
+         dff-ontransit
             <status>
             GLOBAL_VAR
             </status>
@@ -607,7 +607,7 @@
             </status>
          </color>
          <useratts>
-         ontransit
+         dff-ontransit
             <status>
             GLOBAL_VAR
             </status>
@@ -663,7 +663,7 @@
             </status>
          </color>
          <useratts>
-         ontransit
+         dff-ontransit
             <status>
             GLOBAL_VAR
             </status>
@@ -1132,7 +1132,7 @@ false
             </status>
          </color>
          <useratts>
-         ontransit
+         dff-ontransit
             <status>
             GLOBAL_VAR
             </status>
@@ -1188,7 +1188,7 @@ false
             </status>
          </color>
          <useratts>
-         ontransit
+         dff-ontransit
             <status>
             GLOBAL_VAR
             </status>
@@ -1431,7 +1431,7 @@ false
             </status>
          </color>
          <useratts>
-         ontransit
+         dff-ontransit
             <status>
             GLOBAL_VAR
             </status>
@@ -1487,7 +1487,7 @@ false
             </status>
          </color>
          <useratts>
-         ontransit
+         dff-ontransit
             <status>
             GLOBAL_VAR
             </status>
@@ -1730,7 +1730,7 @@ false
             </status>
          </color>
          <useratts>
-         ontransit
+         dff-ontransit
             <status>
             GLOBAL_VAR
             </status>
@@ -1786,7 +1786,7 @@ false
             </status>
          </color>
          <useratts>
-         ontransit
+         dff-ontransit
             <status>
             GLOBAL_VAR
             </status>
@@ -2029,7 +2029,7 @@ false
             </status>
          </color>
          <useratts>
-         ontransit
+         dff-ontransit
             <status>
             GLOBAL_VAR
             </status>
@@ -2085,7 +2085,7 @@ false
             </status>
          </color>
          <useratts>
-         ontransit
+         dff-ontransit
             <status>
             GLOBAL_VAR
             </status>

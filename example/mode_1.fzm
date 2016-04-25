@@ -1,6 +1,6 @@
-## File last modified by Fizzim2 : 21:57:21 on 16-3-27
+## File last modified by Fizzim2 : 2:54:36 PM on 4/22/16
 <version>
-   14.02.26
+   16.04.19
 </version>
 <globals>
    <machine>
@@ -305,7 +305,7 @@
             </status>
          </vis>
          <type>
-         onstate
+         dff-onstate
             <status>
             GLOBAL_VAR
             </status>
@@ -361,7 +361,7 @@
             </status>
          </vis>
          <type>
-         onstate
+         dff-onstate
             <status>
             GLOBAL_VAR
             </status>
@@ -493,7 +493,7 @@
             </status>
          </color>
          <useratts>
-         onstate
+         dff-onstate
             <status>
             GLOBAL_VAR
             </status>
@@ -549,7 +549,7 @@
             </status>
          </color>
          <useratts>
-         onstate
+         dff-onstate
             <status>
             GLOBAL_VAR
             </status>
@@ -828,7 +828,7 @@ false
             </status>
          </color>
          <useratts>
-         onstate
+         dff-onstate
             <status>
             GLOBAL_VAR
             </status>
@@ -884,7 +884,7 @@ false
             </status>
          </color>
          <useratts>
-         onstate
+         dff-onstate
             <status>
             GLOBAL_VAR
             </status>
@@ -1023,7 +1023,7 @@ false
             </status>
          </color>
          <useratts>
-         onstate
+         dff-onstate
             <status>
             GLOBAL_VAR
             </status>
@@ -1079,7 +1079,7 @@ false
             </status>
          </color>
          <useratts>
-         onstate
+         dff-onstate
             <status>
             GLOBAL_VAR
             </status>
@@ -1218,7 +1218,7 @@ false
             </status>
          </color>
          <useratts>
-         onstate
+         dff-onstate
             <status>
             GLOBAL_VAR
             </status>
@@ -1274,7 +1274,7 @@ false
             </status>
          </color>
          <useratts>
-         onstate
+         dff-onstate
             <status>
             GLOBAL_VAR
             </status>

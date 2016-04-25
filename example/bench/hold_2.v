@@ -1,4 +1,4 @@
-// File last modified by Fizzim2 (build 16.03.22) at 11:18:56 AM on 3/24/16
+// File last modified by Fizzim2 (build 16.04.19) at 3:29:00 PM on 4/25/16
 
 module hold_2 (
 // OUTPUTS
@@ -28,7 +28,7 @@ if (!rst_n)
 else
     state <= nextstate;
 
-// ontransit-hold definitions
+// hold-ontransit definitions
 reg       nx_g;
 
 // Transition combinational always block
@@ -72,8 +72,8 @@ else begin
             cnt <= cnt + 1'b1;
         end
         LAST : begin
-            g <= 0;
             f <= ~f;
+            g <= 0;
         end
     endcase
 end

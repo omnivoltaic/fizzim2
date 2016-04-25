@@ -1,6 +1,6 @@
-## File last modified by Fizzim2 : 10:02:25 AM on 3/24/16
+## File last modified by Fizzim2 : 3:05:58 PM on 4/22/16
 <version>
-   16.03.22
+   16.04.19
 </version>
 <globals>
    <machine>
@@ -288,62 +288,6 @@
       </do>
    </inputs>
    <outputs>
-      <g>
-            <status>
-            GLOBAL_FIXED
-            </status>
-         <value>
-         
-            <status>
-            GLOBAL_VAR
-            </status>
-         </value>
-         <vis>
-         2
-            <status>
-            GLOBAL_VAR
-            </status>
-         </vis>
-         <type>
-         ontransit
-            <status>
-            GLOBAL_VAR
-            </status>
-         </type>
-         <comment>
-         
-            <status>
-            GLOBAL_VAR
-            </status>
-         </comment>
-         <color>
-         -16777216
-            <status>
-            GLOBAL_VAR
-            </status>
-         </color>
-         <useratts>
-         
-            <status>
-            GLOBAL_VAR
-            </status>
-         </useratts>
-         <resetval>
-         
-            <status>
-            GLOBAL_VAR
-            </status>
-         </resetval>
-         <x2Obj>
-         0
-         </x2Obj>
-         <y2Obj>
-         0
-         </y2Obj>
-         <page>
-         -1
-         </page>
-      </g>
       <f>
             <status>
             GLOBAL_FIXED
@@ -361,7 +305,7 @@
             </status>
          </vis>
          <type>
-         onstate
+         dff-onstate
             <status>
             GLOBAL_VAR
             </status>
@@ -417,7 +361,7 @@
             </status>
          </vis>
          <type>
-         onstate
+         dff-onstate
             <status>
             GLOBAL_VAR
             </status>
@@ -549,7 +493,7 @@
             </status>
          </color>
          <useratts>
-         onstate
+         dff-onstate
             <status>
             GLOBAL_VAR
             </status>
@@ -605,7 +549,7 @@
             </status>
          </color>
          <useratts>
-         onstate
+         dff-onstate
             <status>
             GLOBAL_VAR
             </status>
@@ -740,62 +684,6 @@
          -1
          </page>
       </equation>
-      <g>
-            <status>
-            GLOBAL_FIXED
-            </status>
-         <value>
-         
-            <status>
-            GLOBAL_VAR
-            </status>
-         </value>
-         <vis>
-         2
-            <status>
-            GLOBAL_VAR
-            </status>
-         </vis>
-         <type>
-         output
-            <status>
-            GLOBAL_VAR
-            </status>
-         </type>
-         <comment>
-         
-            <status>
-            GLOBAL_VAR
-            </status>
-         </comment>
-         <color>
-         -16777216
-            <status>
-            GLOBAL_VAR
-            </status>
-         </color>
-         <useratts>
-         ontransit
-            <status>
-            GLOBAL_VAR
-            </status>
-         </useratts>
-         <resetval>
-         
-            <status>
-            GLOBAL_VAR
-            </status>
-         </resetval>
-         <x2Obj>
-         0
-         </x2Obj>
-         <y2Obj>
-         0
-         </y2Obj>
-         <page>
-         -1
-         </page>
-      </g>
    </trans>
    <signals>
    </signals>
@@ -805,7 +693,7 @@
 </tabs>
 ## START PREFERENCES
 <SCounter>
-4
+3
 </SCounter>
 <TCounter>
 3
@@ -939,7 +827,7 @@ false
             </status>
          </color>
          <useratts>
-         onstate
+         dff-onstate
             <status>
             GLOBAL_VAR
             </status>
@@ -995,7 +883,7 @@ false
             </status>
          </color>
          <useratts>
-         onstate
+         dff-onstate
             <status>
             GLOBAL_VAR
             </status>
@@ -1018,16 +906,16 @@ false
       </r>
    </attributes>
    <x0>
-   290
+   192
    </x0>
    <y0>
-   121
+   60
    </y0>
    <x1>
-   390
+   292
    </x1>
    <y1>
-   221
+   160
    </y1>
    <reset>
    true
@@ -1134,7 +1022,7 @@ false
             </status>
          </color>
          <useratts>
-         onstate
+         dff-onstate
             <status>
             GLOBAL_VAR
             </status>
@@ -1190,7 +1078,7 @@ false
             </status>
          </color>
          <useratts>
-         onstate
+         dff-onstate
             <status>
             GLOBAL_VAR
             </status>
@@ -1213,16 +1101,16 @@ false
       </r>
    </attributes>
    <x0>
-   483
+   410
    </x0>
    <y0>
-   119
+   60
    </y0>
    <x1>
-   583
+   510
    </x1>
    <y1>
-   219
+   160
    </y1>
    <reset>
    false
@@ -1329,7 +1217,7 @@ false
             </status>
          </color>
          <useratts>
-         onstate
+         dff-onstate
             <status>
             GLOBAL_VAR
             </status>
@@ -1385,7 +1273,7 @@ false
             </status>
          </color>
          <useratts>
-         onstate
+         dff-onstate
             <status>
             GLOBAL_VAR
             </status>
@@ -1408,16 +1296,16 @@ false
       </r>
    </attributes>
    <x0>
-   389
+   301
    </x0>
    <y0>
-   270
+   222
    </y0>
    <x1>
-   489
+   401
    </x1>
    <y1>
-   370
+   322
    </y1>
    <reset>
    false
@@ -1536,7 +1424,7 @@ false
             </status>
          </resetval>
          <x2Obj>
-         -1
+         0
          </x2Obj>
          <y2Obj>
          -3
@@ -1545,62 +1433,6 @@ false
          1
          </page>
       </equation>
-      <g>
-            <status>
-            GLOBAL_FIXED
-            </status>
-         <value>
-         
-            <status>
-            GLOBAL_VAR
-            </status>
-         </value>
-         <vis>
-         2
-            <status>
-            GLOBAL_VAR
-            </status>
-         </vis>
-         <type>
-         output
-            <status>
-            GLOBAL_VAR
-            </status>
-         </type>
-         <comment>
-         
-            <status>
-            GLOBAL_VAR
-            </status>
-         </comment>
-         <color>
-         -16777216
-            <status>
-            GLOBAL_VAR
-            </status>
-         </color>
-         <useratts>
-         ontransit
-            <status>
-            GLOBAL_VAR
-            </status>
-         </useratts>
-         <resetval>
-         
-            <status>
-            GLOBAL_VAR
-            </status>
-         </resetval>
-         <x2Obj>
-         0
-         </x2Obj>
-         <y2Obj>
-         0
-         </y2Obj>
-         <page>
-         1
-         </page>
-      </g>
    </attributes>
    <startState>
    IDLE
@@ -1609,28 +1441,28 @@ false
    RUN
    </endState>
    <startPtX>
-   389.0
+   291.0
    </startPtX>
    <startPtY>
-   162.0
+   101.0
    </startPtY>
    <endPtX>
-   483.0
+   410.0
    </endPtX>
    <endPtY>
-   160.0
+   101.0
    </endPtY>
    <startCtrlPtX>
-   415.0
+   324.0
    </startCtrlPtX>
    <startCtrlPtY>
-   162.0
+   101.0
    </startCtrlPtY>
    <endCtrlPtY>
-   455.0
+   376.0
    </endCtrlPtY>
    <endCtrlPtY>
-   160.0
+   101.0
    </endCtrlPtY>
    <startStateIndex>
    35
@@ -1779,63 +1611,7 @@ false
             </status>
          </resetval>
          <x2Obj>
-         -1
-         </x2Obj>
-         <y2Obj>
-         -2
-         </y2Obj>
-         <page>
-         1
-         </page>
-      </equation>
-      <g>
-            <status>
-            GLOBAL_FIXED
-            </status>
-         <value>
-         1
-            <status>
-            LOCAL
-            </status>
-         </value>
-         <vis>
-         2
-            <status>
-            GLOBAL_VAR
-            </status>
-         </vis>
-         <type>
-         output
-            <status>
-            GLOBAL_VAR
-            </status>
-         </type>
-         <comment>
-         
-            <status>
-            GLOBAL_VAR
-            </status>
-         </comment>
-         <color>
-         -16777216
-            <status>
-            GLOBAL_VAR
-            </status>
-         </color>
-         <useratts>
-         ontransit
-            <status>
-            GLOBAL_VAR
-            </status>
-         </useratts>
-         <resetval>
-         
-            <status>
-            GLOBAL_VAR
-            </status>
-         </resetval>
-         <x2Obj>
-         17
+         0
          </x2Obj>
          <y2Obj>
          0
@@ -1843,7 +1619,7 @@ false
          <page>
          1
          </page>
-      </g>
+      </equation>
    </attributes>
    <startState>
    RUN
@@ -1852,31 +1628,31 @@ false
    LAST
    </endState>
    <startPtX>
-   515.0
+   435.0
    </startPtX>
    <startPtY>
-   215.0
+   153.0
    </startPtY>
    <endPtX>
-   471.0
+   383.0
    </endPtX>
    <endPtY>
-   281.0
+   233.0
    </endPtY>
    <startCtrlPtX>
-   514.0
+   433.0
    </startCtrlPtX>
    <startCtrlPtY>
-   236.0
+   178.0
    </startCtrlPtY>
    <endCtrlPtY>
-   483.0
+   398.0
    </endCtrlPtY>
    <endCtrlPtY>
-   270.0
+   221.0
    </endCtrlPtY>
    <startStateIndex>
-   11
+   12
    </startStateIndex>
    <endStateIndex>
    31
@@ -2031,62 +1807,6 @@ false
          1
          </page>
       </equation>
-      <g>
-            <status>
-            GLOBAL_FIXED
-            </status>
-         <value>
-         
-            <status>
-            GLOBAL_VAR
-            </status>
-         </value>
-         <vis>
-         2
-            <status>
-            GLOBAL_VAR
-            </status>
-         </vis>
-         <type>
-         output
-            <status>
-            GLOBAL_VAR
-            </status>
-         </type>
-         <comment>
-         
-            <status>
-            GLOBAL_VAR
-            </status>
-         </comment>
-         <color>
-         -16777216
-            <status>
-            GLOBAL_VAR
-            </status>
-         </color>
-         <useratts>
-         ontransit
-            <status>
-            GLOBAL_VAR
-            </status>
-         </useratts>
-         <resetval>
-         
-            <status>
-            GLOBAL_VAR
-            </status>
-         </resetval>
-         <x2Obj>
-         -12
-         </x2Obj>
-         <y2Obj>
-         5
-         </y2Obj>
-         <page>
-         1
-         </page>
-      </g>
    </attributes>
    <startState>
    LAST
@@ -2095,28 +1815,28 @@ false
    IDLE
    </endState>
    <startPtX>
-   400.0
+   312.0
    </startPtX>
    <startPtY>
-   287.0
+   239.0
    </startPtY>
    <endPtX>
-   357.0
+   259.0
    </endPtX>
    <endPtY>
-   217.0
+   156.0
    </endPtY>
    <startCtrlPtX>
-   387.0
+   296.0
    </startCtrlPtX>
    <startCtrlPtY>
-   276.0
+   227.0
    </startCtrlPtY>
    <endCtrlPtY>
-   357.0
+   260.0
    </endCtrlPtY>
    <endCtrlPtY>
-   239.0
+   182.0
    </endCtrlPtY>
    <startStateIndex>
    22

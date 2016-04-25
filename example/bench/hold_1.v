@@ -28,7 +28,7 @@ if (!rst_n)
 else
     state <= nextstate;
 
-// ontransit-hold definitions
+// hold-ontransit definitions
 reg       nx_g;
 
 // Transition combinational always block
