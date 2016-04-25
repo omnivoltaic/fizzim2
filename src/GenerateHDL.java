@@ -633,7 +633,7 @@ try {
             txt += (ind + ni[1] + " <= 0;\n");
         }
         for (i = 0; i < onStateOut_hold.size(); i++) {
-            if(onTransitOut_hold.contains(onStateOut_hold.get(i))) break;
+            if(onTransitOut_hold.contains(onStateOut_hold.get(i))) continue;
 
             ni = nameinfo(onStateOut_hold.get(i));
             txt += (ind + ni[1] + " <= 0;\n");
