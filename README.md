@@ -34,3 +34,12 @@ So Fizzim2 will NOT be compatible with the original Fizzim.
 
 ### Todo ###
 - rules check
+
+### History ###
+
+16.04.26
+- change outputs/signals type to 'dff-*, comb-*, *-onboth'
+- fix bugs
+
+16.03.22
+- initial

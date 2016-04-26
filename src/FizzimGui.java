@@ -89,7 +89,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 public class FizzimGui extends javax.swing.JFrame {
 
-    String currVer = "16.03.22";
+    String currVer = "16.04.26";
 
     // pointer to global lists
     LinkedList<ObjAttribute> globalMachineAttributes;
