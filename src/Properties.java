@@ -143,14 +143,15 @@ class MyTableModel extends AbstractTableModel {
                         // 6: UserAtts
                         // 7: Resetval
 
+        String val = (String) value;
         //turn string into corresponding number
         if(col == 2)
         {
             if(value.equals("No"))
                 value = new Integer(0);
-            if(value.equals("Yes"))
+            else if(value.equals("Yes"))
                 value = new Integer(1);
-            if(value.equals("Only non-default"))
+            else if(value.equals("Only non-default"))
                 value = new Integer(2);
         }
 
@@ -226,9 +227,9 @@ class MyTableModel extends AbstractTableModel {
 
 
         //first time type being set in outputs, create corresponding attribute in state tab
-        boolean isOnState = ((String) value).contains("onstate");
-        boolean isOnTransit = ((String) value).contains("ontransit");
-        boolean isBoth = ((String) value).contains("onboth");
+        boolean isOnState = val.contains("onstate");
+        boolean isOnTransit = val.contains("ontransit");
+        boolean isBoth = val.contains("onboth");
         if(global && col == 3 && attrib.get(row).get(col).equals("") &&
                 (isOnState || isOnTransit || isBoth) &&
                 (attrib.equals(globalList.get(ObjAttribute.TabOutput)) || attrib.equals(globalList.get(ObjAttribute.TabSignal)))
@@ -238,7 +239,7 @@ class MyTableModel extends AbstractTableModel {
                 ObjAttribute.GLOBAL_VAR, ObjAttribute.GLOBAL_VAR, ObjAttribute.GLOBAL_VAR, ObjAttribute.GLOBAL_VAR, ObjAttribute.GLOBAL_VAR, ObjAttribute.GLOBAL_VAR};
                 String tt = attrib.equals(globalList.get(ObjAttribute.TabOutput))? "output": "signal";
                 ObjAttribute newObj = new ObjAttribute(attrib.get(row).getName(),attrib.get(row).getValue(),
-                        attrib.get(row).getVisibility(),tt,"",Color.black, (String) value,"",editable);
+                        attrib.get(row).getVisibility(),tt,"",Color.black, val,"",editable);
                 globalList.get(ObjAttribute.TabState).addLast(newObj);
                 if(isBoth)
                     globalList.get(ObjAttribute.TabTransition).addLast(newObj);
@@ -322,15 +323,15 @@ class MyTableModel extends AbstractTableModel {
                     a = ObjAttribute.TabTransition;
             }
 
-            String s = (String) value;
-            boolean samepos = s.substring(s.indexOf('-')).equals(tp.substring(tp.indexOf('-')));
+            String s = val;
+            boolean samepos = val.substring(val.indexOf('-')).equals(tp.substring(tp.indexOf('-')));
 
 //System.out.println(tp+"->"+value+":"+a+","+b+":"+samepos);
             for(int i = 0; i < globalList.get(a).size(); i++)
             {
                 if(attrib.get(row).getName().equals(globalList.get(a).get(i).getName()))
                 {
-                    globalList.get(a).get(i).setUserAtts(s);
+                    globalList.get(a).get(i).setUserAtts(val);
                     if(samepos) break;
 
                     if(!tp.contains("onboth")) // old NOT both
@@ -341,7 +342,7 @@ class MyTableModel extends AbstractTableModel {
                     {
                         for(int j = 0; j < globalList.get(b).size(); j++)
                             if(attrib.get(row).getName().equals(globalList.get(b).get(j).getName()))
-                                globalList.get(b).get(j).setUserAtts(s);
+                                globalList.get(b).get(j).setUserAtts(val);
                     }
 
                     if(!isBoth) // new NOT both
@@ -374,7 +375,7 @@ class MyTableModel extends AbstractTableModel {
 
         // checks for when name being changed
         if(attrib.get(row).getName().equals("name") && col == 1 && !global)
-            obj.setName((String) value);
+            obj.setName(val);
 
 
         //restore to default if empty string was entered
