@@ -437,7 +437,7 @@ try {
 //System.out.print(t+"\n");
                     switch(t)
                     {
-                        //case 0 : ll = dff_onStateOut; break;
+                        case 0 : ll = dff_onStateOut; break;
                         case 2 : ll = hold_onStateOut; break;
                         case 3 : ll = dff_onTransitOut; break;
                         case 4 : ll = comb_onTransitOut; break;
