@@ -227,10 +227,13 @@ class MyTableModel extends AbstractTableModel {
 
 
         //first time type being set in outputs, create corresponding attribute in state tab
+        // (null, buffer) <--> (-onstate, -ontransit, -onboth)
         boolean isOnState = val.contains("onstate");
         boolean isOnTransit = val.contains("ontransit");
         boolean isBoth = val.contains("onboth");
-        if(global && col == 3 && attrib.get(row).get(col).equals("") &&
+        boolean isBuff = val.contains("buffer");
+        if(global && col == 3 &&
+                (attrib.get(row).get(col).equals("") || attrib.get(row).get(col).equals("buffer")) &&
                 (isOnState || isOnTransit || isBoth) &&
                 (attrib.equals(globalList.get(ObjAttribute.TabOutput)) || attrib.equals(globalList.get(ObjAttribute.TabSignal)))
           )
@@ -240,8 +243,9 @@ class MyTableModel extends AbstractTableModel {
                 String tt = attrib.equals(globalList.get(ObjAttribute.TabOutput))? "output": "signal";
                 ObjAttribute newObj = new ObjAttribute(attrib.get(row).getName(),attrib.get(row).getValue(),
                         attrib.get(row).getVisibility(),tt,"",Color.black, val,"",editable);
-                globalList.get(ObjAttribute.TabState).addLast(newObj);
-                if(isBoth)
+                if(isOnState || isBoth)
+                    globalList.get(ObjAttribute.TabState).addLast(newObj);
+                if(isOnTransit || isBoth)
                     globalList.get(ObjAttribute.TabTransition).addLast(newObj);
         }
 
@@ -285,67 +289,32 @@ class MyTableModel extends AbstractTableModel {
             value = attrib.get(row).get(col);
         }
 
-        //if changing 'OUTPUT or SIGNAL' type 'onstate, ontransit*, onboth'
+        //if changing type '-onstate, -ontransit, -onboth, buffer' in TAB 'OUTPUT or SIGNAL'
+        // (-onstate, -ontransit, -onboth) <--> (-onstate, -ontransit, -onboth, buffer)
         String tp = attrib.get(row).getType(); // Old
-        if( tp.length() > 0 &&
-           !tp.equals(value) &&
-            (isOnState || isOnTransit || isBoth) &&
+        if( !tp.equals(value) &&    // value changed
+            (tp.length() > 0 && !tp.contains("buffer")) &&  // NOT null & NOT 'buffer'
+            (isOnState || isOnTransit || isBoth || isBuff) &&
             (attrib.equals(globalList.get(ObjAttribute.TabOutput)) || attrib.equals(globalList.get(ObjAttribute.TabSignal)))
         )
         {
-            // from  ->  to   :   a     b
-            // ============================
-            // state -> state : state STATE
-            // state -> trans : state trans
-            // state -> both  : state trans
-            //
-            // trans -> state : TRANS STATE
-            // trans -> trans : TRANS trans
-            // trans -> both  : TRANS STATE
-            //
-            // both  -> state : TRANS STATE
-            // both  -> trans : state trans
-            // both  -> both  : state trans
-            //
             int a = ObjAttribute.TabState, b = ObjAttribute.TabTransition;
-            if(tp.contains("ontransit")) // old is ontransit*
-            {
-                a = ObjAttribute.TabTransition;
 
-                if(isBoth)
-                    b = ObjAttribute.TabState;
-            }
-            if(isOnState) // new is onstate*
-            {
-                b = ObjAttribute.TabState;
-
-                if(tp.contains("onboth"))
-                    a = ObjAttribute.TabTransition;
-            }
-
-            String s = val;
-            boolean samepos = val.substring(val.indexOf('-')).equals(tp.substring(tp.indexOf('-')));
-
-//System.out.println(tp+"->"+value+":"+a+","+b+":"+samepos);
+            // tab onstate
             for(int i = 0; i < globalList.get(a).size(); i++)
             {
                 if(attrib.get(row).getName().equals(globalList.get(a).get(i).getName()))
                 {
                     globalList.get(a).get(i).setUserAtts(val);
-                    if(samepos) break;
 
-                    if(!tp.contains("onboth")) // old NOT both
+                    if( !tp.contains("onboth") &&  // not in old
+                        (isOnTransit || isBoth)   // need in new
+                    )
                     {
                         globalList.get(b).addLast(globalList.get(a).get(i));
                     }
-                    else // old is both
-                    {
-                        for(int j = 0; j < globalList.get(b).size(); j++)
-                            if(attrib.get(row).getName().equals(globalList.get(b).get(j).getName()))
-                                globalList.get(b).get(j).setUserAtts(val);
-                    }
 
-                    if(!isBoth) // new NOT both
+                    if(isOnTransit || isBuff)  // not need in the new
                     {
                         globalList.get(a).remove(i);
                     }
@@ -354,8 +323,30 @@ class MyTableModel extends AbstractTableModel {
                 }
             }
 
-        }
+            // tab ontransit
+            for(int i = 0; i < globalList.get(b).size(); i++)
+            {
+                if(attrib.get(row).getName().equals(globalList.get(b).get(i).getName()))
+                {
+                    globalList.get(b).get(i).setUserAtts(val);
 
+                    if( (tp.contains("ontransit") || tp.contains("buffer")) && // not in old
+                        (isOnState || isBoth)  // need in new
+                    )
+                    {
+                        globalList.get(a).addLast(globalList.get(b).get(i));
+                    }
+
+                    if(isOnState || isBuff)  // not need in the new
+                    {
+                        globalList.get(b).remove(i);
+                    }
+
+                    break;
+                }
+            }
+
+        }
 
         // dont set if nothing changes
         if(!attrib.get(row).get(col).equals(value))
@@ -1500,8 +1491,8 @@ class GlobalProperties extends javax.swing.JDialog {
 
     //String[] outputOptions = new String[] {"reg/statebit","comb","regdp","flag"};
     String[] outputOptions = new String[] {"dff-onstate", "dff-ontransit", "dff-onboth",
-                                           "comb-ontransit",
-                                           "hold-onstate", "hold-ontransit", "hold-onboth"};
+                                           "hold-onstate", "hold-ontransit", "hold-onboth",
+                                           "comb-ontransit", "buffer"};
     String[] reset_signal = new String[] {"negedge","posedge","sync"};
     MyJComboBoxEditor reset_signal_editor = new MyJComboBoxEditor(reset_signal);
     String[] clock = new String[] {"posedge","negedge"};
@@ -2196,6 +2187,7 @@ class GlobalProperties extends javax.swing.JDialog {
                             && !globalLists.get(i).get(j).getType().contains("onstate")
                             && !globalLists.get(i).get(j).getType().contains("ontransit")
                             && !globalLists.get(i).get(j).getType().contains("onboth")
+                            && !globalLists.get(i).get(j).getType().contains("buffer")
                       )
                         error = 2;
                     for(int k = j+1; k < globalLists.get(i).size(); k++)

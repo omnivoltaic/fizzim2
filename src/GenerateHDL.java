@@ -38,9 +38,6 @@ public class GenerateHDL {
     String currVer;
     String modName;
     String path;
-    //String clkName, clkEdge;
-    //String resetName = null;
-    //String resetEdge = null;
     int stateNum;
     int pageNum;
     boolean pageMode = true; // multi
@@ -54,6 +51,7 @@ public class GenerateHDL {
     LinkedList<String> dff_onTransitOut = new LinkedList<String>();
     LinkedList<String> hold_onStateOut = new LinkedList<String>();
     LinkedList<String> hold_onTransitOut = new LinkedList<String>();
+    LinkedList<ObjAttribute> bufferOut = new LinkedList<ObjAttribute>();
     String alwaysLine = "always @(";
     String resetLine = "";
     boolean resetSync = false;  // false for Async, true for Sync
@@ -106,11 +104,15 @@ public class GenerateHDL {
             String s;
 
             txt += "// OUTPUTS\n";
+            bufferOut.clear();
             tempList = (LinkedList<ObjAttribute>) globalList.get(ObjAttribute.TabOutput);
             for (i = 0; i < tempList.size(); i++) {
                 att = tempList.get(i);
                 ni = nameinfo((String) att.get(0));
                 txt += (ind + "output reg" + ni[2] + " " + ni[1] + ",\n");
+
+                if(att.getType().equals("buffer"))
+                    bufferOut.add(att);
             }
 
             txt += "\n// INPUTS\n";
@@ -171,6 +173,9 @@ public class GenerateHDL {
                 att = tempList.get(i);
                 ni = nameinfo((String) att.get(0));
                 txt += ("reg " + ni[2] + " " + ni[1] + " = 0;\n");
+
+                if(att.getType().equals("buffer"))
+                    bufferOut.add(att);
             }
 
             for(int page = 1; page < pageNum; page++)
@@ -617,10 +622,12 @@ try {
         String txt = new String();
         String[] ni;
         int i;
+        ObjAttribute att;
 
         if(dff_onStateOut.size() == 0 &&
            hold_onStateOut.size() == 0 &&
            hold_onTransitOut.size() == 0 &&
+           bufferOut.size() == 0 &&
            dff_onTransitOut.size() == 0
         ) return txt;
 
@@ -631,6 +638,10 @@ try {
         {
         txt += resetLine + " begin\n";
 
+        for (i = 0; i < bufferOut.size(); i++) {
+            att = bufferOut.get(i);
+            txt += (ind + att.getName() + " <= 0;\n");
+        }
         for (i = 0; i < hold_onTransitOut.size(); i++) {
             ni = nameinfo(hold_onTransitOut.get(i));
             txt += (ind + ni[1] + " <= 0;\n");
@@ -656,6 +667,11 @@ try {
         }
 
         txt += "begin\n";
+
+        for (i = 0; i < bufferOut.size(); i++) {
+            att = bufferOut.get(i);
+            txt += (ind + att.getName() + " <= " + att.getUserAtts() + ";\n");
+        }
         for (i = 0; i < hold_onTransitOut.size(); i++) {
             ni = nameinfo(hold_onTransitOut.get(i));
             txt += (ind + ni[1] + " <= " + holdVar + ni[1] + ";\n");
