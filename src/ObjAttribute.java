@@ -346,9 +346,9 @@ public class ObjAttribute implements Cloneable {
                     text = value;
                   }
                   else if(name.equals("equation")) {
-                    text = value;
+                    text = value + " //";
                     if(!useratts.equals("")) // show priority
-                        text += " // " + useratts;
+                        text += useratts;
                   } else {
                     if(outputTypeReg)
                       text = name + " :: " + value;
