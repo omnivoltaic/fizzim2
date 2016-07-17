@@ -38,9 +38,9 @@ public class GenerateHDL {
     String currVer;
     String modName;
     String path;
-    String clkName, clkEdge;
-    String resetName = null;
-    String resetEdge = null;
+    //String clkName, clkEdge;
+    //String resetName = null;
+    //String resetEdge = null;
     int stateNum;
     int pageNum;
     boolean pageMode = true; // multi
@@ -56,6 +56,7 @@ public class GenerateHDL {
     LinkedList<String> hold_onTransitOut = new LinkedList<String>();
     String alwaysLine = "always @(";
     String resetLine = "";
+    boolean resetSync = false;  // false for Async, true for Sync
     String resetState = "";
 
     String ind = "    ";
@@ -135,15 +136,22 @@ public class GenerateHDL {
                 else if (s.equals("reset_signal"))
                 {
                     s = (String) att.get(1);
-                    txt += (",\n" + ind + "input     " + s + "\n");
-                    alwaysLine += ", " + att.get(3) + " " + s;
+                    if(!att.getType().equals("sync"))
+                        txt += (",\n" + ind + "input     " + s);
 
-                    if(tempList.get(3).equals("posedge"))
+                    resetSync = false;
+                    if(att.get(3).equals("posedge"))
                     {
                         resetLine = "if (" + s + ")";
-                    } else
+                        alwaysLine += ", " + att.get(3) + " " + s;
+                    } else if(att.get(3).equals("negedge"))
                     {
                         resetLine = "if (!" + s + ")";
+                        alwaysLine += ", " + att.get(3) + " " + s;
+                    } else
+                    {
+                        resetLine = "if (" + s + ")";
+                        resetSync = true;
                     }
                     alwaysLine += ")";
                 }
@@ -156,7 +164,7 @@ public class GenerateHDL {
                     pageMode = att.get(1).equals("multi");
                 }
             }
-            txt += ");\n";
+            txt += "\n);\n";
             txt += "\n// SIGNALS\n";
             tempList = (LinkedList<ObjAttribute>) globalList.get(ObjAttribute.TabSignal);
             for (i = 0; i < tempList.size(); i++) {
@@ -618,6 +626,9 @@ try {
 
         txt += "\n// Output sequential always block\n";
         txt += alwaysLine + "\n";
+
+        if(!resetSync)
+        {
         txt += resetLine + " begin\n";
 
         for (i = 0; i < hold_onTransitOut.size(); i++) {
@@ -641,8 +652,10 @@ try {
             txt += (ind + ni[1] + " <= 0;\n");
         }
 
-        txt += "end\nelse begin\n";
+        txt += "end\nelse ";
+        }
 
+        txt += "begin\n";
         for (i = 0; i < hold_onTransitOut.size(); i++) {
             ni = nameinfo(hold_onTransitOut.get(i));
             txt += (ind + ni[1] + " <= " + holdVar + ni[1] + ";\n");

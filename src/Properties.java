@@ -1502,7 +1502,7 @@ class GlobalProperties extends javax.swing.JDialog {
     String[] outputOptions = new String[] {"dff-onstate", "dff-ontransit", "dff-onboth",
                                            "comb-ontransit",
                                            "hold-onstate", "hold-ontransit", "hold-onboth"};
-    String[] reset_signal = new String[] {"posedge","negedge","positive","negative"};
+    String[] reset_signal = new String[] {"negedge","posedge","sync"};
     MyJComboBoxEditor reset_signal_editor = new MyJComboBoxEditor(reset_signal);
     String[] clock = new String[] {"posedge","negedge"};
     MyJComboBoxEditor clock_editor = new MyJComboBoxEditor(clock);
