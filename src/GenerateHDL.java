@@ -53,6 +53,7 @@ public class GenerateHDL {
     LinkedList<ObjAttribute> dff_onBothOut = new LinkedList<ObjAttribute>();
     LinkedList<ObjAttribute> hold_onBothOut = new LinkedList<ObjAttribute>();
     LinkedList<ObjAttribute> bufferOut = new LinkedList<ObjAttribute>();
+    LinkedList<ObjAttribute> bufferSig = new LinkedList<ObjAttribute>();
     String alwaysLine = "always @(";
     String resetLine = "";
     boolean resetSync = false;  // false for Async, true for Sync
@@ -92,7 +93,7 @@ public class GenerateHDL {
             txt += currVer + ") at " + dt.format(currTime)
                     + " on " + df.format(currDate) + "\n";
 
-            txt += "\nmodule "+ modName +" (\n";
+            txt += "\nmodule "+ modName +" (\n\n";
 
             int stateBw;
             LinkedList<ObjAttribute> tempList;
@@ -104,24 +105,44 @@ public class GenerateHDL {
             int t;
             String s;
 
-            txt += "// OUTPUTS\n";
             bufferOut.clear();
+            //txt += "\n// OUPUTS\n";
+            dff_onStateOut.clear();
+            dff_onTransitOut.clear();
+            comb_onTransitOut.clear();
+            hold_onStateOut.clear();
+            hold_onTransitOut.clear();
+            dff_onBothOut.clear();
+            hold_onBothOut.clear();
             tempList = (LinkedList<ObjAttribute>) globalList.get(ObjAttribute.TabOutput);
             for (i = 0; i < tempList.size(); i++) {
                 att = tempList.get(i);
-                ni = nameinfo(att);
-                txt += (ind + "output reg" + ni[2] + " " + ni[1] + ",\n");
 
                 if(att.getType().equals("buffer"))
                     bufferOut.add(att);
+                else if(att.getType().equals("dff-onstate"))
+                    dff_onStateOut.add(att);
+                else if(att.getType().equals("dff-ontransit"))
+                    dff_onTransitOut.add(att);
+                else if(att.getType().equals("hold-onstate"))
+                    hold_onStateOut.add(att);
+                else if(att.getType().equals("hold-ontransit"))
+                    hold_onTransitOut.add(att);
+                else if(att.getType().equals("comb-ontransit"))
+                    comb_onTransitOut.add(att);
+                else if(att.getType().equals("dff-onboth"))
+                    dff_onBothOut.add(att);
+                else if(att.getType().equals("hold-onboth"))
+                    hold_onBothOut.add(att);
             }
+            txt += doOutputDefinition(0);
 
-            txt += "\n// INPUTS\n";
+            txt += "// INPUTS\n";
             tempList = (LinkedList<ObjAttribute>) globalList.get(ObjAttribute.TabInput);
             for (i = 0; i < tempList.size(); i++) {
                 att = tempList.get(i);
                 ni = nameinfo(att);
-                txt += (ind + "input     " + ni[2] + " " + ni[1] + ",\n");
+                txt += (ind + "input      " + ni[2] + " " + ni[1] + ",\n");
             }
 
             txt += "\n// GLOBAL\n";
@@ -133,14 +154,14 @@ public class GenerateHDL {
                 if(s.equals("clock"))
                 {
                     s = (String) att.get(1);
-                    txt += (ind + "input     " + s);
+                    txt += (ind + "input " + ind3 + s);
                     alwaysLine += att.get(3) + " " + s;
                 }
                 else if (s.equals("reset_signal"))
                 {
                     s = (String) att.get(1);
                     if(!att.getType().equals("sync"))
-                        txt += (",\n" + ind + "input     " + s);
+                        txt += (",\n" + ind + "input " + ind3 + s);
 
                     resetSync = false;
                     if(att.get(3).equals("posedge"))
@@ -167,25 +188,46 @@ public class GenerateHDL {
                     pageMode = att.get(1).equals("multi");
                 }
             }
-            txt += "\n);\n";
-            txt += "\n// SIGNALS\n";
+            txt += "\n);\n\n";
+            bufferSig.clear();
+            //txt += "\n// SIGNALS\n";
+            dff_onStateOut.clear();
+            dff_onTransitOut.clear();
+            comb_onTransitOut.clear();
+            hold_onStateOut.clear();
+            hold_onTransitOut.clear();
+            dff_onBothOut.clear();
+            hold_onBothOut.clear();
             tempList = (LinkedList<ObjAttribute>) globalList.get(ObjAttribute.TabSignal);
             for (i = 0; i < tempList.size(); i++) {
                 att = tempList.get(i);
-                ni = nameinfo(att);
-                txt += ("reg " + ni[2] + " " + ni[1] + " = " + ni[7] + ";\n");
 
                 if(att.getType().equals("buffer"))
-                    bufferOut.add(att);
+                    bufferSig.add(att);
+                else if(att.getType().equals("dff-onstate"))
+                    dff_onStateOut.add(att);
+                else if(att.getType().equals("dff-ontransit"))
+                    dff_onTransitOut.add(att);
+                else if(att.getType().equals("hold-onstate"))
+                    hold_onStateOut.add(att);
+                else if(att.getType().equals("hold-ontransit"))
+                    hold_onTransitOut.add(att);
+                else if(att.getType().equals("comb-ontransit"))
+                    comb_onTransitOut.add(att);
+                else if(att.getType().equals("dff-onboth"))
+                    dff_onBothOut.add(att);
+                else if(att.getType().equals("hold-onboth"))
+                    hold_onBothOut.add(att);
             }
+            txt += doOutputDefinition(1);
 
             for(int page = 1; page < pageNum; page++)
             {
                 if(pageMode && pageNum > 2)
                 {
-                    txt += "\n//==========================\n";
-                    txt += "// FSM-" + page + "\n";
                     txt += "//==========================\n";
+                    txt += "// FSM-" + page + "\n";
+                    txt += "//==========================\n\n";
 
                     stateVar = baseStateVar + "_" + page;
                     nextStateVar = baseNextStateVar + "_" + page;
@@ -197,7 +239,7 @@ public class GenerateHDL {
                 }
                 stateBw = log2(getStateNum(page));
 
-                txt += "\n// STATE Definitions\n";
+                txt += "// STATE Definitions\n";
                 t = 0;
                 j = 0;
                 for(i = 1; i < objList.size(); i++)
@@ -297,7 +339,7 @@ public class GenerateHDL {
                     break;
             }
 
-            txt += "\nendmodule // Fizzim2\n";
+            txt += "endmodule // Fizzim2\n";
             writer.write(txt);
             writer.close();
             consoleText.setText(txt);
@@ -343,7 +385,7 @@ try {
     e.printStackTrace();
 }
 */
-        String msb=null, lsb=null, bus="     ", width="1", resetVar=att.getresetval();
+        String msb=null, lsb=null, bus="      ", width="1", resetVar=att.getresetval();
         String order="0";  // 0:1-bit, 1:MSB>LSB, 2:MSB<LSB
         if(i1>0)
         {
@@ -354,6 +396,9 @@ try {
                 lsb = s.substring(i2+1, i3);
                 bus = s.substring(i1, i3+1);
                 s = s.substring(0, i1);
+
+                if(msb.length() + lsb.length() < 3) // both msb and lsb are 1-digital
+                    bus = " " + bus;
 
                 int w = 1;
                 w = Integer.parseInt(msb) - Integer.parseInt(lsb);
@@ -484,7 +529,7 @@ try {
         int i;
 
         if(dff_onTransitOut.size() + dff_onBothOut.size() > 0)
-            txt += "\n// dff-ontransit definitions\n";
+            txt += "\n// dff-onTransit definitions\n";
         for (i = 0; i < dff_onTransitOut.size(); i++) {
             ni = nameinfo(dff_onTransitOut.get(i));
             txt += ("reg " + ni[2] + " " + holdVar + ni[1] + " = " + ni[7] + ";\n");
@@ -495,7 +540,7 @@ try {
         }
 
         if(hold_onTransitOut.size() + hold_onBothOut.size() > 0)
-            txt += "\n// hold-ontransit definitions\n";
+            txt += "\n// hold-onTransit definitions\n";
         for (i = 0; i < hold_onTransitOut.size(); i++) {
             ni = nameinfo(hold_onTransitOut.get(i));
             txt += ("reg " + ni[2] + " " + holdVar + ni[1] + " = " + ni[7] + ";\n");
@@ -652,6 +697,7 @@ try {
            hold_onStateOut.size() == 0 &&
            hold_onTransitOut.size() == 0 &&
            bufferOut.size() == 0 &&
+           bufferSig.size() == 0 &&
            dff_onTransitOut.size() == 0
         ) return txt;
 
@@ -664,6 +710,10 @@ try {
 
         for (i = 0; i < bufferOut.size(); i++) {
             ni = nameinfo(bufferOut.get(i));
+            txt += (ind + ni[1] + " <= " + ni[7] + ";\n");
+        }
+        for (i = 0; i < bufferSig.size(); i++) {
+            ni = nameinfo(bufferSig.get(i));
             txt += (ind + ni[1] + " <= " + ni[7] + ";\n");
         }
         for (i = 0; i < dff_onTransitOut.size(); i++) {
@@ -698,6 +748,10 @@ try {
         for (i = 0; i < bufferOut.size(); i++) {
             ni = nameinfo(bufferOut.get(i));
             txt += (ind + ni[1] + " <= " + bufferOut.get(i).getUserAtts() + ";\n");
+        }
+        for (i = 0; i < bufferSig.size(); i++) {
+            ni = nameinfo(bufferSig.get(i));
+            txt += (ind + ni[1] + " <= " + bufferSig.get(i).getUserAtts() + ";\n");
         }
         for (i = 0; i < dff_onTransitOut.size(); i++) {
             ni = nameinfo(dff_onTransitOut.get(i));
@@ -748,9 +802,113 @@ try {
         }
 
         txt += ind2 + "default : " + stateSim + " = \"XXX\";\n";
-        txt += ind + "endcase\nend\n`endif\n";
+        txt += ind + "endcase\nend\n`endif\n\n";
 
         return txt;
+    }
+
+
+    private String doOutputDefinition(int t)
+    {
+        String s1 = "// SIGNALS ";
+        String s2 = "reg ";
+        String s3 = ",\n";
+        String[] ni;
+        String txt = "";
+
+        if(t == 0) // for Outputs
+        {
+            s1 = "// OUTPUTS ";
+            s2 = ind + "output " + s2;
+        }
+
+        if(dff_onStateOut.size() > 0)
+            txt += s1 + "dff-onState\n";
+        for (int i = 0; i < dff_onStateOut.size(); i++) {
+            ni = nameinfo(dff_onStateOut.get(i));
+            if(t != 0) // for Signals
+                s3 = " = " + ni[7] + ";\n";
+
+            txt += (s2 + ni[2] + " " + ni[1] + s3);
+        }
+        if(dff_onTransitOut.size() > 0)
+            txt += s1 + "dff-onTransit\n";
+        for (int i = 0; i < dff_onTransitOut.size(); i++) {
+            ni = nameinfo(dff_onTransitOut.get(i));
+            if(t != 0)
+                s3 = " = " + ni[7] + ";\n";
+
+            txt += (s2 + ni[2] + " " + ni[1] + s3);
+        }
+        if(comb_onTransitOut.size() > 0)
+            txt += s1 + "comb-onTransit\n";
+        for (int i = 0; i < comb_onTransitOut.size(); i++) {
+            ni = nameinfo(comb_onTransitOut.get(i));
+            if(t != 0)
+                s3 = " = " + ni[7] + ";\n";
+
+            txt += (s2 + ni[2] + " " + ni[1] + s3);
+        }
+        if(hold_onStateOut.size() > 0)
+            txt += s1 + "hold-onState\n";
+        for (int i = 0; i < hold_onStateOut.size(); i++) {
+            ni = nameinfo(hold_onStateOut.get(i));
+            if(t != 0)
+                s3 = " = " + ni[7] + ";\n";
+
+            txt += (s2 + ni[2] + " " + ni[1] + s3);
+        }
+        if(hold_onTransitOut.size() > 0)
+            txt += s1 + "hold-onTransit\n";
+        for (int i = 0; i < hold_onTransitOut.size(); i++) {
+            ni = nameinfo(hold_onTransitOut.get(i));
+            if(t != 0)
+                s3 = " = " + ni[7] + ";\n";
+
+            txt += (s2 + ni[2] + " " + ni[1] + s3);
+        }
+        if(dff_onBothOut.size() > 0)
+            txt += s1 + "dff-onBoth\n";
+        for (int i = 0; i < dff_onBothOut.size(); i++) {
+            ni = nameinfo(dff_onBothOut.get(i));
+            if(t != 0)
+                s3 = " = " + ni[7] + ";\n";
+
+            txt += (s2 + ni[2] + " " + ni[1] + s3);
+        }
+        if(hold_onBothOut.size() > 0)
+            txt += s1 + "hold-onBoth\n";
+        for (int i = 0; i < hold_onBothOut.size(); i++) {
+            ni = nameinfo(hold_onBothOut.get(i));
+            if(t != 0)
+                s3 = " = " + ni[7] + ";\n";
+
+            txt += (s2 + ni[2] + " " + ni[1] + s3);
+        }
+
+        if(t == 0) // for Outputs buffer
+        {
+            if(bufferOut.size() > 0)
+                txt += s1 + "buffer\n";
+            for (int i = 0; i < bufferOut.size(); i++) {
+                ni = nameinfo(bufferOut.get(i));
+
+                txt += (s2 + ni[2] + " " + ni[1] + s3);
+            }
+        } else { // for Signals buffer
+            if(bufferSig.size() > 0)
+                txt += s1 + "buffer\n";
+            for (int i = 0; i < bufferSig.size(); i++) {
+                ni = nameinfo(bufferSig.get(i));
+                s3 = " = " + ni[7] + ";\n";
+                txt += (s2 + ni[2] + " " + ni[1] + s3);
+            }
+        }
+
+        if(txt.equals(""))
+            return txt;
+        else
+            return txt + "\n";
     }
 
 // end of class GenerateHDL
