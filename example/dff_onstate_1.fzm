@@ -1,6 +1,6 @@
-## File last modified by Fizzim2 : 3:05:58 PM on 4/22/16
+## File last modified by Fizzim2 : 11:00:42 AM on 7/19/16
 <version>
-   16.04.19
+   16.04.26
 </version>
 <globals>
    <machine>
@@ -1424,10 +1424,10 @@ false
             </status>
          </resetval>
          <x2Obj>
-         0
+         3
          </x2Obj>
          <y2Obj>
-         -3
+         -8
          </y2Obj>
          <page>
          1
@@ -1611,10 +1611,10 @@ false
             </status>
          </resetval>
          <x2Obj>
-         0
+         -10
          </x2Obj>
          <y2Obj>
-         0
+         -3
          </y2Obj>
          <page>
          1
@@ -1798,10 +1798,10 @@ false
             </status>
          </resetval>
          <x2Obj>
-         0
+         5
          </x2Obj>
          <y2Obj>
-         0
+         -4
          </y2Obj>
          <page>
          1

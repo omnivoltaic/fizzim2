@@ -1,19 +1,17 @@
-// File last modified by Fizzim2 (build 16.03.22) at 10:07:15 AM on 3/24/16
 
 module priority_1 (
-// OUTPUTS
-    output reg      f,
+
+// OUTPUTS dff-onState
+    output reg        f,
 
 // INPUTS
-    input           do,
-    input     [1:0] sel,
+    input             do,
+    input       [1:0] sel,
 
 // GLOBAL
-    input     clk,
-    input     rst_n
+    input             clk,
+    input             rst_n
 );
-
-// SIGNALS
 
 // STATE Definitions
 parameter
@@ -62,10 +60,10 @@ end
 // Output sequential always block
 always @(posedge clk, negedge rst_n)
 if (!rst_n) begin
-    f <= 0;
+    f <= 1'd0;
 end
 else begin
-    f <= 0;
+    f <= 1'd0;
 
     case (nextstate)
         LAST : begin

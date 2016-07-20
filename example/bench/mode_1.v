@@ -1,19 +1,17 @@
-// File last modified by Fizzim2 (build 14.02.26) at 21:57:21 on 16-3-27
 
 module mode_1 (
-// OUTPUTS
-    output reg      f,
-    output reg      r,
+
+// OUTPUTS dff-onState
+    output reg        f,
+    output reg        r,
 
 // INPUTS
-    input           do,
+    input             do,
 
 // GLOBAL
-    input     clk,
-    input     rst_n
+    input             clk,
+    input             rst_n
 );
-
-// SIGNALS
 
 // STATE Definitions
 parameter
@@ -51,12 +49,12 @@ end
 // Output sequential always block
 always @(posedge clk, negedge rst_n)
 if (!rst_n) begin
-    r <= 0;
-    f <= 0;
+    r <= 1'd0;
+    f <= 1'd0;
 end
 else begin
-    r <= 0;
-    f <= 0;
+    r <= 1'd0;
+    f <= 1'd0;
 
     case (nextstate)
         RUN : begin

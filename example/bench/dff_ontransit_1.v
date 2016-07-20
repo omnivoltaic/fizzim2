@@ -1,19 +1,17 @@
-// File last modified by Fizzim2 (build 16.04.19) at 11:38:43 AM on 4/25/16
 
 module dff_ontransit_1 (
-// OUTPUTS
-    output reg      g,
-    output reg      s,
+
+// OUTPUTS dff-onTransit
+    output reg        g,
+    output reg        s,
 
 // INPUTS
-    input           do,
+    input             do,
 
 // GLOBAL
-    input     clk,
-    input     rst_n
+    input             clk,
+    input             rst_n
 );
-
-// SIGNALS
 
 // STATE Definitions
 parameter
@@ -28,15 +26,15 @@ if (!rst_n)
 else
     state <= nextstate;
 
-// dff-ontransit definitions
-reg       nx_g;
-reg       nx_s;
+// dff-onTransit definitions
+reg        nx_g = 1'd0;
+reg        nx_s = 1'd0;
 
 // Transition combinational always block
 always @* begin
     nextstate = state;
-    nx_g = 0;
-    nx_s = 0;
+    nx_g = 1'd0;
+    nx_s = 1'd0;
 
     case (state)
         IDLE :
@@ -62,8 +60,8 @@ end
 // Output sequential always block
 always @(posedge clk, negedge rst_n)
 if (!rst_n) begin
-    g <= 0;
-    s <= 0;
+    g <= 1'd0;
+    s <= 1'd0;
 end
 else begin
     g <= nx_g;

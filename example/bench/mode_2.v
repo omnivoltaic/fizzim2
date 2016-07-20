@@ -1,20 +1,21 @@
-// File last modified by Fizzim2 (build 16.03.22) at 10:28:53 AM on 3/24/16
 
 module mode_2 (
-// OUTPUTS
-    output reg      done,
+
+// OUTPUTS dff-onState
+    output reg        done,
 
 // INPUTS
 
 // GLOBAL
-    input     clk,
-    input     rst_n
+    input             clk,
+    input             rst_n
 );
 
-// SIGNALS
-reg       enter = 0;
-reg       exit = 0;
-reg [3:0] cnt = 0;
+// SIGNALS dff-onState
+reg        enter = 1'd0;
+reg  [3:0] cnt = 4'd0;
+// SIGNALS comb-onTransit
+reg        exit = 1'd0;
 
 //==========================
 // FSM-1
@@ -56,12 +57,12 @@ end
 // Output sequential always block
 always @(posedge clk, negedge rst_n)
 if (!rst_n) begin
-    enter <= 0;
-    done <= 0;
+    enter <= 1'd0;
+    done <= 1'd0;
 end
 else begin
-    enter <= 0;
-    done <= 0;
+    enter <= 1'd0;
+    done <= 1'd0;
 
     case (nextstate_1)
         RUN : begin
@@ -105,7 +106,7 @@ else
 // Transition combinational always block
 always @* begin
     nextstate_2 = state_2;
-    exit = 0;
+    exit = 1'd0;
 
     case (state_2)
         S0 :
@@ -123,10 +124,10 @@ end
 // Output sequential always block
 always @(posedge clk, negedge rst_n)
 if (!rst_n) begin
-    cnt <= 0;
+    cnt <= 4'd0;
 end
 else begin
-    cnt <= 0;
+    cnt <= 4'd0;
 
     case (nextstate_2)
         S1 : begin

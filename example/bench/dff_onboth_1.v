@@ -1,21 +1,21 @@
-// File last modified by Fizzim2 (build 16.03.22) at 2:21:49 PM on 4/26/16
 
 module dff_onboth_1 (
-// OUTPUTS
-    output reg      r,
-    output reg      f,
-    output reg      x,
-    output reg      g,
+
+// OUTPUTS dff-onState
+    output reg        f,
+// OUTPUTS comb-onTransit
+    output reg        x,
+    output reg        g,
+// OUTPUTS dff-onBoth
+    output reg        r,
 
 // INPUTS
-    input           do,
+    input             do,
 
 // GLOBAL
-    input     clk,
-    input     rst_n
+    input             clk,
+    input             rst_n
 );
-
-// SIGNALS
 
 // STATE Definitions
 parameter
@@ -30,15 +30,15 @@ if (!rst_n)
 else
     state <= nextstate;
 
-// dff-ontransit definitions
-reg       nx_r;
+// dff-onTransit definitions
+reg        nx_r = 1'd0;
 
 // Transition combinational always block
 always @* begin
     nextstate = state;
-    g = 0;
-    x = 0;
-    nx_r = 0;
+    nx_r = 1'd0;
+    g = 1'd0;
+    x = 1'd0;
 
     case (state)
         IDLE :
@@ -63,12 +63,12 @@ end
 // Output sequential always block
 always @(posedge clk, negedge rst_n)
 if (!rst_n) begin
-    r <= 0;
-    f <= 0;
+    f <= 1'd0;
+    r <= 1'd0;
 end
 else begin
     r <= nx_r;
-    f <= 0;
+    f <= 1'd0;
 
     case (nextstate)
         RUN : begin

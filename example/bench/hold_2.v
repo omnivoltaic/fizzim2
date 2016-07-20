@@ -1,19 +1,20 @@
-// File last modified by Fizzim2 (build 16.04.19) at 3:29:00 PM on 4/25/16
 
 module hold_2 (
-// OUTPUTS
-    output reg      g,
-    output reg      f,
+
+// OUTPUTS hold-onState
+    output reg        f,
+// OUTPUTS hold-onBoth
+    output reg        g,
 
 // INPUTS
 
 // GLOBAL
-    input     clk,
-    input     rst_n
+    input             clk,
+    input             rst_n
 );
 
-// SIGNALS
-reg [3:0] cnt = 0;
+// SIGNALS dff-onState
+reg  [3:0] cnt = 4'd0;
 
 // STATE Definitions
 parameter
@@ -28,8 +29,8 @@ if (!rst_n)
 else
     state <= nextstate;
 
-// hold-ontransit definitions
-reg       nx_g;
+// hold-onTransit definitions
+reg        nx_g = 1'd0;
 
 // Transition combinational always block
 always @* begin
@@ -59,13 +60,13 @@ end
 // Output sequential always block
 always @(posedge clk, negedge rst_n)
 if (!rst_n) begin
-    g <= 0;
-    cnt <= 0;
-    f <= 0;
+    cnt <= 4'd0;
+    f <= 1'd0;
+    g <= 1'd0;
 end
 else begin
     g <= nx_g;
-    cnt <= 0;
+    cnt <= 4'd0;
 
     case (nextstate)
         RUN : begin

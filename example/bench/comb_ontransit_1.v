@@ -1,19 +1,17 @@
-// File last modified by Fizzim2 (build 16.04.19) at 11:31:59 AM on 4/25/16
 
 module comb_ontransit_1 (
-// OUTPUTS
-    output reg      g,
-    output reg      s,
+
+// OUTPUTS comb-onTransit
+    output reg        g,
+    output reg        s,
 
 // INPUTS
-    input           do,
+    input             do,
 
 // GLOBAL
-    input     clk,
-    input     rst_n
+    input             clk,
+    input             rst_n
 );
-
-// SIGNALS
 
 // STATE Definitions
 parameter
@@ -31,8 +29,8 @@ else
 // Transition combinational always block
 always @* begin
     nextstate = state;
-    g = 0;
-    s = 0;
+    g = 1'd0;
+    s = 1'd0;
 
     case (state)
         IDLE :
