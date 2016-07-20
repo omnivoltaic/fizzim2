@@ -7,6 +7,10 @@ cd ./test
 for f in `ls *.fzm`
 do
     java -jar ../$jar -batch_rewrite $f
+
+    # change 'file.fzm' to 'file.v'
+    # delete 1st line
+    sed -i '1d' ./${f%.*}.v
 done
 
 n=0
@@ -14,10 +18,8 @@ t=0
 
 for f in `ls *.v`
 do
-    cp ../example/bench/$f t.v
-    sed -i '1d' t.v
-    sed -i '1d' $f
-    diff t.v $f
+    cp ../example/bench/$f tv
+    diff tv $f
 
     if test $? -eq 0
     then
