@@ -485,7 +485,7 @@ try {
                 String type = (String) att.get(3);
                 String useratts = (String) att.get(6);
 
-                if(!value.equals("") && 
+                if(!value.equals("") &&
                     (type.equals("output") || type.equals("signal"))
                   )
                 {

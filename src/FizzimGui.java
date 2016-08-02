@@ -150,8 +150,8 @@ public class FizzimGui extends javax.swing.JFrame {
     private void initGlobal() {
         // set up required global attributes
         // 0=machine, 1=inputs, 2=outputs, 3=states, 4=trans, 5=signals
-        int[] editable = { ObjAttribute.ABS, ObjAttribute.GLOBAL_VAR,
-                ObjAttribute.GLOBAL_VAR, ObjAttribute.GLOBAL_VAR, ObjAttribute.GLOBAL_VAR, ObjAttribute.GLOBAL_VAR, ObjAttribute.GLOBAL_VAR };
+        int[] editable = { ObjAttribute.ABS, ObjAttribute.GLOBAL_VAR, ObjAttribute.GLOBAL_VAR, ObjAttribute.GLOBAL_VAR,
+                           ObjAttribute.GLOBAL_VAR, ObjAttribute.GLOBAL_VAR, ObjAttribute.GLOBAL_VAR, ObjAttribute.GLOBAL_VAR };
         globalList.get(ObjAttribute.TabGlobal).add(new ObjAttribute("name", "def_name", 0, "","",Color.black,"","",
                 editable));
         globalList.get(ObjAttribute.TabGlobal).add(new ObjAttribute("page_mode", "multi", 0,

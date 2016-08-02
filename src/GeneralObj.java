@@ -129,7 +129,7 @@ public abstract class GeneralObj implements Cloneable {
                 if(l.get(3).equals(""))
                     l.setEditable(3,l.GLOBAL_VAR);
 
-                for(int j = 0; j < 7; j++)
+                for(int j = 0; j < 8; j++)
                 {
                     // if value in field isn't locally set variable, replace with global
                     if(l.getEditable(j) != l.LOCAL)

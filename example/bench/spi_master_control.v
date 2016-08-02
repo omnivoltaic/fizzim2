@@ -66,13 +66,13 @@ always @* begin
                 nextstate = START;
             end
         START :
-            if(!spi_start) begin
-                nextstate = IDLE;
-            end
-            else if(spi_start) begin
+            if(spi_start) begin
                 nextstate = POS;
                 nx_count_period = spi_period;
                 nx_count_bit = 0;
+            end
+            else begin
+                nextstate = IDLE;
             end
         NEG :
             if(count_period == spi_period) begin
@@ -112,7 +112,7 @@ begin
     count_bit <= nx_count_bit;
     spi_idata <= nx_spi_idata;
     spi_mo_t <= nx_spi_mo_t;
-    SPI_CLK <= 1'd0;
+    SPI_CLK <= 1'b1;
     spi_end <= 1'd0;
 
     case (nextstate)

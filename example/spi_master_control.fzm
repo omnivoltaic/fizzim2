@@ -1,4 +1,4 @@
-## File last modified by Fizzim2 : 2:41:39 PM on 7/20/16
+## File last modified by Fizzim2 : 2:35:14 PM on 7/21/16
 <version>
    16.04.26
 </version>
@@ -1729,7 +1729,7 @@ false
             </status>
          </useratts>
          <resetval>
-         
+         1'b1
             <status>
             GLOBAL_VAR
             </status>
@@ -1924,7 +1924,7 @@ false
             </status>
          </useratts>
          <resetval>
-         
+         1'b1
             <status>
             GLOBAL_VAR
             </status>
@@ -2119,7 +2119,7 @@ false
             </status>
          </useratts>
          <resetval>
-         
+         1'b1
             <status>
             GLOBAL_VAR
             </status>
@@ -2725,7 +2725,7 @@ false
             </status>
          </useratts>
          <resetval>
-         
+         1'b1
             <status>
             GLOBAL_VAR
             </status>
@@ -2920,7 +2920,7 @@ false
             </status>
          </useratts>
          <resetval>
-         
+         1'b1
             <status>
             GLOBAL_VAR
             </status>
@@ -3476,10 +3476,10 @@ false
             </status>
          </resetval>
          <x2Obj>
-         0
+         8
          </x2Obj>
          <y2Obj>
-         0
+         -1
          </y2Obj>
          <page>
          1
@@ -3860,10 +3860,10 @@ false
             </status>
          </resetval>
          <x2Obj>
-         61
+         49
          </x2Obj>
          <y2Obj>
-         -22
+         -31
          </y2Obj>
          <page>
          1
@@ -3916,10 +3916,10 @@ false
             </status>
          </resetval>
          <x2Obj>
-         82
+         72
          </x2Obj>
          <y2Obj>
-         -13
+         -24
          </y2Obj>
          <page>
          1
@@ -5477,10 +5477,10 @@ false
             </status>
          </resetval>
          <x2Obj>
-         -28
+         -34
          </x2Obj>
          <y2Obj>
-         -18
+         -17
          </y2Obj>
          <page>
          1
@@ -5846,9 +5846,9 @@ false
             ABS
             </status>
          <value>
-         !spi_start
+         1
             <status>
-            LOCAL
+            GLOBAL_VAR
             </status>
          </value>
          <vis>
