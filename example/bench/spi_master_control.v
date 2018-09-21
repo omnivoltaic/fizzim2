@@ -100,6 +100,8 @@ always @* begin
             if(!spi_start) begin
                 nextstate = IDLE;
             end
+
+        default : nextstate = IDLE;
     endcase
 end
 

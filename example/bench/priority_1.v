@@ -54,6 +54,8 @@ always @* begin
             else if(sel==2'd3) begin
                 nextstate = LAST;
             end
+
+        default : nextstate = IDLE;
     endcase
 end
 

@@ -54,6 +54,8 @@ always @* begin
             begin
                 nextstate = IDLE;
             end
+
+        default : nextstate = IDLE;
     endcase
 end
 

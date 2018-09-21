@@ -57,6 +57,8 @@ always @* begin
                 g = 1;
                 nx_r = 1;
             end
+
+        default : nextstate = IDLE;
     endcase
 end
 

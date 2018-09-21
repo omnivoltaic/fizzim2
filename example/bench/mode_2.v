@@ -51,6 +51,8 @@ always @* begin
             begin
                 nextstate_1 = IDLE;
             end
+
+        default : nextstate_1 = IDLE;
     endcase
 end
 
@@ -118,6 +120,8 @@ always @* begin
                 nextstate_2 = S0;
                 exit = 1;
             end
+
+        default : nextstate_2 = S0;
     endcase
 end
 

@@ -294,6 +294,7 @@ public class GenerateHDL {
                     s = (String) att.get(1);
                     txt += ind2 + s + " :\n" + doTransit(s);
                 }
+                txt += "\n" + ind2 + "default : " + nextStateVar + " = " + resetState + ";\n";
                 txt += ind + "endcase\nend\n";
 
                 s = doOutputBlkInit();
