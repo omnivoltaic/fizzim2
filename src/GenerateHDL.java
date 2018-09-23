@@ -300,6 +300,7 @@ public class GenerateHDL {
                 s = doOutputBlkInit();
                 if(!s.equals(""))
                 {
+                    String val;
                     txt += s;
                     if(dff_onStateOut.size() > 0 || hold_onStateOut.size() > 0)
                     {
@@ -316,16 +317,22 @@ public class GenerateHDL {
                             s = "";
                             for (j = attribList.size() -1; j >= 0 ; j--) {
                                 att = attribList.get(j);
+                                val = att.get(1).toString();
 
                                 if(j==0)
                                 {
                                     if(!s.equals(""))
-                                    s = (ind2 + att.get(1) + " : begin\n") + s + ind2 + "end\n";
+                                    s = (ind2 + val + " : begin\n") + s + ind2 + "end\n";
                                 }
-                                else if(!att.get(1).equals(""))
+                                else if(!val.equals(""))
                                 {
                                     ni = nameinfo(att);
-                                    s += (ind3 + ni[1] + " <= " + att.get(1) + ";\n");
+                                    if (val.equals("++"))
+                                        val = ni[1] + " + 1'b1";
+                                    else if (val.equals("--"))
+                                        val = ni[1] + " - 1'b1";
+                                    //
+                                    s += (ind3 + ni[1] + " <= " + val + ";\n");
                                 }
                             }
                             txt += s;
