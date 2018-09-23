@@ -346,16 +346,19 @@ public class ObjAttribute implements Cloneable {
                     text = value;
                   }
                   else if(name.equals("equation")) {
-                    text = value + " //";
+                    text = value;
                     if(!useratts.equals("")) // show priority
                         text += useratts;
                   } else {
+                    text = "";
+                    if (useratts.contains("ontransit")) text = "// ";
+
                     if(outputTypeReg)
-                      text = name + " :: " + value;
+                      text += name + " :: " + value;
                     else if(outputTypeFlag)
-                      text = name + " # " + value;
+                      text += name + " # " + value;
                     else
-                      text = name + " = " + value;
+                      text += name + " = " + value;
                   }
 
                   tH = fm1.getHeight();
