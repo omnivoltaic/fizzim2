@@ -117,7 +117,7 @@ begin
     SPI_CLK <= 1'b1;
     spi_end <= 1'd0;
 
-    case (nextstate)
+    case (state)
         NEG : begin
             SPI_CLK <= 1'b0;
         end

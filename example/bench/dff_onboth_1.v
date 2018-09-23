@@ -72,7 +72,7 @@ else begin
     r <= nx_r;
     f <= 1'd0;
 
-    case (nextstate)
+    case (state)
         RUN : begin
             r <= 1;
         end

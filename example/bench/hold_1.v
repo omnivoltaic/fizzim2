@@ -71,7 +71,7 @@ else begin
     g <= nx_g;
     cnt <= 4'd0;
 
-    case (nextstate)
+    case (state)
         RUN : begin
             cnt <= cnt + 1'b1;
         end

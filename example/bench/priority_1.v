@@ -67,7 +67,7 @@ end
 else begin
     f <= 1'd0;
 
-    case (nextstate)
+    case (state)
         LAST : begin
             f <= 1;
         end

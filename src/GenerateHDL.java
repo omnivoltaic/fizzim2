@@ -303,7 +303,7 @@ public class GenerateHDL {
                     txt += s;
                     if(dff_onStateOut.size() > 0 || hold_onStateOut.size() > 0)
                     {
-                        txt += "\n" + ind + "case (" + nextStateVar + ")\n";
+                        txt += "\n" + ind + "case (" + stateVar + ")\n";
                         for(i = 1; i < objList.size(); i++)
                         {
                             obj = (GeneralObj) objList.elementAt(i);

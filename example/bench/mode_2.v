@@ -66,7 +66,7 @@ else begin
     enter <= 1'd0;
     done <= 1'd0;
 
-    case (nextstate_1)
+    case (state_1)
         RUN : begin
             enter <= 1;
         end
@@ -133,7 +133,7 @@ end
 else begin
     cnt <= 4'd0;
 
-    case (nextstate_2)
+    case (state_2)
         S1 : begin
             cnt <= cnt + 1'b1;
         end
