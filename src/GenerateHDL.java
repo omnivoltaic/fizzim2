@@ -157,7 +157,7 @@ public class GenerateHDL {
                     txt += (ind + "input " + ind3 + s);
                     alwaysLine += att.get(3) + " " + s;
                 }
-                else if (s.equals("reset_signal"))
+                else if (s.equals("reset"))
                 {
                     s = (String) att.get(1);
                     if(!att.getType().equals("sync"))

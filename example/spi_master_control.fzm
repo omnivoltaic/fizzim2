@@ -172,7 +172,7 @@
          -1
          </page>
       </clock>
-      <reset_signal>
+      <reset>
             <status>
             ABS
             </status>
@@ -227,7 +227,7 @@
          <page>
          -1
          </page>
-      </reset_signal>
+      </reset>
    </machine>
    <inputs>
       <spi_start>

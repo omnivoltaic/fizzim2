@@ -1494,7 +1494,7 @@ class GlobalProperties extends javax.swing.JDialog {
                                            "hold-onstate", "hold-ontransit", "hold-onboth",
                                            "comb-ontransit", "buffer"};
     String[] reset_signal = new String[] {"negedge","posedge","sync"};
-    MyJComboBoxEditor reset_signal_editor = new MyJComboBoxEditor(reset_signal);
+    MyJComboBoxEditor reset_editor = new MyJComboBoxEditor(reset_signal);
     String[] clock = new String[] {"posedge","negedge"};
     MyJComboBoxEditor clock_editor = new MyJComboBoxEditor(clock);
     String[] pmode = new String[] {"multi","single"};
@@ -1567,8 +1567,8 @@ class GlobalProperties extends javax.swing.JDialog {
                 {
                     int modelColumn = convertColumnIndexToModel( column );
                     String name = (String) this.getValueAt(row,0);
-                    if (modelColumn == 3 && name.equals("reset_signal"))
-                        return (TableCellEditor)reset_signal_editor;
+                    if (modelColumn == 3 && name.equals("reset"))
+                        return (TableCellEditor)reset_editor;
                     else if (modelColumn == 3 && name.equals("clock"))
                         return (TableCellEditor)clock_editor;
                     else if (modelColumn == 1 && name.equals("page_mode"))
@@ -1877,8 +1877,8 @@ class GlobalProperties extends javax.swing.JDialog {
                 currTable = GPTableMachine;
                 GPOption3.setVisible(true);
                 GPOption3.setText("Reset");
-                //if(checkNames(currTable,"reset_state") && checkNames(currTable,"reset_signal"))
-                if(checkNames(currTable,"reset_signal"))
+                //if(checkNames(currTable,"reset_state") && checkNames(currTable,"reset"))
+                if(checkNames(currTable,"reset"))
                     GPOption3.setEnabled(false);
                 else
                     GPOption3.setEnabled(true);
@@ -1963,8 +1963,8 @@ class GlobalProperties extends javax.swing.JDialog {
                 ObjAttribute obj = list.get(rows[i]);
                 if(obj.getEditable(0) != ObjAttribute.ABS)
                 {
-                    //if((obj.getName().equals("reset_signal") || obj.getName().equals("reset_state")) && currTab == 0)
-                    if(obj.getName().equals("reset_signal") && currTab == 0)
+                    //if((obj.getName().equals("reset") || obj.getName().equals("reset_state")) && currTab == 0)
+                    if(obj.getName().equals("reset") && currTab == 0)
                         GPOption3.setEnabled(true);
                     if(obj.getName().equals("graycode") && currTab == 4)
                         GPOption3.setEnabled(true);
@@ -2030,9 +2030,9 @@ class GlobalProperties extends javax.swing.JDialog {
             if(currTab == 0)
             {
 
-                if(!checkNames(currTable,"reset_signal"))
+                if(!checkNames(currTable,"reset"))
                 {
-                    globalLists.get(0).add(new ObjAttribute("reset_signal", "rst_n", 0, "negedge","",Color.black,"","",
+                    globalLists.get(0).add(new ObjAttribute("reset", "rst_n", 0, "negedge","",Color.black,"","",
                                         editable));
                 }
                 /*if(!checkNames(currTable,"reset_state"))
