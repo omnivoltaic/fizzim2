@@ -56,6 +56,7 @@ public class GenerateHDL {
     LinkedList<ObjAttribute> bufferSig = new LinkedList<ObjAttribute>();
     String alwaysLine = "always @(";
     String resetLine = "";
+    String enableLine = "";
     boolean resetSync = false;  // false for Async, true for Sync
     String resetState = "";
 
@@ -187,6 +188,12 @@ public class GenerateHDL {
                 {
                     pageMode = att.get(1).equals("multi");
                 }
+                else if (s.equals("enable"))
+                {
+                    enableLine = att.get(1).toString();
+                    if (!enableLine.equals(""))
+                        enableLine = " if (" + enableLine + ")";
+                }
             }
             txt += "\n);\n\n";
             bufferSig.clear();
@@ -274,7 +281,7 @@ public class GenerateHDL {
                 txt += alwaysLine + "\n";
                 txt += resetLine +
                         "\n" + ind + stateVar + " <= " + resetState +
-                        ";\nelse\n" + ind + stateVar + " <= " + nextStateVar + ";\n";
+                        ";\nelse" + enableLine + "\n" + ind + stateVar + " <= " + nextStateVar + ";\n";
 
 
                 LinkedList<ObjAttribute> attribList;
@@ -749,7 +756,7 @@ try {
             txt += (ind + ni[1] + " <= " + ni[7] + ";\n");
         }
 
-        txt += "end\nelse ";
+        txt += "end\nelse" + enableLine + " ";
         }
         txt += "begin\n";
 

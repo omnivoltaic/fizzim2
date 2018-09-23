@@ -160,8 +160,7 @@ public class FizzimGui extends javax.swing.JFrame {
                 "posedge","",Color.black,"","",editable));
 
         globalList.get(ObjAttribute.TabGlobal).add(new ObjAttribute("reset", "rst_n", 0, "negedge","",Color.black,"","",editable));
-        //globalList.get(0).add(new ObjAttribute("reset_state", "state0", 0, "","",Color.black,"","",
-        //        editable));
+        globalList.get(ObjAttribute.TabGlobal).add(new ObjAttribute("enable", "", 0, "negedge","",Color.black,"","",editable));
 
         globalList.get(ObjAttribute.TabState).add(new ObjAttribute("name", "def_name", 1,
                 "def_type","",Color.black,"","",editable));
